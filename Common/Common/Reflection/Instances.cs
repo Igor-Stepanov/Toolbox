@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Common.Delegates;
+using Common.Extensions;
 using Common.Reflection.Extensions;
 
 namespace Common.Reflection
