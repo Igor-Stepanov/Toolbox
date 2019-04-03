@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Semver</id>
+    <version>2.0.4</version>
+    <title>Semantic versioning</title>
+    <authors>Max Hauser</authors>
+    <owners>Max Hauser</owners>
+    <licenseUrl>http://max.mit-license.org/</licenseUrl>
+    <projectUrl>https://github.com/maxhauser/semver</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A semver implementation in .Net based on the v2.0.0 of the spec found at http://semver.org/.</description>
+    <releaseNotes>https://github.com/maxhauser/semver/releases</releaseNotes>
+    <copyright>Copyright (c) 2013</copyright>
+    <tags>semver,semantic,version</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.2" />
+      <group targetFramework=".NETStandard1.1">
+        <dependency id="System.Runtime" version="[4.1.0, )" />
+        <dependency id="System.Runtime.Extensions" version="[4.1.0, )" />
+        <dependency id="System.Runtime.InteropServices" version="[4.1.0, )" />
+        <dependency id="System.Text.RegularExpressions" version="[4.1.0, )" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

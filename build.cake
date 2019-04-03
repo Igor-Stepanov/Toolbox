@@ -1,26 +1,27 @@
+#addin nuget:?package=Cake.Git&version=0.19.0
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
-
+#load ./Cake/Version.cake
+#load ./Cake/Git.cake
 // Arguments
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-
 // Preparation
 var buildDirectory = Directory("./Common/bin") + Directory(configuration);
-
+const int MajorVersion = 1;
+const int MinorVersion = 0;
+string Version() =>
+  NextSemanticVersionFromGitTagsRespectingLocalAlphaBuild(MajorVersion, MinorVersion);
 // Tasks
-
 Task("Clean").Does(() =>
 {
   CleanDirectory(buildDirectory);
 });
-
 Task("Restore-NuGet-Packages")
   .IsDependentOn("Clean")
   .Does(() =>
 {
   NuGetRestore("./Toolbox.sln");
 });
-
 Task("Build")
   .IsDependentOn("Restore-NuGet-Packages")
   .Does(() =>
@@ -38,7 +39,6 @@ Task("Build")
       settings.SetConfiguration(configuration));
   }
 });
-
 Task("Run-Unit-Tests")
   .IsDependentOn("Build")
   .Does(() =>
@@ -48,11 +48,9 @@ Task("Run-Unit-Tests")
     // NoResults = true
   });
 });
-
 Task("Clean-Artifacts")
   .IsDependentOn("Run-Unit-Tests")
   .Does(() => CleanDirectory("./artifacts"));
-
 Task("NuGetPack")
 .IsDependentOn("Clean-Artifacts")
 .Does(() =>
@@ -60,7 +58,7 @@ Task("NuGetPack")
   NuGetPack($".nuspec", new NuGetPackSettings
   {
     Id = $"Toolbox.Common",
-    Version = "0.0.0.1",
+    Version = Version(),
     OutputDirectory = "./artifacts",
     Files = new[]
     {
@@ -72,26 +70,22 @@ Task("NuGetPack")
     },
   });
 });
-
 Task("NuGetPush")
 .IsDependentOn("NuGetPack")
 .Does(() =>
 {
   // Get the path to the package.
   var package = "./artifacts/**.nupkg";
-
  // Push the package.
  NuGetPush(package, new NuGetPushSettings {
      Source = "https://www.nuget.org",
      ApiKey = "oy2nwfqcipasa5rqevbq4j4vhoqwo6gu7g7o5ko2r5epyy"
  });
 });
-
 Task("Default")
   .IsDependentOn("NuGetPush")
   .Does(() =>
 {
   Information("Finished!");
 });
-
 RunTarget(target);
