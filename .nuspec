@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Stepanov.Common</id>
+    <version>1.0.0</version>
+    <description>Extensions and common problems solving.</description>
+    <authors>Igor Stepanov</authors>
+  </metadata>
+</package>
