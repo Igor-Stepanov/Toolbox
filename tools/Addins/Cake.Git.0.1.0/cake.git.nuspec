@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Cake.Git</id>
+    <version>0.1.0</version>
+    <title>Cake.Git</title>
+    <authors>WCOM AB</authors>
+    <owners>WCOM AB</owners>
+    <licenseUrl>https://github.com/WCOMAB/Cake.Git/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/WCOMAB/Cake_Git</projectUrl>
+    <iconUrl>http://cdn.rawgit.com/WCOMAB/nugetpackages/master/Chocolatey/icons/wcom.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Cake Git AddIn</description>
+    <summary>Cake AddIn that extends Cake with Git SCM features</summary>
+    <releaseNotes>Inital Release
+Updated LibGit to 0.22 stable</releaseNotes>
+    <copyright>Copyright © WCOM AB 2016</copyright>
+    <tags>Cake Script Build Git</tags>
+  </metadata>
+</package>

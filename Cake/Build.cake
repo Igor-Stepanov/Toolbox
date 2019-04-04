@@ -1,4 +1,4 @@
-using System.Dynamic;
+//using System.Dynamic;
 
 void BuildSolution(string solutionPath, string configuration = "Release", string customMSBuildPath = null, string defineConstants = null)
 {
@@ -13,7 +13,7 @@ void BuildSolution(string solutionPath, string configuration = "Release", string
     });
 }
 
-void BuildUnityProject(
+/*void BuildUnityProject(
   string projectPath,
   string unityPath,
   string executeMethod,
@@ -180,4 +180,4 @@ void _BuildXcodeIpa(string archivePath, string exportPath, string exportOptionsP
   Information($"Arguments: {arguments.Render()}");
 
   StartProcess("xcodebuild", new ProcessSettings { Arguments = arguments });
-}
+}*/

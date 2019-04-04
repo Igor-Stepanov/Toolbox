@@ -11,12 +11,12 @@
             "program": "${workspaceRoot}/tools/Cake.CoreCLR/Cake.dll",
             "args": [
                 "${workspaceRoot}/build.cake",
-                "--debug",
+                "--release",
                 "--verbosity=diagnostic"
             ],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": true,
-            "externalConsole": true
+            "console": "internalConsole"
         }
     ]
 }

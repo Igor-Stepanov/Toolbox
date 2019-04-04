@@ -1,64 +1,22 @@
-#addin nuget:?package=Cake.Git&version=0.19.0
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
 #load ./Cake/Version.cake
-#load ./Cake/Git.cake
+#load ./Cake/Build.cake
 // Arguments
 var target = Argument("target", "Default");
-var configuration = Argument("configuration", "Release");
-// Preparation
-var buildDirectory = Directory("./Common/bin") + Directory(configuration);
 const int MajorVersion = 1;
 const int MinorVersion = 0;
-string Version() =>
-  NextSemanticVersionFromGitTagsRespectingLocalAlphaBuild(MajorVersion, MinorVersion);
+string Version() => DirectorySemanticVersionFromCommitsRespectingLocalAlphaBuild("./Common", MajorVersion);
+
 // Tasks
-Task("Clean").Does(() =>
-{
-  CleanDirectory(buildDirectory);
-});
-Task("Restore-NuGet-Packages")
-  .IsDependentOn("Clean")
-  .Does(() =>
-{
-  NuGetRestore("./Toolbox.sln");
-});
-Task("Build")
-  .IsDependentOn("Restore-NuGet-Packages")
-  .Does(() =>
-{
-  if(IsRunningOnWindows())
-  {
-    // Use MSBuild
-    MSBuild("./Toolbox.sln", settings =>
-      settings.SetConfiguration(configuration));
-  }
-  else
-  {
-    // Use XBuild
-    XBuild("./Toolbox.sln", settings =>
-      settings.SetConfiguration(configuration));
-  }
-});
-Task("Run-Unit-Tests")
-  .IsDependentOn("Build")
-  .Does(() =>
-{
-  NUnit3("./**/bin/" + configuration + "/Tests.dll", new NUnit3Settings
-  {
-    // NoResults = true
-  });
-});
-Task("Clean-Artifacts")
-  .IsDependentOn("Run-Unit-Tests")
-  .Does(() => CleanDirectory("./artifacts"));
-Task("NuGetPack")
-.IsDependentOn("Clean-Artifacts")
-.Does(() =>
+Task("Clean-Artifacts").Does(() => CleanDirectory("./artifacts"));
+//Task("Build").Does(() => BuildSolution("./Toolbox.sln"));
+Task("Run-Unit-Tests").Does(() => NUnit3("./Tests/bin/ReleaseTests.dll", new NUnit3Settings { NoResults = false }));
+
+Task("NuGetPack").Does(() =>
 {
   NuGetPack($".nuspec", new NuGetPackSettings
   {
     Id = $"Toolbox.Common",
-    Version = Version(),
+    Version = "1.0.0.0",
     OutputDirectory = "./artifacts",
     Files = new[]
     {
@@ -83,9 +41,32 @@ Task("NuGetPush")
  });
 });
 Task("Default")
-  .IsDependentOn("NuGetPush")
+  //.IsDependentOn("Clean-Artifacts")
+  //.IsDependentOn("Build")
+  //.IsDependentOn("Run-Unit-Tests")
+  //.IsDependentOn("NuGetPack")
+  //.IsDependentOn("NuGetPush")
   .Does(() =>
-{
-  Information("Finished!");
+{  
+  var v1 = Version();
+  var v2 = Version();
+  Information("\nSuccess");
 });
-RunTarget(target);
+
+Task("Hello").Does(() => 
+{
+  var nuGetPackSettings = new NuGetPackSettings
+	{
+		OutputDirectory = @"./artifacts/",
+		IncludeReferencedProjects = true,
+		Properties = new Dictionary<string, string>
+		{
+			{ "Configuration", "Release" }
+		}
+	};
+
+  MSBuild("./Common/Common.csproj", new MSBuildSettings().SetConfiguration("Release"));
+  NuGetPack("./Common/Common.csproj", nuGetPackSettings);  
+});
+
+RunTarget("Hello");

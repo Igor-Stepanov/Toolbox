@@ -1,4 +1,4 @@
-#addin nuget:?package=Cake.Git&version=0.18
+#addin nuget:?package=Cake.Git&version=0.19
 
 string CurrentGitBranch() => GitBranchCurrent(DirectoryPath.FromString(".")).FriendlyName;
 

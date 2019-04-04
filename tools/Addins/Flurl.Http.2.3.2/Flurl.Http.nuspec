@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Flurl.Http</id>
+    <version>2.3.2</version>
+    <authors>Todd Menier</authors>
+    <owners>Todd Menier</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/tmenier/Flurl/master/LICENSE</licenseUrl>
+    <projectUrl>https://flurl.io/</projectUrl>
+    <iconUrl>https://pbs.twimg.com/profile_images/534024476296376320/IuPGZ_bX_400x400.png</iconUrl>
+    <description>A fluent, portable, testable HTTP client library.</description>
+    <releaseNotes>https://github.com/tmenier/Flurl/releases</releaseNotes>
+    <tags>httpclient rest json http fluent url uri tdd assert async</tags>
+    <repository type="git" url="https://github.com/tmenier/Flurl.git" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="Flurl" version="2.7.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETFramework4.6">
+        <dependency id="Flurl" version="2.7.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard1.3">
+        <dependency id="Flurl" version="2.7.1" exclude="Build,Analyzers" />
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.1" exclude="Build,Analyzers" />
+        <dependency id="System.IO.FileSystem" version="4.3.0" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Encoding.CodePages" version="4.4.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard1.1">
+        <dependency id="Flurl" version="2.7.1" exclude="Build,Analyzers" />
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.1" exclude="Build,Analyzers" />
+        <dependency id="PCLStorage" version="1.0.2" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Flurl" version="2.7.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.1" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Encoding.CodePages" version="4.4.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework=".NETFramework4.5, .NETFramework4.6" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
