@@ -23,8 +23,7 @@ namespace Common.Matching
 
   public static class IsExpressionExtensions
   {
-    public static IsExpression Is<T>(this object self, Predicate<T> and = null)
-      where T : class =>
+    public static IsExpression Is<T>(this object self, Predicate<T> and = null) where T : class =>
       new IsExpression(self).Is<T>(and: and);
   }
 }
