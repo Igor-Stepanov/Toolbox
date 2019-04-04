@@ -1,2 +1,2 @@
 # Common
-Utils and stuff.
+Extensions and common problems solving.
