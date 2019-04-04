@@ -11,7 +11,7 @@
             "program": "${workspaceRoot}/tools/Cake.CoreCLR/Cake.dll",
             "args": [
                 "${workspaceRoot}/build.cake",
-                "--release",
+                "--debug",
                 "--verbosity=diagnostic"
             ],
             "cwd": "${workspaceRoot}",
