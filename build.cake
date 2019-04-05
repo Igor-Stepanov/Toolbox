@@ -1,5 +1,6 @@
-#load ./Cake/Version.cake
+//#load ./Cake/Version.cake
 #load ./Cake/Build.cake
+#tool "nuget:?package=NUnit.ConsoleRunner"
 // Arguments
 var target = Argument("target", "Default");
 
@@ -25,11 +26,11 @@ Task("BuildTests").Does(() =>
       .SetMSBuildPlatform(MSBuildPlatform.Automatic)
       .SetVerbosity(Verbosity.Minimal)
       .WithProperty("SolutionDir", root)
-      .WithProperty("OutDir", $"{root}/artifacts/_tests/{project.Name}/"));			
+      .WithProperty("OutDir", $"{artifacts}/_tests/{project.Name}/"));
 	}
 });
 
-Task("RunTests").Does(() => NUnit3("./artifacts/_tests/**/*.Tests.dll", new NUnit3Settings { NoResults = false }));
+Task("RunTests").Does(() => NUnit3(@"./artifacts/_tests/**/*Tests.dll", new NUnit3Settings { NoResults = false }));
 
 Task("NuGetPack").Does(() =>
 {
@@ -63,7 +64,7 @@ Task("Default")
   .IsDependentOn("BuildTests")
   .IsDependentOn("RunTests")
   .IsDependentOn("NuGetPack")
-  .IsDependentOn("NuGetPush")
+  //.IsDependentOn("NuGetPush")
   .Does(() => Information("Finished!"));
 
 RunTarget(target);

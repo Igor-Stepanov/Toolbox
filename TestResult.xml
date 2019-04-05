@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="2" testcasecount="4" result="Failed" total="4" passed="3" failed="1" inconclusive="0" skipped="0" asserts="4" engine-version="3.10.0.0" clr-version="4.0.30319.42000" start-time="2019-04-05 10:36:45Z" end-time="2019-04-05 10:36:46Z" duration="0.699680">
+  <command-line><![CDATA["e:/Git/Toolbox/tools/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe" "e:/Git/Toolbox/artifacts/_tests/Tests/Tests.dll"]]></command-line>
+  <test-suite type="Assembly" id="0-1005" name="Tests.dll" fullname="Tests.dll" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2019-04-05 10:36:46Z" end-time="2019-04-05 10:36:46Z" duration="0.131297" total="4" passed="3" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="4">
+    <environment framework-version="3.11.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 6.3.9600" platform="Win32NT" cwd="e:\Git\Toolbox" machine-name="ISTEPANOV" user="i.stepanov" user-domain="PLARIUM" culture="ru-RU" uiculture="ru-RU" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="e:\Git\Toolbox" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageTargetFrameworkName" value=".NETFramework,Version=v4.7.1" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="NumberOfTestWorkers" value="4" />
+    </settings>
+    <properties>
+      <property name="_PID" value="20476" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1006" name="Tests" fullname="Tests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2019-04-05 10:36:46Z" end-time="2019-04-05 10:36:46Z" duration="0.112245" total="4" passed="3" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="4">
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="0-1007" name="Matching" fullname="Tests.Matching" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2019-04-05 10:36:46Z" end-time="2019-04-05 10:36:46Z" duration="0.111840" total="4" passed="3" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="4">
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestFixture" id="0-1000" name="MatchExpressionTests" fullname="Tests.Matching.MatchExpressionTests" classname="Tests.Matching.MatchExpressionTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2019-04-05 10:36:46Z" end-time="2019-04-05 10:36:46Z" duration="0.108116" total="4" passed="3" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="4">
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-case id="0-1001" name="WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull" fullname="Tests.Matching.MatchExpressionTests.WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull" methodname="WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull" classname="Tests.Matching.MatchExpressionTests" runstate="Runnable" seed="1221866734" result="Failed" start-time="2019-04-05 10:36:46Z" end-time="2019-04-05 10:36:46Z" duration="0.090601" asserts="1">
+            <failure>
+              <message><![CDATA[  Expected: not null
+  But was:  null
+]]></message>
+              <stack-trace><![CDATA[   в Tests.Matching.MatchExpressionTests.WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull() в e:\Git\Toolbox\Tests\Matching\MatchExpressionTests.cs:строка 22
+]]></stack-trace>
+            </failure>
+            <assertions>
+              <assertion result="Failed">
+                <message><![CDATA[  Expected: not null
+  But was:  null
+]]></message>
+                <stack-trace><![CDATA[   в Tests.Matching.MatchExpressionTests.WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull() в e:\Git\Toolbox\Tests\Matching\MatchExpressionTests.cs:строка 22
+]]></stack-trace>
+              </assertion>
+            </assertions>
+          </test-case>
+          <test-case id="0-1003" name="WhenNothingMatches_AndDefaultValueIsSet_ThenShouldReturnDefault" fullname="Tests.Matching.MatchExpressionTests.WhenNothingMatches_AndDefaultValueIsSet_ThenShouldReturnDefault" methodname="WhenNothingMatches_AndDefaultValueIsSet_ThenShouldReturnDefault" classname="Tests.Matching.MatchExpressionTests" runstate="Runnable" seed="18296120" result="Passed" start-time="2019-04-05 10:36:46Z" end-time="2019-04-05 10:36:46Z" duration="0.005503" asserts="1" />
+          <test-case id="0-1002" name="WhenSecondConditionMatches_AndFirstIsWrong_ThenShouldReturnNull" fullname="Tests.Matching.MatchExpressionTests.WhenSecondConditionMatches_AndFirstIsWrong_ThenShouldReturnNull" methodname="WhenSecondConditionMatches_AndFirstIsWrong_ThenShouldReturnNull" classname="Tests.Matching.MatchExpressionTests" runstate="Runnable" seed="575079908" result="Passed" start-time="2019-04-05 10:36:46Z" end-time="2019-04-05 10:36:46Z" duration="0.000731" asserts="1" />
+          <test-case id="0-1004" name="WhenTypeMatches_AndAdditionalConditionDont_ThenShouldReturnNull" fullname="Tests.Matching.MatchExpressionTests.WhenTypeMatches_AndAdditionalConditionDont_ThenShouldReturnNull" methodname="WhenTypeMatches_AndAdditionalConditionDont_ThenShouldReturnNull" classname="Tests.Matching.MatchExpressionTests" runstate="Runnable" seed="655703782" result="Passed" start-time="2019-04-05 10:36:46Z" end-time="2019-04-05 10:36:46Z" duration="0.000585" asserts="1" />
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
