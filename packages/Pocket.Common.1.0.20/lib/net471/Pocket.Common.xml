@@ -1,0 +1,1377 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pocket.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Pocket.Common.CharExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.Char"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.CharExtensions.Is(System.Char,System.Char)">
+            <summary>
+                Checks whether current instance is equal to some character.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Another character that will be compared to <paramref name="self"/>.</param>
+            <returns><code>true</code> if <paramref name="self"/> equals to <paramref name="other"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.CharExtensions.IsDigit(System.Char)">
+            <summary>
+                Checks whether current instance is digit character.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns><code>true</code> if <paramref name="self"/> is digit, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.CharExtensions.IsLetter(System.Char)">
+            <summary>
+                Checks whether current instance is letter character.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns><code>true</code> if <paramref name="self"/> is letter, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.CharExtensions.IsLetterOrDigit(System.Char)">
+            <summary>
+                Checks whether current instance is letter or digit character.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns><code>true</code> if <paramref name="self"/> is  letter or digit, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.CharExtensions.IsWhitespace(System.Char)">
+            <summary>
+                Checks whether current instance is whitespace character.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns><code>true</code> if <paramref name="self"/> is whitespace, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="T:Pocket.Common.ComparableExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.IComparable`1"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.ComparableExtensions.IsLess``1(``0,``0)">
+            <summary>
+                Checks whether <paramref name="self"/> is less than specified value.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Value to compare.</param>
+            <typeparam name="T">Type of comparing values.</typeparam>
+            <returns><code>true</code>, if <code>this</code> is less than <paramref name="other"/>, otherwise <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.ComparableExtensions.IsLessOrEqual``1(``0,``0)">
+            <summary>
+                Checks whether <paramref name="self"/> is less than or equal to specified value.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Value to compare.</param>
+            <typeparam name="T">Type of comparing values.</typeparam>
+            <returns><code>true</code>, if <code>this</code> is less than or equal to <paramref name="other"/>, otherwise <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.ComparableExtensions.IsGreater``1(``0,``0)">
+            <summary>
+                Checks whether <paramref name="self"/> is greater than specified value.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Value to compare.</param>
+            <typeparam name="T">Type of comparing values.</typeparam>
+            <returns><code>true</code>, if <code>this</code> is greater than <paramref name="other"/>, otherwise <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.ComparableExtensions.IsGreaterOrEqual``1(``0,``0)">
+            <summary>
+                Checks whether <paramref name="self"/> is greater than or equal to specified value.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Value to compare.</param>
+            <typeparam name="T">Type of comparing values.</typeparam>
+            <returns><code>true</code>, if <code>this</code> is greater than or equal to <paramref name="other"/>, otherwise <code>false</code>.</returns>
+        </member>
+        <member name="T:Pocket.Common.DictionaryExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.DictionaryExtensions.One``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+            <summary>
+                Gets element by specified key or default value, if one doesn't exist.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="key">Key of element to get.</param>
+            <typeparam name="TKey">Type of keys in dictionary.</typeparam>
+            <typeparam name="TValue">Type of values in dictionary.</typeparam>
+            <returns>Element with specified key or default value for type <typeparamref name="TValue"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.DictionaryExtensions.One``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.Func{``1})">
+            <summary>
+                Gets element by specified key or sets new value, if one doesn't exist.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="key">Key of element to get.</param>
+            <param name="or">Function that creates new value.</param>
+            <typeparam name="TKey">Type of keys in dictionary.</typeparam>
+            <typeparam name="TValue">Type of values in dictionary.</typeparam>
+            <returns>Element or newly created value with specified key.</returns>
+        </member>
+        <member name="M:Pocket.Common.DictionaryExtensions.OneOrThrow``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+            <summary>
+                Gets element by specified key or throws exception with more verbose message than indexer's one.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="key">Key of element to get.</param>
+            <typeparam name="TKey">Type of keys in dictionary.</typeparam>
+            <typeparam name="TValue">Type of values in dictionary.</typeparam>
+            <returns>Element with specified key.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Specified <paramref name="key"/> was not found.</exception>
+        </member>
+        <member name="T:Pocket.Common.DisposableExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.IDisposable"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.DisposableExtensions.Using``2(``0,System.Func{``0,``1})">
+            <summary>
+                Uses <see cref="T:System.IDisposable"/> object to produce other object through <paramref name="map"/> function.
+                Then disposes.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="map">Function that maps <see cref="T:System.IDisposable"/> object to object of type <typeparamref name="TOut"/>.</param>
+            <typeparam name="TIn">Type of <see cref="T:System.IDisposable"/> object.</typeparam>
+            <typeparam name="TOut">Type of result object.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Pocket.Common.DisposableExtensions.Using``1(``0,System.Action{``0})">
+            <summary>
+                Uses <see cref="T:System.IDisposable"/> object to perform <paramref name="action"/> on it.
+                Then disposes.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="action">Action that will be called on <paramref name="self"/>.</param>
+            <typeparam name="T">Type of <see cref="T:System.IDisposable"/> object.</typeparam>
+        </member>
+        <member name="T:Pocket.Common.EnumerableExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.OrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Returns <see cref="M:System.Linq.Enumerable.Empty``1"/>, if <code>this</code> is <code>null</code>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of elements in <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</typeparam>
+            <returns><see cref="M:System.Linq.Enumerable.Empty``1"/> if <code>this</code> is <code>null</code>, otherwise returns <code>this</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.Each``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+                Performs some action on each element of <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+            <typeparam name="T">Type of element in <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</typeparam>
+            <param name="self"><code>this</code> object.</param>
+            <param name="onEach">Action, that will be performed on each element of <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</param>
+            <returns>Source <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+                Performs some action on each element of <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+            <typeparam name="T">Type of element in <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</typeparam>
+            <param name="self"><code>this</code> object.</param>
+            <param name="onEach">Action, that will be performed on each element of <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.TakeMin``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+                Takes first object from <see cref="T:System.Collections.Generic.IEnumerable`1"/> that has minimum value, provided by <paramref name="selector"/>.
+            </summary>
+            <typeparam name="T">Type of elements in <see cref="T:System.Collections.Generic.IEnumerable`1"/></typeparam>
+            <typeparam name="TMin">Type of <see cref="T:System.IComparable`1"/> element, that will be used for search.</typeparam>
+            <param name="self"><code>this</code> object.</param>
+            <param name="selector">Selector of <see cref="T:System.IComparable`1"/> elements, that will be used for search.</param>
+            <returns>First object, that has minimum value, provided by <paramref name="selector"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.TakeMax``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+                Takes first object from <see cref="T:System.Collections.Generic.IEnumerable`1"/> that has maximum value, provided by <paramref name="selector"/>.
+            </summary>
+            <typeparam name="T">Type of elements in <see cref="T:System.Collections.Generic.IEnumerable`1"/></typeparam>
+            <typeparam name="TMax">Type of <see cref="T:System.IComparable`1"/> element, that will be used for search.</typeparam>
+            <param name="self"><code>this</code> object.</param>
+            <param name="selector">Selector of <see cref="T:System.IComparable`1"/> elements, that will be used for search.</param>
+            <returns>First object, that has maximum value, provided by <paramref name="selector"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.IsNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Checks whether <paramref name="self"/> is <code>null</code> or contains no elements.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of elements in sequence.</typeparam>
+            <returns><code>true</code> if <paramref name="self"/> is <code>null</code> or empty, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.IsEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Checks whether <paramref name="self"/> contains no elements.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of elements in sequence.</typeparam>
+            <returns><code>true</code> if <paramref name="self"/> is empty, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.Except``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+                Produces the set difference of two sequences by using specified comparer function to compare values.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">
+                An IEnumerable{T} whose elements that also occur in the first sequence
+                will cause those elements to be removed from the returned sequence.
+            </param>
+            <param name="comparer">An IEqualityComparer{T} to compare values.</param>
+            <typeparam name="T">Type of elements in sequence.</typeparam>
+            <returns>A sequence that contains the set difference of the elements of two sequences.</returns>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+                Returns distinct elements from a sequence by using specified comparer function to compare values.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="comparer">An IEqualityComparer{T} to compare values.</param>
+            <typeparam name="T">Type of elements in sequence.</typeparam>
+            <returns>An IEnumerable{T} that contains distinct elements from the source sequence.</returns>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.One``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean},System.String)">
+            <summary>
+                Returns the first element of the sequence that satisfies a condition or throws exception with specified message.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="predicate">A function that represents a condition, which will be applied to elements of sequence.</param>
+            <param name="orThrow">Message that will be used to throw exception if no element will satisfy a condition.</param>
+            <typeparam name="T">Type of elements in sequence.</typeparam>
+            <returns>First element of the sequence that satisfies a condition.</returns>
+            <exception cref="T:System.InvalidOperationException">No element satisfies the condition in <paramref name="predicate"/>.</exception>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.Second``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Returns the second element of the sequence.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of elements in sequence.</typeparam>
+            <returns>Second element of the sequence.</returns>
+            <exception cref="T:System.InvalidOperationException">Sequence is empty or contains one element.</exception>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.PreviousTo``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>
+                Returns the previous element to <paramref name="item"/>. 
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="item">Item, the previous one to which will be returned.</param>
+            <typeparam name="T">Type of elements in sequence.</typeparam>
+            <returns>The previous to <paramref name="item"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.EnumerableExtensions.NextTo``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>
+                Returns the next element to <paramref name="item"/>. 
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="item">Item, the next one to which will be returned.</param>
+            <typeparam name="T">Type of elements in sequence.</typeparam>
+            <returns>The next to <paramref name="item"/>.</returns>
+        </member>
+        <member name="T:Pocket.Common.FunctionalExtensions">
+            <summary>
+                Represents extension-methods with functional style for generic types.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.FunctionalExtensions.As``2(``0,System.Func{``0,``1})">
+            <summary>
+                Represents specified object as object of other type using specified <paramref name="map"/> function.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="map">Function that maps <paramref name="self"/> to object of type <typeparamref name="TResult"/>.</param>
+            <typeparam name="TInput">Type of object to be represented.</typeparam>
+            <typeparam name="TResult">Type of result object that will represent <paramref name="self"/>.</typeparam>
+            <returns>Representation of <paramref name="self"/> in <typeparamref name="TResult"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.FunctionalExtensions.Do``1(``0,System.Action{``0})">
+            <summary>
+                Performs specified <see cref="T:System.Action"/> function on object and returns this object.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="apply">Function that will be applied on <paramref name="self"/> object.</param>
+            <typeparam name="T">Type of <paramref name="self"/> object.</typeparam>
+            <returns><code>this</code> object.</returns>
+        </member>
+        <member name="T:Pocket.Common.GenericExtensions">
+            <summary>
+                Represents generic extension-methods for objects of all types.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.GenericExtensions.Or``1(``0,``0)">
+            <summary>
+                Represents either <paramref name="self"/> or <paramref name="default"/> if the first one is <code>null</code>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="default">Default value that will be used instead of <paramref name="self"/> if it's <code>null</code>.</param>
+            <typeparam name="T">Type of values.</typeparam>
+            <returns>Either <paramref name="self"/> or <paramref name="default"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.GenericExtensions.Or``1(System.Nullable{``0},``0)">
+            <summary>
+                Represents either <paramref name="self"/> or <paramref name="default"/> if the first one is <code>null</code>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="default">Default value that will be used instead of <paramref name="self"/> if it's <code>null</code>.</param>
+            <typeparam name="T">Type of values.</typeparam>
+            <returns>Either <paramref name="self"/> or <paramref name="default"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.GenericExtensions.OrDefault``1(System.Nullable{``0})">
+            <summary>
+                Represents <paramref name="self"/> as its value or as default of <typeparamref name="T"/> if <paramref name="self"/> is <code>null</code>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of values.</typeparam>
+            <returns>Either <paramref name="self"/> inner value or default of <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="T:Pocket.Common.GuardCommonExtensions">
+            <summary>
+                Represents extension-methods with invariants checking for generic types.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.GuardCommonExtensions.Ensure``1(``0,System.Func{``0,System.Boolean})">
+            <summary>
+                Ensures that some fact (represented by <paramref name="predicate"/>) about object is <code>true</code>.
+                Otherwise throws.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="predicate">Predicate about object.</param>
+            <typeparam name="T">Type of <code>this</code> object.</typeparam>
+            <exception cref="T:System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="predicate"/> returns <code>false</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardCommonExtensions.Ensure``1(``0,System.Func{``0,System.Boolean},System.String)">
+            <summary>
+                Ensures that some fact (represented by <paramref name="predicate"/>) about object is <code>true</code>.
+                Otherwise throws.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="predicate">Predicate about object.</param>
+            <param name="message">Error message that will be used in case, when <paramref name="predicate"/> is <code>false</code>.</param>
+            <typeparam name="T">Type of <code>this</code> object.</typeparam>
+            <exception cref="T:System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="predicate"/> returns <code>false</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardCommonExtensions.EnsureNotNull``1(``0)">
+            <summary>
+                Throws if <paramref name="self"/> is <code>null</code>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of object.</typeparam>
+            <exception cref="T:System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardCommonExtensions.EnsureNotNull``1(``0,System.String)">
+            <summary>
+                Throws if <paramref name="self"/> is <code>null</code>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="message">Message that describes why <paramref name="self"/> should be not <code>null</code>.</param>
+            <typeparam name="T">Type of object.</typeparam>
+            <exception cref="T:System.ArgumentNullException"><paramref name="self"/> is <code>null</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardCommonExtensions.EnsureNull``1(``0)">
+            <summary>
+                Throws if <paramref name="self"/> is not <code>null</code>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of object.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is not <code>null</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardCommonExtensions.EnsureNull``1(``0,System.String)">
+            <summary>
+                Throws if <paramref name="self"/> is not <code>null</code>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="message">Message that describes why <paramref name="self"/> should be <code>null</code>.</param>
+            <typeparam name="T">Type of object.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is not <code>null</code>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardCommonExtensions.EnsureIs``1(System.Object)">
+            <summary>
+                Throws if <paramref name="self"/> is not of type <typeparamref name="T"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type that object must be of.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is not of type <typeparamref name="T"/>.</exception>
+        </member>
+        <member name="T:Pocket.Common.GuardComparableExtensions">
+            <summary>
+                Represents extension-methods with invariants checking for types of <see cref="T:System.IComparable`1"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.GuardComparableExtensions.EnsureBetween``1(``0,``0,``0)">
+            <summary>
+                Ensures that <paramref name="self"/> is (inclusively) between <paramref name="min"/> and <paramref name="max"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="min">Minimum.</param>
+            <param name="max">Maximum.</param>
+            <typeparam name="T">Type of <see cref="T:System.IComparable`1"/> value.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is less or greater than specified bounds.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardComparableExtensions.EnsureLess``1(``0,``0)">
+            <summary>
+                Ensures that <paramref name="self"/> is less than <paramref name="value"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="value">Value that <paramref name="self"/> will be compared to.</param>
+            <typeparam name="T">Type of <see cref="T:System.IComparable`1"/> value.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is greater or equal to <paramref name="value"/>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardComparableExtensions.EnsureLessOrEqual``1(``0,``0)">
+            <summary>
+                Ensures that <paramref name="self"/> is less or equal to <paramref name="value"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="value">Value that <paramref name="self"/> will be compared to.</param>
+            <typeparam name="T">Type of <see cref="T:System.IComparable`1"/> value.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is greater than <paramref name="value"/>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardComparableExtensions.EnsureGreater``1(``0,``0)">
+            <summary>
+                Ensures that <paramref name="self"/> is greater than <paramref name="value"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="value">Value that <paramref name="self"/> will be compared to.</param>
+            <typeparam name="T">Type of <see cref="T:System.IComparable`1"/> value.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is less or equal to <paramref name="value"/>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardComparableExtensions.EnsureGreaterOrEqual``1(``0,``0)">
+            <summary>
+                Ensures that <paramref name="self"/> is greater or equal than <paramref name="value"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="value">Value that <paramref name="self"/> will be compared to.</param>
+            <typeparam name="T">Type of <see cref="T:System.IComparable`1"/> value.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is less than <paramref name="value"/>.</exception>
+        </member>
+        <member name="T:Pocket.Common.GuardEnumerableExtensions">
+            <summary>
+                Represents extension-methods with invariants checking for types of <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.GuardEnumerableExtensions.EnsureEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Ensures that <paramref name="self"/> is empty collection.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of elements in list.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is empty.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardEnumerableExtensions.EnsureNotEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Ensures that <paramref name="self"/> is not empty collection.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of elements in list.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is not empty.</exception>
+        </member>
+        <member name="T:Pocket.Common.GuardEquatableExtensions">
+            <summary>
+                Represents extension-methods with invariants checking for types of <see cref="T:System.IEquatable`1"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.GuardEquatableExtensions.EnsureEqual``1(``0,``0)">
+            <summary>
+                Throws if <paramref name="self"/> is not equal to <paramref name="value"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="value">Object to compare with.</param>
+            <typeparam name="T">Type of objects.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is not equal to <paramref name="value"/>.</exception>
+        </member>
+        <member name="M:Pocket.Common.GuardEquatableExtensions.EnsureNotEqual``1(``0,``0)">
+            <summary>
+                Throws if <paramref name="self"/> is equal to <paramref name="value"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="value">Object to compare with.</param>
+            <typeparam name="T">Type of objects.</typeparam>
+            <exception cref="T:System.ArgumentException"><paramref name="self"/> is equal to <paramref name="value"/>.</exception>
+        </member>
+        <member name="T:Pocket.Common.MathExtensions">
+            <summary>
+                Represents extension-methods for number-types.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Abs(System.Int16)">
+            <summary>
+                Returns the absolute value of <paramref name="self"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <exception cref="T:System.OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
+            <returns>Absolute value of <paramref name="self"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Abs(System.Int32)">
+            <summary>
+                Returns the absolute value of <paramref name="self"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <exception cref="T:System.OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
+            <returns>Absolute value of <paramref name="self"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Abs(System.Int64)">
+            <summary>
+                Returns the absolute value of <paramref name="self"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <exception cref="T:System.OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
+            <returns>Absolute value of <paramref name="self"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Abs(System.Single)">
+            <summary>
+                Returns the absolute value of <paramref name="self"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <exception cref="T:System.OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
+            <returns>Absolute value of <paramref name="self"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Abs(System.Double)">
+            <summary>
+                Returns the absolute value of <paramref name="self"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <exception cref="T:System.OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
+            <returns>Absolute value of <paramref name="self"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Abs(System.Decimal)">
+            <summary>
+                Returns the absolute value of <paramref name="self"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <exception cref="T:System.OverflowException"><paramref name="self"/> equals <code>MinValue</code>.</exception>
+            <returns>Absolute value of <paramref name="self"/>.</returns>
+        </member>
+        <member name="T:Pocket.Common.MathExtensions.OrCouple`1">
+            <summary>
+                Represents compact structure that allows fluent calls such as <see cref="M:Pocket.Common.MathExtensions.OrCouple`1.IfLess"/> or so,
+                which will choose one of two items depending on method semantics.
+            </summary>
+            <typeparam name="T">Type of items.</typeparam>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.OrCouple`1.#ctor(`0,`0)">
+            <summary>
+                Initializes instance of <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.
+            </summary>
+            <param name="a">First item.</param>
+            <param name="b">Second item.</param>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.OrCouple`1.IfLess">
+            <summary>
+                Checks whether first item is less than second and if so returns second.
+            </summary>
+            <returns>Maximum of two items.</returns>
+            <remarks>Works like <see cref="M:System.Math.Max(System.SByte,System.SByte)"/>.</remarks>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.OrCouple`1.IfGreater">
+            <summary>
+                Checks whether first item is greater than second and if so returns second.
+            </summary>
+            <returns>Minimum of two items.</returns>
+            <remarks>Works like <see cref="M:System.Math.Min(System.SByte,System.SByte)"/>.</remarks>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Or(System.Int32,System.Int32)">
+            <summary>
+                Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
+                depending on method call on <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Item to compare.</param>
+            <returns>Instance of <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Or(System.Int64,System.Int64)">
+            <summary>
+                Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
+                depending on method call on <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Item to compare.</param>
+            <returns>Instance of <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Or(System.Single,System.Single)">
+            <summary>
+                Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
+                depending on method call on <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Item to compare.</param>
+            <returns>Instance of <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.MathExtensions.Or(System.Double,System.Double)">
+            <summary>
+                Allows to compare <paramref name="self"/> with <code>other</code> and choose one of them
+                depending on method call on <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Item to compare.</param>
+            <returns>Instance of <see cref="T:Pocket.Common.MathExtensions.OrCouple`1"/>.</returns>
+        </member>
+        <member name="T:Pocket.Common.MethodInfoExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.Reflection.MethodInfo"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.MethodInfoExtensions.Arguments(System.Reflection.MethodInfo)">
+            <summary>
+              Gets arguments of specified method.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>An array of <see cref="T:System.Reflection.ParameterInfo"/> that represent arguments of method.</returns>
+        </member>
+        <member name="T:Pocket.Common.TypeExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="T:Pocket.Common.TypeExtensions.BindingSpecification">
+            <summary>
+                Represents structure that allows building declarative expressions of different <see cref="T:System.Reflection.BindingFlags"/> values.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.BindingSpecification.#ctor(System.Reflection.BindingFlags)">
+            <summary>
+                Initializes new instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> with specified flags.
+            </summary>
+            <param name="flags">Initial <see cref="T:System.Reflection.BindingFlags"/> value.</param>
+        </member>
+        <member name="P:Pocket.Common.TypeExtensions.BindingSpecification.Or">
+            <summary>
+                Represents language construct that allows more fluent expressions.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.TypeExtensions.BindingSpecification.And">
+            <summary>
+                Represents language construct that allows more fluent expressions.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.BindingSpecification.AllStatic">
+            <summary>
+                Returns instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> that represents all (public or nonpublic) static fields.
+            </summary>
+            <returns>New instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.BindingSpecification.AllInstance">
+            <summary>
+                Returns instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> that represents all (public or nonpublic) instance fields.
+            </summary>
+            <returns>New instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.BindingSpecification.Public">
+            <summary>
+                ORs current <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> value with <see cref="F:System.Reflection.BindingFlags.Public"/>.
+            </summary>
+            <returns>New instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.BindingSpecification.NonPublic">
+            <summary>
+                ORs current <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> value with <see cref="F:System.Reflection.BindingFlags.NonPublic"/>.
+            </summary>
+            <returns>New instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.BindingSpecification.Static">
+            <summary>
+                ORs current <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> value with <see cref="F:System.Reflection.BindingFlags.Static"/>.
+            </summary>
+            <returns>New instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.BindingSpecification.Instance">
+            <summary>
+                ORs current <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> value with <see cref="F:System.Reflection.BindingFlags.Instance"/>.
+            </summary>
+            <returns>New instance of <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.BindingSpecification.op_Implicit(Pocket.Common.TypeExtensions.BindingSpecification)~System.Reflection.BindingFlags">
+            <summary>
+                Implicitly casts <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> to <see cref="T:System.Reflection.BindingFlags"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Instance of <see cref="T:System.Reflection.BindingFlags"/> constructed from <paramref name="self"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.IsNullable(System.Type)">
+            <summary>
+                Checks whether specified type is <see cref="T:System.Nullable`1"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns><code>true</code> if <paramref name="self"/> is <see cref="T:System.Nullable`1"/>, otherwise <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Is(System.Type,System.Type)">
+            <summary>
+                Checks whether <paramref name="self"/> is somehow equal to <paramref name="other"/>.
+            </summary>
+            <remarks>
+                Types can be equal by direct equality e.g. <code>typeof(int).Is(typeof(int))</code>
+                or by generics definitions: <code>typeof(List{int}).Is(typeof(List{}))</code>.
+            </remarks>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Type that will be checked for equality to <code>this</code>.</param>
+            <returns><code>true</code> if types are equal, otherwise <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Implements``1(System.Type)">
+            <summary>
+                Checks whether <paramref name="self"/> implements <typeparamref name="T"/> at type level.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of interface that will be checked for implementation by <paramref name="self"/>.</typeparam>
+            <returns><code>true</code> if <paramref name="self"/> implements <typeparamref name="T"/>, otherwise <code>false</code>.</returns>
+            <exception cref="T:System.InvalidOperationException"><typeparamref name="T"/> is not an interface type.</exception>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Implements(System.Type,System.Type)">
+            <summary>
+                Checks whether <paramref name="self"/> implements <paramref name="other"/> at type level.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Type of interface that will be checked for implementation by <paramref name="self"/>.</param>
+            <returns><code>true</code> if <paramref name="self"/> implements <paramref name="other"/>, otherwise <code>false</code>.</returns>
+            <exception cref="T:System.InvalidOperationException"><paramref name="other"/> is not an interface type.</exception>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Extends``1(System.Type)">
+            <summary>
+                Checks whether <paramref name="self"/> extends <typeparamref name="T"/> at type level.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type that will be checked for inheritance.</typeparam>
+            <returns><code>true</code> if <paramref name="self"/> extends <typeparamref name="T"/>, otherwise <code>false</code>.</returns>
+            <exception cref="T:System.InvalidOperationException"><typeparamref name="T"/> is not a class.</exception>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Extends(System.Type,System.Type)">
+            <summary>
+                Checks whether <paramref name="self"/> extends <paramref name="other"/> at type level.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Type that will be checked for inheritance.</param>
+            <returns><code>true</code> if <paramref name="self"/> extends <paramref name="other"/>, otherwise <code>false</code>.</returns>
+            <exception cref="T:System.InvalidOperationException"><paramref name="other"/> is not a class.</exception>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Fields(System.Type)">
+            <summary>
+                Gets all (static and instance) public fields of specified type.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Fields(System.Type,System.Func{Pocket.Common.TypeExtensions.BindingSpecification,Pocket.Common.TypeExtensions.BindingSpecification})">
+            <summary>
+                Gets fields configured by <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> of specified type.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="specify">Function that configures <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> object.</param>
+            <returns>Fields of <paramref name="self"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Fields(System.Type,System.Object)">
+            <summary>
+                Gets all (static and instance) public fields of specified type bounded to specified object.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
+            <returns>Public static and public instance fields of <paramref name="self"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.FieldsWith``1(System.Type)">
+            <summary>
+                Gets all (public and nonpublic) instance fields of specified type that are marked with <typeparamref name="T"/> attribute.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of attribute that field should be marked with.</typeparam>
+            <returns>Fields of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Properties(System.Type)">
+            <summary>
+                Gets all (static and instance) public properties of specified type.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Public static and public instance properties of <paramref name="self"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Properties(System.Type,System.Func{Pocket.Common.TypeExtensions.BindingSpecification,Pocket.Common.TypeExtensions.BindingSpecification})">
+            <summary>
+                Gets properties configured by <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> of specified type.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="specify">Function that configures <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> object.</param>
+            <returns>Properties of <paramref name="self"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Properties(System.Type,System.Object)">
+            <summary>
+                Gets all (static and instance) public properties of specified type bounded to specified object.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="obj">Object of type <paramref name="self"/> that holds fields values.</param>
+            <returns>Public static and public instance properties of <paramref name="self"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.PropertiesWith``1(System.Type)">
+            <summary>
+                Gets all (public and nonpublic) instance properties of specified type that are marked with <typeparamref name="T"/> attribute.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of attribute that property should be marked with.</typeparam>
+            <returns>Properties of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Methods(System.Type)">
+            <summary>
+                Gets all (static and instance) public methods of specified type.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Public static and public instance methods of <paramref name="self"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.Methods(System.Type,System.Func{Pocket.Common.TypeExtensions.BindingSpecification,Pocket.Common.TypeExtensions.BindingSpecification})">
+            <summary>
+                Gets methods configured by <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> of specified type.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="specify">Function that configures <see cref="T:Pocket.Common.TypeExtensions.BindingSpecification"/> object.</param>
+            <returns>Methods of <paramref name="self"/> type.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.MethodsWith``1(System.Type)">
+            <summary>
+                Gets all (public and nonpublic) instance methods of specified type that are marked with <typeparamref name="T"/> attribute.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <typeparam name="T">Type of attribute that method should be marked with.</typeparam>
+            <returns>Methods of <paramref name="self"/> type that are marked with <typeparamref name="T"/> attribute.</returns>
+        </member>
+        <member name="M:Pocket.Common.TypeExtensions.PrettyName(System.Type)">
+            <summary>
+                Name of the type (same as <code>Name</code> property) but with correct generic arguments.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Name of the type.</returns>
+        </member>
+        <member name="T:Pocket.Common.SocketExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.Net.Sockets.Socket"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.SocketExtensions.IsConnected(System.Net.Sockets.Socket)">
+            <summary>
+                Checks whether <paramref name="self"/> is connected to client. 
+            </summary>
+            <remarks>This method uses some polling to do that</remarks>
+            <param name="self"><code>this</code> object.</param>
+            <returns><code>true</code> if <paramref name="self"/> is connected, otherwise <code>false</code>.</returns>
+        </member>
+        <member name="T:Pocket.Common.StringExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.StringExtensions.IsNullOrEmpty(System.String)">
+            <summary>
+                Checks whether <paramref name="self"/> is <code>null</code> or empty string.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns><code>true</code> if <paramref name="self"/> is <code>null</code> or empty string, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.StringExtensions.Or(System.String,System.String)">
+            <summary>
+                Returns <paramref name="self"/> if it isn't <code>null</code>, otherwise — <paramref name="@default"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="default">Default value that will be used instead of <paramref name="self"/> if one is null.</param>
+        </member>
+        <member name="T:Pocket.Common.TaskExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.Threading.Tasks.Task`1"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.TaskExtensions.WithTimeout``1(System.Threading.Tasks.Task{``0},System.Int32)">
+            <summary>
+                Waits until <paramref name="self"/> task is completed or for specified amount of time.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="timeoutMs">Amount of time to wait.</param>
+            <typeparam name="T">Type of task result.</typeparam>
+            <returns><code>self.Result</code> if task is completed within <paramref name="timeoutMs"/>, otherwise <code>null</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TaskExtensions.WithTimeout(System.Threading.Tasks.Task{Pocket.Common.Result},System.Int32)">
+            <summary>
+                Waits until <paramref name="self"/> task with <see cref="T:Pocket.Common.Result"/> is completed or for specified amount of time.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="timeoutMs">Amount of time to wait.</param>
+            <returns><code>self.Result</code> if task is completed within <paramref name="timeoutMs"/>, otherwise <code>null</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.TaskExtensions.WithTimeout``1(System.Threading.Tasks.Task{Pocket.Common.Result{``0}},System.Int32)">
+            <summary>
+                Waits until <paramref name="self"/> task with <see cref="T:Pocket.Common.Result`1"/> is completed or for specified amount of time.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="timeoutMs">Amount of time to wait.</param>
+            <typeparam name="T">Type of task result.</typeparam>
+            <returns><code>self.Result</code> if task is completed within <paramref name="timeoutMs"/>, otherwise <code>null</code>.</returns>
+        </member>
+        <member name="T:Pocket.Common.TimeSpanExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.TimeSpan"/> (or for converting to it).
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.TimeSpanExtensions.Milliseconds(System.Int32)">
+            <summary>
+                Represents number as milliseconds in <see cref="T:System.TimeSpan"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Instance of <see cref="T:System.TimeSpan"/> with size of <paramref name="self"/> milliseconds.</returns>
+        </member>
+        <member name="M:Pocket.Common.TimeSpanExtensions.Milliseconds(System.Int64)">
+            <summary>
+                Represents number as milliseconds in <see cref="T:System.TimeSpan"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Instance of <see cref="T:System.TimeSpan"/> with size of <paramref name="self"/> milliseconds.</returns>
+        </member>
+        <member name="M:Pocket.Common.TimeSpanExtensions.Milliseconds(System.Single)">
+            <summary>
+                Represents number as milliseconds in <see cref="T:System.TimeSpan"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Instance of <see cref="T:System.TimeSpan"/> with size of <paramref name="self"/> milliseconds.</returns>
+        </member>
+        <member name="M:Pocket.Common.TimeSpanExtensions.Milliseconds(System.Double)">
+            <summary>
+                Represents number as milliseconds in <see cref="T:System.TimeSpan"/>.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <returns>Instance of <see cref="T:System.TimeSpan"/> with size of <paramref name="self"/> milliseconds.</returns>
+        </member>
+        <member name="T:Pocket.Common.BoolExtensions">
+            <summary>
+                Represents extension-methods for <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Pocket.Common.BoolExtensions.And(System.Boolean,System.Boolean)" -->
+        <member name="M:Pocket.Common.BoolExtensions.Or(System.Boolean,System.Boolean)">
+            <summary>
+                Applies logical <code>||</code> operator for both <paramref name="self"/> and <paramref name="other"/> values.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Second operand of logical operation.</param>
+            <returns><paramref name="self"/> || <paramref name="other"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.BoolExtensions.Implication(System.Boolean,System.Boolean)">
+            <summary>
+                Applies logical implication operator for both <paramref name="self"/> and <paramref name="other"/> values.
+            </summary>
+            <param name="self"><code>this</code> object.</param>
+            <param name="other">Second operand of logical operation.</param>
+            <returns>If <paramref name="self"/> is <code>true</code>, then <paramref name="other"/>, otherwise <code>true</code>.</returns>
+        </member>
+        <member name="T:Pocket.Common.Digits">
+            <summary>
+                Represents static class that contains methods related to notion of digits.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.Digits.Count(System.Int64)">
+            <summary>
+                Counts number of digits of specified positive <see cref="T:System.Int64"/> <paramref name="value"/>.
+            </summary>
+            <remarks>
+                Do not validates input, so for negative numbers result will be `1`.
+            </remarks>
+            <param name="value">Positive number.</param>
+            <returns>Digits count of <paramref name="value"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Digits.Count(System.Single)">
+            <summary>
+                Counts number of digits of specified positive <see cref="T:System.Single"/> <paramref name="value"/>.
+            </summary>
+            <remarks>
+                Do not validates input, so for negative numbers result will be `1`.
+            </remarks>
+            <param name="value">Positive number.</param>
+            <returns>Digits count of <paramref name="value"/>.</returns>
+        </member>
+        <member name="T:Pocket.Common.Cold`1">
+            <summary>
+                Represents value that can be initialized without constructor but only once.
+            </summary>
+            <typeparam name="T">Type of value.</typeparam>
+        </member>
+        <member name="P:Pocket.Common.Cold`1.Value">
+            <summary>
+                Internal value of type <see cref="!:T"/> that is initialized through <see cref="M:Pocket.Common.Cold`1.Freeze(`0)"/>.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">There is no value because <see cref="M:Pocket.Common.Cold`1.Freeze(`0)"/> wasn't called.</exception>
+        </member>
+        <member name="P:Pocket.Common.Cold`1.IsFrozen">
+            <summary>
+                Determines whether value was initialized through <see cref="M:Pocket.Common.Cold`1.Freeze(`0)"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.Cold`1.Freeze(`0)">
+            <summary>
+                Initializes internal state with some concrete value.
+            </summary>
+            <param name="value">Value that will be an internal state of <see cref="T:Pocket.Common.Cold`1"/>.</param>
+            <returns>Instance of <code>this</code>.</returns>
+            <exception cref="T:System.InvalidOperationException">Value is already initialized.</exception>
+        </member>
+        <member name="T:Pocket.Common.Maybe`1">
+            <summary>
+                Represents value that is either something or nothing.
+            </summary>
+            <typeparam name="T">Type of value.</typeparam>
+        </member>
+        <member name="F:Pocket.Common.Maybe`1.Nothing">
+            <summary>
+               Instance of nothing.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.Maybe`1.IsNothing">
+            <summary>
+                Determines whether instance of <see cref="T:Pocket.Common.Maybe`1"/> hasn't value.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.Maybe`1.HasValue">
+            <summary>
+                Determines whether instance of <see cref="T:Pocket.Common.Maybe`1"/> has value.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.Maybe`1.Value">
+            <summary>
+                Internal value of <see cref="T:Pocket.Common.Maybe`1"/> instance if it exists.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Instance represents nothing.</exception>
+        </member>
+        <member name="M:Pocket.Common.Maybe`1.op_Equality(Pocket.Common.Maybe{`0},Pocket.Common.Maybe{`0})">
+            <summary>
+                Checks whether two instances of <see cref="T:Pocket.Common.Maybe`1"/> are equal.
+            </summary>
+            <param name="x">First instance.</param>
+            <param name="y">Second instance.</param>
+            <returns><code>true</code> if <paramref name="x"/> is equal to <paramref name="y"/>, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Maybe`1.op_Inequality(Pocket.Common.Maybe{`0},Pocket.Common.Maybe{`0})">
+            <summary>
+                Checks whether two instances of <see cref="T:Pocket.Common.Maybe`1"/> are not equal.
+            </summary>
+            <param name="x">First instance.</param>
+            <param name="y">Second instance.</param>
+            <returns><code>true</code> if <paramref name="x"/> is not equal to <paramref name="y"/>, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Maybe`1.Equals(Pocket.Common.Maybe{`0})">
+            <summary>
+                Checks whether <code>this</code> object is equal to <paramref name="other"/>.
+            </summary>
+            <param name="other">Other instance of <see cref="T:Pocket.Common.Maybe`1"/> to compare with.</param>
+            <returns><code>true</code> if <code>this</code> is equal to <paramref name="other"/>, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Maybe`1.Equals(System.Object)">
+            <summary>
+                Checks whether <code>this</code> object is equal to <paramref name="other"/>.
+            </summary>
+            <param name="other">Other instance of <see cref="T:Pocket.Common.Maybe`1"/> to compare with.</param>
+            <returns><code>true</code> if <code>this</code> is equal to <paramref name="other"/>, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Maybe`1.GetHashCode">
+            <summary>
+                Calculates hash code of <see cref="P:Pocket.Common.Maybe`1.Value"/>.
+            </summary>
+            <returns>Hash code of <see cref="P:Pocket.Common.Maybe`1.Value"/>.</returns>
+        </member>
+        <member name="T:Pocket.Common.OneTime">
+            <summary>
+                Represents static methods for creating various predefined instances of <see cref="T:Pocket.Common.OneTime`1"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.OneTime.False">
+            <summary>
+                Creates instance of <see cref="T:Pocket.Common.OneTime`1"/>
+                where initial value will be <code>false</code> and default — <code>true</code>.
+            </summary>
+            <returns>New instance of <see cref="T:Pocket.Common.OneTime`1"/>.</returns>
+        </member>
+        <member name="T:Pocket.Common.OneTime`1">
+            <summary>
+                Represents value that has some initial state for one read and then resets to default.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Pocket.Common.OneTime`1.#ctor(`0,`0)">
+            <summary>
+                Initializes instance of <see cref="T:Pocket.Common.OneTime`1"/>.
+            </summary>
+            <param name="initial">Initial value that will be represented by <see cref="P:Pocket.Common.OneTime`1.Value"/> for one read.</param>
+            <param name="default">Default value.</param>
+        </member>
+        <member name="P:Pocket.Common.OneTime`1.Value">
+            <summary>
+                For first time returns initial value, then always returns default value.
+            </summary>
+        </member>
+        <member name="T:Pocket.Common.Result">
+            <summary>
+                Represents value that was either succeeded or failed (then it will have error explanation) to retrieve.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.Result.When(System.Boolean,System.String)">
+            <summary>
+                Creates either succeeded result (if <paramref name="condition"/> is <code>true</code>) or failed (using provided <paramref name="error"/> as error description.
+            </summary>
+            <param name="condition">Condition that will produce <see cref="T:Pocket.Common.Result"/> instance.</param>
+            <param name="error">Error description for case, when <paramref name="condition"/> is false.</param>
+            <returns>Instance of <see cref="T:Pocket.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Result.Of``1(System.Func{``0})">
+            <summary>
+                Uses function to produce a value that will be converted to succeeded result (if not <code>null</code>) or failed (otherwise).
+            </summary>
+            <param name="value">Function that will produce a value.</param>
+            <typeparam name="T">Type of produced value.</typeparam>
+            <returns>Instance of <see cref="T:Pocket.Common.Result`1"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Result.Succeded">
+            <summary>
+                Creates succeded result.
+            </summary>
+            <returns>Instance of <see cref="T:Pocket.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Result.Failed(System.String)">
+            <summary>
+                Creates failed result using provided error description.
+            </summary>
+            <param name="error">Description of <see cref="T:Pocket.Common.Result"/>'s fail.</param>
+            <returns>Instance of <see cref="T:Pocket.Common.Result`1"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Result.Succeded``1(``0)">
+            <summary>
+                Creates succeded result using specified value.
+            </summary>
+            <param name="value">Value that succeded result will contain.</param>
+            <typeparam name="T">Type of value.</typeparam>
+            <returns>Instance of <see cref="T:Pocket.Common.Result"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Result.Failed``1(System.String)">
+            <summary>
+                Creates failed result of specified type using provided error description.
+            </summary>
+            <param name="error">Description of <see cref="T:Pocket.Common.Result"/>'s fail.</param>
+            <typeparam name="T">Type of value.</typeparam>
+            <returns>Instance of <see cref="T:Pocket.Common.Result"/>.</returns>
+        </member>
+        <member name="P:Pocket.Common.Result.Success">
+            <summary>
+                Determines whether <see cref="T:Pocket.Common.Result"/> is succeded.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.Result.Fail">
+            <summary>
+                Determines whether <see cref="T:Pocket.Common.Result"/> is failed and has an error description.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.Result.Error">
+            <summary>
+                Description of error by which <see cref="T:Pocket.Common.Result"/> is treated as failed.
+            </summary>
+        </member>
+        <member name="T:Pocket.Common.Result`1">
+            <summary>
+                Represents value that was either succeeded or failed (then it will have error explanation) to retrieve.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.Result`1.Value">
+            <summary>
+                Internal value of <see cref="T:Pocket.Common.Result`1"/> instance (which is missing if <see cref="T:Pocket.Common.Result`1"/> is failed).
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Instance of <see cref="T:Pocket.Common.Result`1"/> is in failed state.</exception>
+        </member>
+        <member name="P:Pocket.Common.Result`1.Success">
+            <summary>
+                Determines whether <see cref="T:Pocket.Common.Result`1"/> is succeded and contains a value.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.Result`1.Fail">
+            <summary>
+                Determines whether <see cref="T:Pocket.Common.Result`1"/> is failed and has an error description.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.Result`1.Error">
+            <summary>
+                Description of error by which <see cref="T:Pocket.Common.Result`1"/> is treated as failed.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.Result`1.As``1">
+            <summary>
+                Represents current instance of <see cref="T:Pocket.Common.Result`1"/> as result of other type.
+            </summary>
+            <remarks>
+               If type of current <see cref="T:Pocket.Common.Result`1"/> is value type and <see cref="P:Pocket.Common.Result`1.Success"/> is <code>true</code>
+               then <see cref="P:Pocket.Common.Result`1.Value"/> will be boxed.
+            </remarks>
+            <typeparam name="TOut">Type of value in new <see cref="T:Pocket.Common.Result`1"/>.</typeparam>
+            <returns>Instance of new <see cref="T:Pocket.Common.Result`1"/>.</returns>
+        </member>
+        <member name="M:Pocket.Common.Result`1.op_Implicit(Pocket.Common.Result{`0})~`0">
+            <summary>
+                Implicitly casts instance of <see cref="T:Pocket.Common.Result`1"/> to <typeparamref name="T"/> by using <see cref="P:Pocket.Common.Result`1.Value"/> property.
+            </summary>
+            <param name="result">Instance of <see cref="T:Pocket.Common.Result`1"/>.</param>
+            <returns>Inner value.</returns>
+        </member>
+        <member name="M:Pocket.Common.Result`1.op_Implicit(Pocket.Common.Result{`0})~Pocket.Common.Result{System.Object}">
+            <summary>
+                Implicitly casts instance of <see cref="T:Pocket.Common.Result`1"/> to <code>Result{object}</code>.
+            </summary>
+            <param name="result">Instance of <see cref="T:Pocket.Common.Result`1"/>.</param>
+            <returns>Instance of <code>Result{object}</code>.</returns>
+        </member>
+        <member name="T:Pocket.Common.ArrayPool`1.Segment">
+            <summary>
+                Represents a bounded segment of some <see cref="T:Pocket.Common.ArrayPool`1"/> buffer, 
+                which behaves like <see cref="T:System.Array"/> or <see cref="T:System.Collections.IEnumerable"/>.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.ArrayPool`1.Segment.Length">
+            <summary>
+                Length of segment.
+            </summary>
+        </member>
+        <member name="P:Pocket.Common.ArrayPool`1.Segment.Item(System.Int32)">
+            <summary>
+                Gets or sets elements of segment.
+            </summary>
+            <param name="index">Index of element.</param>
+        </member>
+        <member name="M:Pocket.Common.ArrayPool`1.Segment.Dispose">
+            <summary>
+                Releases segment and frees all its memory.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.ArrayPool`1.#ctor(System.Int32)">
+            <summary>
+                Initializes instance of <see cref="T:Pocket.Common.ArrayPool`1"/> with internal buffer of specified size.
+            </summary>
+            <param name="size">Size of array that is used as buffer.</param>
+        </member>
+        <member name="M:Pocket.Common.ArrayPool`1.Take(System.Int32)">
+            <summary>
+                Allocates <see cref="T:Pocket.Common.ArrayPool`1.Segment"/> of specified size and returns it.
+            </summary>
+            <param name="size">Size of <see cref="T:Pocket.Common.ArrayPool`1.Segment"/>.</param>
+            <returns>Instance of <see cref="T:Pocket.Common.ArrayPool`1.Segment"/>.</returns>
+            <exception cref="T:System.InvalidOperationException">Not enough memory to allocate segment of specified size.</exception>
+        </member>
+        <member name="T:Pocket.Common.IPool`1">
+            <summary>
+                Represents pool of reusable objects, which can be obtained and released.
+            </summary>
+            <typeparam name="T">Type of pooled items.</typeparam>
+        </member>
+        <member name="M:Pocket.Common.IPool`1.Item">
+            <summary>
+                Retrieves item from pool.
+            </summary>
+            <returns>Instance of item.</returns>
+        </member>
+        <member name="M:Pocket.Common.IPool`1.Release(`0)">
+            <summary>
+                Releases item to pool so it can be reused by someone else through <see cref="M:Pocket.Common.IPool`1.Item"/>.
+            </summary>
+            <param name="item">Instance of item.</param>
+        </member>
+        <member name="T:Pocket.Common.DefaultPool`1">
+            <summary>
+                Represents intance of <see cref="T:Pocket.Common.IPool`1"/> that behaves as simple object pool.
+            </summary>
+            <typeparam name="T">Type of pooled items.</typeparam>
+        </member>
+        <member name="M:Pocket.Common.DefaultPool`1.#ctor(System.Func{`0},System.Action{`0})">
+            <summary>
+                Initializes instance of <see cref="T:Pocket.Common.DefaultPool`1"/>.
+            </summary>
+            <param name="create">Function that will be used to create new items of pool.</param>
+            <param name="release">Function that will be used to clear released item state.</param>
+        </member>
+        <member name="M:Pocket.Common.DefaultPool`1.Item">
+            <inheritdoc cref="T:Pocket.Common.IPool`1"/>.
+        </member>
+        <member name="M:Pocket.Common.DefaultPool`1.Release(`0)">
+            <inheritdoc cref="T:Pocket.Common.IPool`1"/>.
+        </member>
+        <member name="T:Pocket.Common.SyncPool`1">
+            <summary>
+                Represents instance of <see cref="T:Pocket.Common.IPool`1"/> that supports multithreaded environments.
+            </summary>
+            <typeparam name="T">Type of pooled items.</typeparam>
+        </member>
+        <member name="M:Pocket.Common.SyncPool`1.#ctor(Pocket.Common.IPool{`0})">
+            <summary>
+                Initializes instance of <see cref="T:Pocket.Common.SyncPool`1"/>.
+            </summary>
+            <param name="pool">Instance of <see cref="T:Pocket.Common.IPool`1"/> that will be used as implementation.</param>
+        </member>
+        <member name="M:Pocket.Common.SyncPool`1.Item">
+            <inheritdoc cref="T:Pocket.Common.IPool`1"/>.
+        </member>
+        <member name="M:Pocket.Common.SyncPool`1.Release(`0)">
+            <inheritdoc cref="T:Pocket.Common.IPool`1"/>.
+        </member>
+        <member name="T:Pocket.Common.EnumOf`1">
+            <summary>
+                Represents static methods related to enum of type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">Type of enum.</typeparam>
+        </member>
+        <member name="F:Pocket.Common.EnumOf`1.Values">
+            <summary>
+                Array of enum values.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.EnumOf`1.Parse(System.String)">
+            <summary>
+                Converts string to enum value.
+            </summary>
+            <param name="text">String representation of value.</param>
+            <returns>Converted value.</returns>
+        </member>
+        <member name="M:Pocket.Common.EnumOf`1.TryParse(System.String,`0@)">
+            <summary>
+                Converts string to enum value in safe way.
+            </summary>
+            <param name="text">String representation of value.</param>
+            <param name="value">Converted value.</param>
+            <returns><code>true</code> if <paramref name="text"/> represented correct value of <typeparamref name="T"/>, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="T:Pocket.Common.ThreadGate">
+            <summary>
+                Represents gate that can be used for threads synchronization in same way as <see cref="T:System.Threading.ManualResetEvent"/>.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.ThreadGate.#ctor(System.Boolean)">
+            <summary>
+                Initializes new instance of <see cref="T:Pocket.Common.ThreadGate"/>.
+            </summary>
+            <param name="opened">Initial gate state.</param>
+        </member>
+        <member name="P:Pocket.Common.ThreadGate.IsOpened">
+            <summary>
+                Determines whether gate is opened.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.ThreadGate.Open">
+            <summary>
+                Opens gate.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.ThreadGate.Close">
+            <summary>
+                Closes gate.
+            </summary>
+        </member>
+        <member name="M:Pocket.Common.ThreadGate.WaitForOpen(System.Int32)">
+            <summary>
+                Blocks current thread for specified amount of time (or infinite) until gate is became opened.
+            </summary>
+            <param name="timeoutMs">How much time thread should be blocked in milliseconds.</param>
+            <returns><code>true</code> if gate was opened while thread was blocked, otherwise — <code>false</code>.</returns>
+        </member>
+        <member name="T:System.Collections.Generic.Map`2">
+            <inheritdoc cref="T:System.Collections.Generic.Dictionary`2"/>.
+        </member>
+    </members>
+</doc>

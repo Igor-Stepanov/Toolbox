@@ -6,20 +6,11 @@ namespace Common.Extensions
 {
   public static class EnumerableExtensions
   {
-    public static IEnumerable<T> ForEach<T>(this IEnumerable<T> self, Action<T> action)
+    public static void ForEach<T>(this IEnumerable<T> self, Action<T> action)
     {
-      if (self == null)
-        return null;
-
-      using (var enumerator = self.GetEnumerator())
-      {
-        while (enumerator.MoveNext())
-        {
-          action?.Invoke(enumerator.Current);
-        }
-      }
-
-      return self;
+      if (self != null)
+        foreach (var item in self)
+          action?.Invoke(item);
     }
 
     public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
