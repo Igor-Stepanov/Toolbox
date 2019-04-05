@@ -78,7 +78,7 @@ Task("Default")
   .IsDependentOn("BuildTests")
   .IsDependentOn("RunTests")
   .IsDependentOn("NuGetPack")
-  //.IsDependentOn("NuGetPush")
+  .IsDependentOn("NuGetPush")
   .Does(() => Information("Finished!"));
 
 RunTarget(target);
