@@ -30,7 +30,14 @@ Task("BuildTests").Does(() =>
 	}
 });
 
-Task("RunTests").Does(() => NUnit3(@"./artifacts/_tests/**/*Tests.dll", new NUnit3Settings { NoResults = false }));
+Task("RunTests").Does(() =>
+{
+    NUnit3(@"./artifacts/_tests/**/*Tests.dll",
+    new NUnit3Settings
+    {
+        OutputFile = File("./artifacts/TestResult.xml")
+    });
+});
 
 Task("NuGetPack").Does(() =>
 {
