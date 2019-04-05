@@ -26,7 +26,7 @@ Task("BuildTests").Does(() =>
       .SetMSBuildPlatform(MSBuildPlatform.Automatic)
       .SetVerbosity(Verbosity.Minimal)
       .WithProperty("SolutionDir", root)
-      .WithProperty("OutDir", $"{artifacts}/_tests/{project.Name}/"));
+      .WithProperty("OutDir", $"{root}/{artifacts}/_tests/{project.Name}/"));
 	}
 });
 
