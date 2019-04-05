@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="Tests.dll" total="4" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2019-04-05" time="15:53:00">
+  <environment nunit-version="3.6.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 6.3.9600.0" platform="Win32NT" cwd="E:\Git\Toolbox" machine-name="ISTEPANOV" user="i.stepanov" user-domain="PLARIUM" />
+  <culture-info current-culture="ru-RU" current-uiculture="ru-RU" />
+  <test-suite type="Assembly" name="Tests.dll" executed="True" result="Success" success="True" time="0.057" asserts="4">
+    <properties>
+      <property name="_PID" value="9076" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <results>
+      <test-suite type="TestSuite" name="Tests" executed="True" result="Success" success="True" time="0.038" asserts="4">
+        <results>
+          <test-suite type="TestSuite" name="Matching" executed="True" result="Success" success="True" time="0.037" asserts="4">
+            <results>
+              <test-suite type="TestFixture" name="MatchExpressionTests" executed="True" result="Success" success="True" time="0.033" asserts="4">
+                <results>
+                  <test-case name="Tests.Matching.MatchExpressionTests.WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull" executed="True" result="Success" success="True" time="0.017" asserts="1" />
+                  <test-case name="Tests.Matching.MatchExpressionTests.WhenNothingMatches_AndDefaultValueIsSet_ThenShouldReturnDefault" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                  <test-case name="Tests.Matching.MatchExpressionTests.WhenSecondConditionMatches_AndFirstIsWrong_ThenShouldReturnNull" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                  <test-case name="Tests.Matching.MatchExpressionTests.WhenTypeMatches_AndAdditionalConditionDont_ThenShouldReturnNull" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

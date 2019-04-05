@@ -1,6 +1,8 @@
 //#load ./Cake/Version.cake
 #load ./Cake/Build.cake
-#tool "nuget:?package=NUnit.ConsoleRunner"
+#tool nuget:?package=NUnit.ConsoleRunner
+#tool nuget:?package=NUnit.Extension.NUnitV2ResultWriter
+
 // Arguments
 var target = Argument("target", "Default");
 
@@ -32,11 +34,16 @@ Task("BuildTests").Does(() =>
 
 Task("RunTests").Does(() =>
 {
-    NUnit3(@"./artifacts/_tests/**/*Tests.dll",
-    new NUnit3Settings
-    {
-        OutputFile = File("./artifacts/TestResult.xml")
-    });
+    NUnit3(
+     @"./artifacts/_tests/**/*Tests.dll",
+     new NUnit3Settings
+     {
+        Results = new [] { new NUnit3Result 
+        { 
+          FileName = "TestResults.xml",
+          Format = "nunit2" 
+        }}
+     });
 });
 
 Task("NuGetPack").Does(() =>
