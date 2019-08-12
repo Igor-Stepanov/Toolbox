@@ -1,4 +1,6 @@
-﻿using Pocket.Benchmarks;
+﻿using System;
+using Common.Extensions;
+using Pocket.Benchmarks;
 
 namespace Sandbox
 {
@@ -7,6 +9,10 @@ namespace Sandbox
     public static void Main(string[] args)
     {
       Benchmark.OfAssembly().Execute();
+      int? value = null;
+      
+      
+      Console.WriteLine(value.Or(10));
     }
   }
 }

@@ -1,22 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="Tests.dll" total="4" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2019-04-05" time="16:17:52">
-  <environment nunit-version="3.6.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 6.3.9600.0" platform="Win32NT" cwd="E:\Git\Toolbox" machine-name="ISTEPANOV" user="i.stepanov" user-domain="PLARIUM" />
-  <culture-info current-culture="ru-RU" current-uiculture="ru-RU" />
-  <test-suite type="Assembly" name="Tests.dll" executed="True" result="Success" success="True" time="0.056" asserts="4">
+<test-results name="Tests.dll" total="4" errors="0" failures="1" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2019-04-06" time="14:42:44">
+  <environment nunit-version="3.6.0.0" clr-version="4.0.30319.42000" os-version="Unix 18.2.0.0" platform="Unix" cwd="/Users/i.stepanov/RiderProjects/Toolbox" machine-name="IStepanovMacBook" user="i.stepanov" user-domain="IStepanovMacBook" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="Tests.dll" executed="True" result="Failure" success="False" time="0.076" asserts="4">
     <properties>
-      <property name="_PID" value="18152" />
+      <property name="_PID" value="28374" />
       <property name="_APPDOMAIN" value="domain-" />
     </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+      <stack-trace />
+    </failure>
     <results>
-      <test-suite type="TestSuite" name="Tests" executed="True" result="Success" success="True" time="0.038" asserts="4">
+      <test-suite type="TestSuite" name="Tests" executed="True" result="Failure" success="False" time="0.058" asserts="4">
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+          <stack-trace />
+        </failure>
         <results>
-          <test-suite type="TestSuite" name="Matching" executed="True" result="Success" success="True" time="0.038" asserts="4">
+          <test-suite type="TestSuite" name="Matching" executed="True" result="Failure" success="False" time="0.058" asserts="4">
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+              <stack-trace />
+            </failure>
             <results>
-              <test-suite type="TestFixture" name="MatchExpressionTests" executed="True" result="Success" success="True" time="0.034" asserts="4">
+              <test-suite type="TestFixture" name="MatchExpressionTests" executed="True" result="Failure" success="False" time="0.055" asserts="4">
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                  <stack-trace />
+                </failure>
                 <results>
-                  <test-case name="Tests.Matching.MatchExpressionTests.WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull" executed="True" result="Success" success="True" time="0.017" asserts="1" />
-                  <test-case name="Tests.Matching.MatchExpressionTests.WhenNothingMatches_AndDefaultValueIsSet_ThenShouldReturnDefault" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                  <test-case name="Tests.Matching.MatchExpressionTests.WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull" executed="True" result="Failure" success="False" time="0.035" asserts="1">
+                    <failure>
+                      <message><![CDATA[  Expected: not null
+  But was:  null
+]]></message>
+                      <stack-trace><![CDATA[  at Tests.Matching.MatchExpressionTests.WhenFirstConditionMatches_AndOtherChecksExist_ThenShouldReturnNull () [0x00038] in <b8e82d8ef8904e479e43a57033c2327b>:0 
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case name="Tests.Matching.MatchExpressionTests.WhenNothingMatches_AndDefaultValueIsSet_ThenShouldReturnDefault" executed="True" result="Success" success="True" time="0.006" asserts="1" />
                   <test-case name="Tests.Matching.MatchExpressionTests.WhenSecondConditionMatches_AndFirstIsWrong_ThenShouldReturnNull" executed="True" result="Success" success="True" time="0.001" asserts="1" />
                   <test-case name="Tests.Matching.MatchExpressionTests.WhenTypeMatches_AndAdditionalConditionDont_ThenShouldReturnNull" executed="True" result="Success" success="True" time="0.001" asserts="1" />
                 </results>

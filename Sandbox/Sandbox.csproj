@@ -49,6 +49,15 @@
     <Compile Include="ForeachSample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UDev\Correct\BottleExtensions.cs" />
+    <Compile Include="UDev\Model\Liquid\IPotion.cs" />
+    <Compile Include="UDev\Model\Liquid\IUser.cs" />
+    <Compile Include="UDev\Model\Liquid\IBuff.cs" />
+    <Compile Include="UDev\Model\Liquid\Water.cs" />
+    <Compile Include="UDev\Correct\PotionBottle.cs" />
+    <Compile Include="UDev\Correct\IUsePotionResult.cs" />
+    <Compile Include="UDev\Wrong\PotionData.cs" />
+    <Compile Include="UDev\Wrong\BottleOpener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -62,6 +71,9 @@
       <Project>{5890c9d1-1a4c-4830-a720-24bdb23e14de}</Project>
       <Name>Tests</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UDev\Model" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
