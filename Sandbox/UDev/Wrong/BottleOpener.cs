@@ -1,18 +1,13 @@
-using Sandbox.UDev.Correct;
+using Sandbox.UDev.Correct.Liquid;
 
 namespace Sandbox.UDev.Wrong
 {
   public class BottleOpener
   {
-    public static IUsePotionResult Open(PotionBottle potionBottle)
+    public static void Use(BottleData bottleData, IPlayer player)
     {
-      if (potionBottle.HasLiquid)
-      
-        return potionBottle.;
-
-      return null;
+      if (bottleData.Liquid != null)
+        player.Drink(bottleData.Liquid);
     }
-    
-    public static void Get
   }
 }
