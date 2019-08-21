@@ -9,7 +9,7 @@ namespace Sandbox.UDev.Wrong
     public BottleData(ILiquid liquid = null) => 
       Liquid = liquid;
 
-    /*public void SetLiquid(ILiquid liquid) =>
-      Liquid = liquid;*/
+    public void SetLiquid(ILiquid liquid) =>
+      Liquid = liquid;
   }
 }

@@ -1,6 +1,6 @@
 using Sandbox.UDev.Correct.Liquid;
 
-namespace Sandbox.UDev.Correct
+namespace Sandbox.UDev.Correct.Player
 {
   public class Player : IPlayer
   {

@@ -1,4 +1,4 @@
-namespace Sandbox.UDev.Correct
+namespace Sandbox.UDev.Correct.Bottle.Extensions
 {
   public static class BottleExtensions
   {

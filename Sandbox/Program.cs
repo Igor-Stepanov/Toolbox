@@ -1,29 +1,22 @@
-﻿using Microsoft.Win32;
+﻿// ReSharper disable All
+
 using Sandbox.UDev.Correct;
-using Sandbox.UDev.Correct.Extensions;
 using Sandbox.UDev.Correct.Liquid;
+using Sandbox.UDev.Correct.Syrups;
+using Sandbox.UDev.Correct.Syrups.Extensions;
 using Sandbox.UDev.Wrong;
+
+using static Sandbox.UDev.Correct.Bottle.BottleTypeId;
 
 namespace Sandbox
 {
   internal class Program
   {
-    private static Bottle _bottle = Bottle.Empty();
-    private static BottleData _bottleData = new BottleData();
-    
     public static void Main(string[] args)
     {
-      var player = new Player();
-      var water = new Water();
-      
-      player.Use(_bottle);
-      BottleOpener.Use(_bottleData, player);
-      
-      _bottle.FillWith(water);
-      //_bottleData.
-        
-      _bottle.FillWith(water);
-      _bottleData.
+      var liquid = new Water()
+       .With<HoneySyrup>()
+       .With<MapleSyrup>();
     }
   }
 }
