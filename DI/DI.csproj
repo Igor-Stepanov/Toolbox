@@ -42,10 +42,15 @@
   <ItemGroup>
     <Compile Include="Dependants\Dependant.cs" />
     <Compile Include="Dependants\DependenciesAttribute.cs" />
+    <Compile Include="Exceptions\FeatureException.cs" />
+    <Compile Include="Exceptions\LifecycleException.cs" />
     <Compile Include="Feature.cs" />
     <Compile Include="Features.cs" />
     <Compile Include="IFeature.cs" />
+    <Compile Include="Lifecycle\Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Lifecycle\Extensions\LifecycleExtensions.cs" />
     <Compile Include="Lifecycle\ILifecycle.cs" />
+    <Compile Include="Lifecycle\Lifecycle.cs" />
     <Compile Include="Registered\Dictionary\RegisteredFeaturesDictionary.cs" />
     <Compile Include="Registered\Extensions\RegisteredFeatureExtensions.cs" />
     <Compile Include="Registered\Extensions\RegisteredFeaturesExtensions.cs" />

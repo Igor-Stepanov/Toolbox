@@ -9,9 +9,9 @@ namespace DI
     protected virtual void Continue(){}
     protected virtual void Terminate(){}
 
-    void ILifecycle.Initialize() => Initialize();
+    void ILifecycle.Start() => Initialize();
     void ILifecycle.Pause()      => Pause();
     void ILifecycle.Continue()   => Continue();
-    void ILifecycle.Terminate()  => Terminate();
+    void ILifecycle.Stop()  => Terminate();
   }
 }

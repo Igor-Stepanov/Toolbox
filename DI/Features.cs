@@ -11,7 +11,7 @@ namespace DI
   {
     public event Action<Exception> Failed;
     
-    private static RegisteredFeatures _registered;
+    private static IRegisteredFeatures _registered;
     private static TrackedFeatures _tracked;
 
     public Features()
@@ -19,7 +19,8 @@ namespace DI
       if (_registered != null)
         throw new InvalidOperationException($"Multiple instances of {nameof(Features)} is not allowed.");
 
-      _registered = new RegisteredFeatures().WhenFailed(NotifyFailed);
+      _registered = new RegisteredFeatures()
+        .WhenFailed(NotifyFailed);
       _tracked = new TrackedFeatures();
     }
 

@@ -10,18 +10,17 @@ namespace Sandbox
     {
       var features = new Features();
 
-      features.Register(new TestFeature())
-        .As(Implementation.Of<ITestFeature>());
+      features.Register(new TestFeature());
       
       Benchmark.OfAssembly().Execute();
     }
     
-    public interface ITestFeature 
+    public interface ITestFeature : IFeature
     {
       
     }
     
-    public class TestFeature : Feature, ITestFeature
+    public class TestFeature : ITestFeature
     {
       
     }

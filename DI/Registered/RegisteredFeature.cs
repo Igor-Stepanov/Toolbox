@@ -12,8 +12,8 @@ namespace DI.Registered
     {
     }
 
-    void ILifecycle.Initialize() =>
-      Safe(x => x.Initialize());
+    void ILifecycle.Start() =>
+      Safe(x => x.Start());
 
     void ILifecycle.Pause() =>
       Safe(x => x.Pause());
@@ -21,8 +21,8 @@ namespace DI.Registered
     void ILifecycle.Continue() =>
       Safe(x => x.Continue());
 
-    void ILifecycle.Terminate() =>
-      Safe(x => x.Terminate());
+    void ILifecycle.Stop() =>
+      Safe(x => x.Stop());
 
     private void Safe(Action<ILifecycle> action)
     {

@@ -26,10 +26,10 @@ namespace DI.Registered
       _registeredFeatures[typeof(TFeature)]
         .As<TFeature>();
 
-    void ILifecycle.Initialize() => 
+    void ILifecycle.Start() => 
       _registeredFeatures
         .Implementing<ILifecycle>()
-        .ForEach(x => x.Initialize());
+        .ForEach(x => x.Start());
 
     void ILifecycle.Pause() =>
       _registeredFeatures
@@ -42,12 +42,12 @@ namespace DI.Registered
         .Implementing<ILifecycle>()
         .ForEach(x => x.Continue());
 
-    void ILifecycle.Terminate()
+    void ILifecycle.Stop()
     {
       _registeredFeatures
         .Implementing<ILifecycle>()
         .Reverse()
-        .ForEach(x => x.Terminate());
+        .ForEach(x => x.Stop());
       
       _registeredFeatures.Clear();
     }

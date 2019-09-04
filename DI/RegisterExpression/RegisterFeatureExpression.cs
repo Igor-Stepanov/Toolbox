@@ -6,9 +6,9 @@ namespace DI.RegisterExpression
   public struct RegisterFeatureExpression<TFeature> where TFeature : Feature
   {
     private readonly TFeature _feature;
-    private readonly RegisteredFeatures _registered;
+    private readonly IRegisteredFeatures _registered;
 
-    internal RegisterFeatureExpression(TFeature feature, RegisteredFeatures registered)
+    internal RegisterFeatureExpression(TFeature feature, IRegisteredFeatures registered)
     {
       _feature = feature;
       _registered = registered;

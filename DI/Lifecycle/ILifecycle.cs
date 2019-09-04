@@ -2,9 +2,9 @@ namespace DI.Lifecycle
 {
   public interface ILifecycle
   {
-    void Initialize();
+    void Start();
     void Pause();
     void Continue();
-    void Terminate();
+    void Stop();
   }
 }
