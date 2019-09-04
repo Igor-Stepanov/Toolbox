@@ -1,28 +1,75 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Pocket.Benchmarks;
 
 namespace Sandbox
 {
-  [Sample(times: 10000)]
+  [Sample(times: 100)]
   public class ForeachSample
   {
-    private static int[] Array = new int[10_000];
-
+    private static First3  First = new First3();
+    private static Second3  Second = new Second3();
 
     [Run]
-    public void SimpleArray()
+    public void Reflection()
     {
-      var sum = 0;
-      for (var i = 0; i < Array.Length; i++)
-      {
-        sum += Array[i];
-      }
+//      foreach (var method in Methods(Second.GetType()))
+//        method.Invoke(Second, null);
     }
 
     [Run]
-    public void JaggedArray()
+    public void Polymorphism()
     {
-      var sum = Array.Sum();
+      Second.Method();
+    }
+
+    
+  }
+  public class First1
+  {
+    protected int I = 0;
+
+    private void Method() =>
+      I++;
+  }
+    
+  public class First2 : First1
+  {
+    private void Method() =>
+      I++;
+  }
+  
+  public class First3 : First2
+  {
+    private void Method() =>
+      I++;
+  }
+
+  public class Second1
+  {
+    protected int I = 0;
+
+    public virtual void Method() =>
+      I++;
+  }
+  
+  public class Second2 : Second1
+  {
+    public override void Method()
+    {
+      base.Method();
+      I++;
+    }
+  }
+  
+  public class Second3 : Second2
+  {
+    public override void Method()
+    {
+      base.Method();
+      I++;
     }
   }
 }
