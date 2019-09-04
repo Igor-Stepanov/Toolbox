@@ -1,29 +1,29 @@
-﻿using Microsoft.Win32;
-using Sandbox.UDev.Correct;
-using Sandbox.UDev.Correct.Extensions;
-using Sandbox.UDev.Correct.Liquid;
-using Sandbox.UDev.Wrong;
+﻿using DI;
+using DI.RegisterExpression;
+using Pocket.Benchmarks;
 
 namespace Sandbox
 {
   internal class Program
   {
-    private static Bottle _bottle = Bottle.Empty();
-    private static BottleData _bottleData = new BottleData();
-    
     public static void Main(string[] args)
     {
-      var player = new Player();
-      var water = new Water();
+      var features = new Features();
+
+      features.Register(new TestFeature())
+        .As(Implementation.Of<ITestFeature>());
       
-      player.Use(_bottle);
-      BottleOpener.Use(_bottleData, player);
+      Benchmark.OfAssembly().Execute();
+    }
+    
+    public interface ITestFeature 
+    {
       
-      _bottle.FillWith(water);
-      //_bottleData.
-        
-      _bottle.FillWith(water);
-      _bottleData.
+    }
+    
+    public class TestFeature : Feature, ITestFeature
+    {
+      
     }
   }
 }

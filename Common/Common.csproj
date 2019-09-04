@@ -32,17 +32,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collections\OrderedDictionary\IOrderedDictionaryItem.cs" />
+    <Compile Include="Collections\OrderedDictionary\OrderedDictionary.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\GenericExtensions.cs" />
     <Compile Include="Extensions\NullableExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\PredicateExtensions.cs" />
+    <Compile Include="Extensions\ThrowExceptionExtensions.cs" />
     <Compile Include="Matching\ActionExpression.cs" />
     <Compile Include="Matching\IsExpression.cs" />
     <Compile Include="Matching\MatchExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Reflection\Extensions\TypeExtensions.cs" />
     <Compile Include="Reflection\Instances.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Collections" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

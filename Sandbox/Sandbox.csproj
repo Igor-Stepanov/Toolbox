@@ -64,13 +64,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{84f742b0-70b3-4c51-bea7-2850288fa04d}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tests\Tests.csproj">
-      <Project>{5890c9d1-1a4c-4830-a720-24bdb23e14de}</Project>
-      <Name>Tests</Name>
+    <ProjectReference Include="..\..\..\UnityProjects\Game\Assets\Scripts\Core\Features\Core.Features.csproj">
+      <Project>{b59a8f0d-37e1-4e18-805b-3df5e0f7396e}</Project>
+      <Name>Core.Features</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

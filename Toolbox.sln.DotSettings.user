@@ -3,4 +3,7 @@
 	<s:Boolean x:Key="/Default/CodeStyle/Naming/CSharpAutoNaming/IsNotificationDisabled/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="E:\Git\Toolbox\packages\Pocket.Benchmarks.1.0.2\lib\net471\Pocket.Benchmarks.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=2a088b4a_002D113e_002D4956_002D9ed8_002Db2ef49abc79e_0023FSharpSandbox/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=5890c9d1_002D1a4c_002D4830_002Da720_002D24bdb23e14de_0023Tests/@EntryIndexedValue">True</s:Boolean>
+	</wpf:ResourceDictionary>
