@@ -1,6 +1,5 @@
 ﻿using DI;
 using DI.RegisterExpression;
-using Pocket.Benchmarks;
 
 namespace Sandbox
 {
@@ -10,17 +9,29 @@ namespace Sandbox
     {
       var features = new Features();
 
-      features.Register(new TestFeature());
-      
-      Benchmark.OfAssembly().Execute();
+      features.Register(new TestFeature())
+       .As(Implementation.Of<ITestFeature>())
+       .As(Implementation.Of<ITestFeature2>());
+
     }
     
     public interface ITestFeature : IFeature
     {
       
     }
+    public interface ITestFeature2 : IFeature
+    {
+      
+    }
+
     
-    public class TestFeature : ITestFeature
+    public interface IOtherFeature : IFeature
+    {
+      
+    }
+
+    
+    public class TestFeature : Feature, ITestFeature2, ITestFeature
     {
       
     }

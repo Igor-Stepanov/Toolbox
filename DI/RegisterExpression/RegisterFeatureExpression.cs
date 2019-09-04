@@ -29,10 +29,10 @@ namespace DI.RegisterExpression
   
   public static class RegisterFeatureExpressionExtension
   {
-    public static RegisterFeatureExpression<TFeature> As<TFeature, TFeatureInterface>(this RegisterFeatureExpression<TFeature> self, ImplementationOf<TFeatureInterface> @interface)
+    public static RegisterFeatureExpression<TFeature> As<TFeature, TFeatureInterface>
+    (this RegisterFeatureExpression<TFeature> self, TypeOf<TFeatureInterface> type)
       where TFeatureInterface : class, IFeature
       where TFeature : Feature, TFeatureInterface => 
       self.AsImplementationOf<TFeatureInterface>();
   }
-
 }

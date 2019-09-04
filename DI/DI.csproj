@@ -57,7 +57,7 @@
     <Compile Include="Registered\IRegisteredFeatures.cs" />
     <Compile Include="Registered\RegisteredFeatures.cs" />
     <Compile Include="Registered\RegisteredImplementationOfAbstractFeature.cs" />
-    <Compile Include="RegisterExpression\ImplementationOfInterface.cs" />
+    <Compile Include="RegisterExpression\Implementation.cs" />
     <Compile Include="RegisterExpression\RegisterFeatureExpression.cs" />
     <Compile Include="Requested\Extensions\FeatureReferenceExtensions.cs" />
     <Compile Include="Requested\IRequestedFeature.cs" />
