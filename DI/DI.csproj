@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B59A8F0D-37E1-4E18-805B-3DF5E0F7396E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DI</RootNamespace>
+    <AssemblyName>DI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityBuildTarget>Android:13</UnityBuildTarget>
+    <UnityVersion>2018.3.6f1</UnityVersion>
+    <BaseIntermediateOutputPath>/Users/i.stepanov/UnityProjects/Game/Temp/Client_obj/Debug_AnyCPU/</BaseIntermediateOutputPath>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>/Users/i.stepanov/UnityProjects/Game/Temp/Client_bin/Debug_AnyCPU/</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>/Users/i.stepanov/UnityProjects/Game/Temp/Client_bin/Release_AnyCPU/</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dependants\Dependant.cs" />
+    <Compile Include="Dependants\DependenciesAttribute.cs" />
+    <Compile Include="Feature.cs" />
+    <Compile Include="Features.cs" />
+    <Compile Include="IFeature.cs" />
+    <Compile Include="Lifecycle\ILifecycle.cs" />
+    <Compile Include="Registered\Dictionary\RegisteredFeaturesDictionary.cs" />
+    <Compile Include="Registered\Extensions\RegisteredFeatureExtensions.cs" />
+    <Compile Include="Registered\Extensions\RegisteredFeaturesExtensions.cs" />
+    <Compile Include="Registered\IRegisteredFeatures.cs" />
+    <Compile Include="Registered\RegisteredFeatures.cs" />
+    <Compile Include="Registered\RegisteredImplementationOfAbstractFeature.cs" />
+    <Compile Include="RegisterExpression\ImplementationOfInterface.cs" />
+    <Compile Include="RegisterExpression\RegisterFeatureExpression.cs" />
+    <Compile Include="Requested\Extensions\FeatureReferenceExtensions.cs" />
+    <Compile Include="Requested\IRequestedFeature.cs" />
+    <Compile Include="Requested\RequestedFeature.cs" />
+    <Compile Include="Request\FeatureReference.cs" />
+    <Compile Include="Request\FeatureRequest.cs" />
+    <Compile Include="Requested\RequestedFeatures.cs" />
+    <Compile Include="Registered\IRegisteredFeature.cs" />
+    <Compile Include="Registered\RegisteredFeature.cs" />
+    <Compile Include="Registered\Extensions\FeatureExtensions.cs" />
+    <Compile Include="Tracked\ITrackedFeatures.cs" />
+    <Compile Include="Tracked\TrackedFeatures.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{84f742b0-70b3-4c51-bea7-2850288fa04d}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+           Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+      -->
+</Project>
