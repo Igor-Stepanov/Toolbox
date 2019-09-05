@@ -45,7 +45,7 @@
     <Compile Include="Client\IFeature.cs" />
     <Compile Include="Client\Dependencies.cs" />
     <Compile Include="Client\InjectAttribute.cs" />
-    <Compile Include="Dependants\Dependant.cs" />
+    <Compile Include="Dependants\ComparedByReference.cs" />
     <Compile Include="Dependants\Dependants.cs" />
     <Compile Include="Dependants\Extensions\ObjectExtensions.cs" />
     <Compile Include="Dependencies\InstanceDependencies.cs" />
