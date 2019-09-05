@@ -1,23 +1,38 @@
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Common.Collections.OrderedDictionary;
 using Common.Extensions;
-using DI.Lifecycle;
+using DI.Lifecycles;
+using DI.Lifecycles.Extensions;
 using DI.Registered.Dictionary;
 using DI.Registered.Extensions;
 
 namespace DI.Registered
 {
-  internal class RegisteredFeatures : IRegisteredFeatures, ILifecycle
+  internal class RegisteredFeatures : IRegisteredFeatures
   {
     public event Action<Exception> Failed = delegate { };
-    
-    private readonly RegisteredFeaturesDictionary _registeredFeatures = new RegisteredFeaturesDictionary();
+    public ILifecycle Lifecycle => _lifecycle;
 
-    void IRegisteredFeatures.Add<TFeature>(TFeature feature) => 
-      _registeredFeatures.Add(feature
-        .Registered()
-        .WhenFailed(Failed.Invoke));
+    private readonly RegisteredFeaturesDictionary _registeredFeatures;
+    private readonly Lifecycle _lifecycle;
+
+    public RegisteredFeatures()
+    {
+      _registeredFeatures = new RegisteredFeaturesDictionary();
+      _lifecycle = new Lifecycle()
+        .StartWith(StartAll)
+        .PauseWith(PauseAll)
+        .ContinueWith(ContinueAll)
+        .StopWith(StopAll);
+    }
+
+    void IRegisteredFeatures.Add<TFeature>(TFeature feature) =>
+      _registeredFeatures.Add(
+        feature
+          .Registered()
+          .WhenFailed(Failed.Invoke));
 
     void IRegisteredFeatures.AddImplementationOf<TAbstractFeature>(TAbstractFeature feature) => 
       _registeredFeatures.Add(feature.RegisteredImplementation());
@@ -26,26 +41,26 @@ namespace DI.Registered
       _registeredFeatures[typeof(TFeature)]
         .As<TFeature>();
 
-    void ILifecycle.Start() => 
+    private void StartAll() =>
       _registeredFeatures
-        .Implementing<ILifecycle>()
+        .Select(x => x.Lifecycle)
         .ForEach(x => x.Start());
 
-    void ILifecycle.Pause() =>
+    private void PauseAll() =>
       _registeredFeatures
-        .Implementing<ILifecycle>()
+        .Select(x => x.Lifecycle)
         .Reverse()
         .ForEach(x => x.Pause());
 
-    void ILifecycle.Continue() => 
+    private void ContinueAll() => 
       _registeredFeatures
-        .Implementing<ILifecycle>()
+        .Select(x => x.Lifecycle)
         .ForEach(x => x.Continue());
 
-    void ILifecycle.Stop()
+    private void StopAll()
     {
       _registeredFeatures
-        .Implementing<ILifecycle>()
+        .Select(x => x.Lifecycle)
         .Reverse()
         .ForEach(x => x.Stop());
       

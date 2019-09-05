@@ -19,17 +19,20 @@ namespace DI.Dependants
     
     private void Use(FeatureRequest request)
     {
+      GetType()
+        .Dependencies()
+        .Inject(this)
+        .Using(request);
+      
+      foreach (var reference in featureReferences)
+      {
+        
+      }
+      request.Obtain()
+      
       var parameters = new object[] {request};
       
-      var current = GetType();
-      while (current != null)
-      {
-        current
-          .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
-          .SingleOrDefault(x => x.Has<DependenciesAttribute>())
-          ?.Invoke(this, parameters);
-
-        current = current.BaseType;
+      
       }
     }
 

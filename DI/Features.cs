@@ -9,47 +9,43 @@ namespace DI
 {
   public class Features
   {
-    public event Action<Exception> Failed;
+    public event Action<Exception> Failed = delegate { };
     
     private static IRegisteredFeatures _registered;
-    private static TrackedFeatures _tracked;
+    private static FeatureReferences _references;
 
     public Features()
     {
       if (_registered != null)
         throw new InvalidOperationException($"Multiple instances of {nameof(Features)} is not allowed.");
 
-      _registered = new RegisteredFeatures()
-        .WhenFailed(NotifyFailed);
-      _tracked = new TrackedFeatures();
+      _registered = new RegisteredFeatures().WhenFailed(Failed.Invoke);
+      _references = new FeatureReferences();
     }
 
     public static FeatureRequest Request() => 
-      new FeatureRequest(_registered, _tracked);
+      new FeatureRequest(_registered, _references);
 
     public void Initialize() =>
-      _registered.Initialize();
+      _registered.Lifecycle.Start();
 
     public void Pause() =>
-      _registered.Pause();
+      _registered.Lifecycle.Pause();
 
     public void Continue() =>
-      _registered.Continue();
+      _registered.Lifecycle.Continue();
 
     public void Terminate()
     {
-      _tracked.Terminate();
-      _tracked = null;
+      _references.Release();
+      _references = null;
       
-      _registered.Terminate();
+      _registered.Lifecycle.Stop();
       _registered = null;
     }
 
     // ReSharper disable once MemberCanBeMadeStatic.Global
     public RegisterFeatureExpression<TFeature> Register<TFeature>(TFeature feature) where TFeature : Feature => 
        new RegisterFeatureExpression<TFeature>(feature, _registered);
-
-    private void NotifyFailed(Exception exception) =>
-      Failed?.Invoke(exception);
   }
 }

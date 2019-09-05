@@ -1,4 +1,4 @@
-using DI.Lifecycle;
+using DI.Lifecycles;
 
 namespace DI
 {

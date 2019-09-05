@@ -1,14 +1,7 @@
-using System;
-
 namespace DI.Exceptions
 {
-  public abstract class FeatureException : Exception
+  public interface IFeatureException
   {
-    private readonly IFeature _feature;
-
-    public FeatureException(Exception exception, IFeature feature) : base()
-    {
-      _feature = feature;
-    }
+    IFeature Feature { get; }
   }
 }

@@ -41,16 +41,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependants\Dependant.cs" />
+    <Compile Include="Dependants\Dependencies.cs" />
     <Compile Include="Dependants\DependenciesAttribute.cs" />
     <Compile Include="Exceptions\FeatureException.cs" />
+    <Compile Include="Exceptions\FeatureLifecycleException.cs" />
     <Compile Include="Exceptions\LifecycleException.cs" />
     <Compile Include="Feature.cs" />
     <Compile Include="Features.cs" />
     <Compile Include="IFeature.cs" />
-    <Compile Include="Lifecycle\Extensions\ExceptionExtensions.cs" />
-    <Compile Include="Lifecycle\Extensions\LifecycleExtensions.cs" />
-    <Compile Include="Lifecycle\ILifecycle.cs" />
-    <Compile Include="Lifecycle\Lifecycle.cs" />
+    <Compile Include="Lifecycles\Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Lifecycles\Extensions\LifecycleExtensions.cs" />
+    <Compile Include="Lifecycles\FeatureLifecycle.cs" />
+    <Compile Include="Lifecycles\ILifecycle.cs" />
+    <Compile Include="Lifecycles\Lifecycle.cs" />
+    <Compile Include="Logs\ILog.cs" />
     <Compile Include="Registered\Dictionary\RegisteredFeaturesDictionary.cs" />
     <Compile Include="Registered\Extensions\RegisteredFeatureExtensions.cs" />
     <Compile Include="Registered\Extensions\RegisteredFeaturesExtensions.cs" />
@@ -69,7 +73,7 @@
     <Compile Include="Registered\RegisteredFeature.cs" />
     <Compile Include="Registered\Extensions\FeatureExtensions.cs" />
     <Compile Include="Tracked\ITrackedFeatures.cs" />
-    <Compile Include="Tracked\TrackedFeatures.cs" />
+    <Compile Include="Tracked\FeatureReferences.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

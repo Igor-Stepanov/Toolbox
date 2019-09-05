@@ -2,9 +2,9 @@ using System;
 
 namespace DI.Exceptions
 {
-  public class LifecycleException : FeatureException
+  public class LifecycleException : Exception
   {
-    public LifecycleException(Exception exception, IFeature feature) : base(exception, feature)
+    public LifecycleException(Exception exception) : base(nameof(LifecycleException), exception)
     {
     }
   }

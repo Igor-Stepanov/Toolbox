@@ -4,7 +4,7 @@ using DI.Requested;
 
 namespace DI.Tracked
 {
-  public class TrackedFeatures : ITrackedFeatures
+  public class FeatureReferences : ITrackedFeatures
   {
     private readonly List<RequestedFeatures> _features = new List<RequestedFeatures>();
 
@@ -14,7 +14,7 @@ namespace DI.Tracked
       _features.Add(requested);
     }
 
-    public void Terminate() => 
+    public void Release() => 
       _features
         .ToArray()
         .ForEach(x => x.Release());

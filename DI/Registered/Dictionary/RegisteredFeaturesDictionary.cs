@@ -1,11 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Collections.OrderedDictionary;
 
 namespace DI.Registered.Dictionary
 {
-  internal class RegisteredFeaturesDictionary
+  internal class RegisteredFeaturesDictionary : IEnumerable<IRegisteredFeature>
   {
     private readonly List<IRegisteredFeature> _list = new List<IRegisteredFeature>();
     private readonly Dictionary<Type, IRegisteredFeature> _dictionary = new Dictionary<Type, IRegisteredFeature>();
@@ -31,5 +32,11 @@ namespace DI.Registered.Dictionary
       _list.Clear();
       _dictionary.Clear();
     }
+
+    public IEnumerator<IRegisteredFeature> GetEnumerator() => 
+      _list.GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator() => 
+      _list.GetEnumerator();
   }
 }

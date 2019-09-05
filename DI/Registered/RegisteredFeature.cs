@@ -1,6 +1,6 @@
 using System;
 using Common.Collections.OrderedDictionary;
-using DI.Lifecycle;
+using DI.Lifecycles;
 
 namespace DI.Registered
 {

@@ -10,8 +10,8 @@ namespace Sandbox
       var features = new Features();
 
       features.Register(new TestFeature())
-       .As(Implementation.Of<ITestFeature>())
-       .As(Implementation.Of<ITestFeature2>());
+        .As(Implementation.Of<ITestFeature>())
+        .As(Implementation.Of<ITestFeature2>());
 
     }
     
