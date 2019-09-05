@@ -12,7 +12,7 @@ namespace Sandbox.UDev.Correct.Bottle
       (Id, Rarity, Size, UseExperience) =
       (id, rarity, size, openingExperience);
 
-    public Bottle CreateNew() =>
-      new Bottle(typeId: Id);
+//    public Bottle CreateNew() =>
+//      new Bottle(typeId: Id);
   }
 }

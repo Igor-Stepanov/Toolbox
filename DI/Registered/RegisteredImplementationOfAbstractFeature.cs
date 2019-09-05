@@ -1,4 +1,5 @@
 using System;
+using DI.Client;
 
 namespace DI.Registered
 {
@@ -6,7 +7,8 @@ namespace DI.Registered
     where TAbstractFeature : IFeature
   {
     Type IRegisteredFeature.Type => typeof(TAbstractFeature);
-    
+    IFeature IRegisteredFeature.Feature => Feature;
+
     protected readonly TAbstractFeature Feature;
 
     public RegisteredImplementationOf(TAbstractFeature feature) => 

@@ -1,18 +1,20 @@
 using System;
+using System.Collections.Generic;
+using Common.Extensions;
+using DI.Dependants;
+using DI.Dependencies.Extensions;
 using DI.Registered;
 using DI.Registered.Extensions;
 using DI.RegisterExpression;
-using DI.Request;
-using DI.Tracked;
 
-namespace DI
+namespace DI.Client
 {
   public class Features
   {
     public event Action<Exception> Failed = delegate { };
     
-    private static IRegisteredFeatures _registered;
-    private static FeatureReferences _references;
+    private static RegisteredFeatures _registered;
+    private static HashSet<Dependant> _dependants;
 
     public Features()
     {
@@ -20,11 +22,8 @@ namespace DI
         throw new InvalidOperationException($"Multiple instances of {nameof(Features)} is not allowed.");
 
       _registered = new RegisteredFeatures().WhenFailed(Failed.Invoke);
-      _references = new FeatureReferences();
+      _dependants = new HashSet<Dependant>();
     }
-
-    public static FeatureRequest Request() => 
-      new FeatureRequest(_registered, _references);
 
     public void Initialize() =>
       _registered.Lifecycle.Start();
@@ -37,8 +36,7 @@ namespace DI
 
     public void Terminate()
     {
-      _references.Release();
-      _references = null;
+      _dependants.ForEach(x => x.Dependencies().Clear());
       
       _registered.Lifecycle.Stop();
       _registered = null;
@@ -47,5 +45,15 @@ namespace DI
     // ReSharper disable once MemberCanBeMadeStatic.Global
     public RegisterFeatureExpression<TFeature> Register<TFeature>(TFeature feature) where TFeature : Feature => 
        new RegisterFeatureExpression<TFeature>(feature, _registered);
+
+    public static void InjectInto(object instance)
+    {
+      if (!_dependants.)
+      {
+      }
+    }
+    
+    public static IFeature RegisteredImplementationOf(Type type) => 
+      _registered.FeatureOf(type);
   }
 }

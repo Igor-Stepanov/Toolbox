@@ -1,4 +1,5 @@
 using Common.Extensions;
+using DI.Client;
 using DI.Registered;
 
 namespace DI.RegisterExpression

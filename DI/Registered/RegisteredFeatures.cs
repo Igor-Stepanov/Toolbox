@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Common.Collections.OrderedDictionary;
 using Common.Extensions;
+using DI.Client;
 using DI.Lifecycles;
 using DI.Lifecycles.Extensions;
 using DI.Registered.Dictionary;
@@ -36,10 +37,10 @@ namespace DI.Registered
 
     void IRegisteredFeatures.AddImplementationOf<TAbstractFeature>(TAbstractFeature feature) => 
       _registeredFeatures.Add(feature.RegisteredImplementation());
-
-    TFeature IRegisteredFeatures.One<TFeature>() =>
-      _registeredFeatures[typeof(TFeature)]
-        .As<TFeature>();
+    
+    IFeature IRegisteredFeatures.FeatureOf(Type type) =>
+      _registeredFeatures[type]
+       .Feature;
 
     private void StartAll() =>
       _registeredFeatures

@@ -44,8 +44,10 @@
     <Compile Include="Matching\IsExpression.cs" />
     <Compile Include="Matching\MatchExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\Extensions\FieldInfoExtensions.cs" />
     <Compile Include="Reflection\Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Reflection\Extensions\TypeExtensions.cs" />
+    <Compile Include="Reflection\Implementations.cs" />
     <Compile Include="Reflection\Instances.cs" />
   </ItemGroup>
   <ItemGroup>

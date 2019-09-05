@@ -1,3 +1,5 @@
+using DI.Client;
+
 namespace DI.Registered.Extensions
 {
   internal static class FeatureExtensions

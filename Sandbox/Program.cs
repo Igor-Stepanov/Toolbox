@@ -1,39 +1,31 @@
-﻿using DI;
-using DI.RegisterExpression;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Sandbox
 {
   internal class Program
   {
+    public class Test
+    {
+      public override bool Equals(object obj) =>
+        true;
+
+      public override int GetHashCode() =>
+        0;
+    }
+
+
     public static void Main(string[] args)
     {
-      var features = new Features();
+      var t = new Test();
 
-      features.Register(new TestFeature())
-        .As(Implementation.Of<ITestFeature>())
-        .As(Implementation.Of<ITestFeature2>());
+      var taskI = Task.Run(() => RuntimeHelpers.GetHashCode(t));
 
-    }
-    
-    public interface ITestFeature : IFeature
-    {
-      
-    }
-    public interface ITestFeature2 : IFeature
-    {
-      
-    }
+      var i = taskI.Result;
+      var i2 = RuntimeHelpers.GetHashCode(t);
 
-    
-    public interface IOtherFeature : IFeature
-    {
-      
-    }
-
-    
-    public class TestFeature : Feature, ITestFeature2, ITestFeature
-    {
-      
+      Debugger.Break();
     }
   }
 }

@@ -1,5 +1,6 @@
 using System;
 using Common.Collections.OrderedDictionary;
+using DI.Client;
 using DI.Lifecycles;
 
 namespace DI.Registered

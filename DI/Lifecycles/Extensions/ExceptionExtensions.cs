@@ -1,4 +1,5 @@
 using System;
+using DI.Client;
 using DI.Exceptions;
 
 namespace DI.Lifecycles.Extensions

@@ -1,6 +1,6 @@
 using DI.Lifecycles;
 
-namespace DI
+namespace DI.Client
 {
   public abstract class Feature : IFeature, ILifecycle
   {

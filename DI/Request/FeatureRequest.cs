@@ -1,4 +1,5 @@
 using System;
+using DI.Client;
 using DI.Registered;
 using DI.Requested;
 using DI.Requested.Extensions;

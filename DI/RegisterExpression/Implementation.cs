@@ -1,3 +1,5 @@
+using DI.Client;
+
 namespace DI.RegisterExpression
 {
   // Pass type of abstract feature implementation using static import.

@@ -1,4 +1,5 @@
 using System;
+using DI.Client;
 
 namespace DI.Exceptions
 {

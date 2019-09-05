@@ -1,3 +1,4 @@
+using DI.Client;
 using DI.Request;
 
 namespace DI.Requested.Extensions

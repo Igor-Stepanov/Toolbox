@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using static System.Reflection.BindingFlags;
 
 namespace Common.Reflection.Extensions
 {
@@ -34,5 +38,12 @@ namespace Common.Reflection.Extensions
         ? self.BaseType.DerivedFrom(other)
         : self.GetGenericTypeDefinition().BaseType.DerivedFrom(other);
     }
+
+    public static FieldInfo[] Fields(this Type self, BindingFlags flags = Instance | Static | Public) =>
+      self.GetFields(flags);
+    
+    public static IEnumerable<FieldInfo> FieldsWith<TAttribute>(this Type self, BindingFlags flags = Instance | Static | Public)
+      where TAttribute : Attribute =>
+      self.GetFields(flags).Where(x => x.Has<TAttribute>());
   }
 }

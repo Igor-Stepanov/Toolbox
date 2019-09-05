@@ -1,4 +1,5 @@
 using System;
+using DI.Client;
 using DI.Exceptions;
 using DI.Lifecycles.Extensions;
 
