@@ -6,8 +6,7 @@ namespace DI.Registered
   internal interface IRegisteredFeatures
   {
     void Add<TFeature>(TFeature feature) where TFeature : Feature;
-
-    void AddImplementationOf(Type abstraction, IFeature implementation);
+    void Add(Type abstraction, Type implementation);
 
     IFeature FeatureOf(Type type);
   }

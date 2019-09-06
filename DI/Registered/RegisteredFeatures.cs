@@ -36,8 +36,8 @@ namespace DI.Registered
           .Registered()
           .WhenFailed(Failed.Invoke));
 
-    void IRegisteredFeatures.AddImplementationOf<TAbstractFeature>(TAbstractFeature feature) => 
-      _registeredFeatures.Add(feature.RegisteredImplementation());
+    public void Add(Type abstraction, Type implementation) => 
+      _registeredFeatures.Add(abstraction, implementation);
     
     IFeature IRegisteredFeatures.FeatureOf(Type type) =>
       _registeredFeatures[type]

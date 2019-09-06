@@ -9,9 +9,8 @@ namespace DI.Registered.Dictionary
   internal class RegisteredFeaturesDictionary : IEnumerable<IRegisteredFeature>
   {
     private readonly List<IRegisteredFeature> _list = new List<IRegisteredFeature>();
-    private readonly Dictionary<RegisteredFeatureType, IRegisteredFeature> _dictionary 
-      = new Dictionary<RegisteredFeatureType, IRegisteredFeature>();
-    private readonly Dictionary<Type, Type> _abstractions = new Dictionary<Type, Type>();
+    private readonly Dictionary<Type, IRegisteredFeature> _dictionary = new Dictionary<Type, IRegisteredFeature>();
+    private readonly Dictionary<Type, Type> _implementations = new Dictionary<Type, Type>();
     
     public void Add(IRegisteredFeature feature)
     {
@@ -22,18 +21,19 @@ namespace DI.Registered.Dictionary
       _list.Add(feature);
     }
     
-    public void Add(Type feature, Type abstraction)
+    public void Add(Type abstraction, Type implementation)
     {
-      if (!_dictionary.TryGetValue(feature, out var value))
-        throw new InvalidOperationException($"Please, register {feature.Name} before {abstraction.Name} abstraction.");
+      if (!_dictionary.ContainsKey(implementation))
+        throw new InvalidOperationException($"Please, register {implementation.Name} before {abstraction.Name}.");
       
-      value.Type
-      _abstractions.Add(abstraction, feature);
+      _implementations.Add(abstraction, implementation);
     }
     
-    public IRegisteredFeature this[Type type] =>
-      _dictionary[type];
-    
+    public IRegisteredFeature this[Type type] => 
+      _implementations.TryGetValue(type, out var implementation) 
+        ? _dictionary[implementation]
+        : _dictionary[type];
+
     public void Clear()
     {
       _list.Clear();

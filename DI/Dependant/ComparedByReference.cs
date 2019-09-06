@@ -11,8 +11,7 @@ namespace DI.Dependant
       ReferenceEquals(x, y);
      
     int IEqualityComparer<object>.GetHashCode(object o) => 
-      RuntimeHelpers.GetHashCode(o);
-   // ThanksHelper.TryDo();
+      RuntimeHelpers.GetHashCode(o); // ThanksHelper.TryDo();
     
     public static Compared ByReference() =>
       new Compared();

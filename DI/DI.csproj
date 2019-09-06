@@ -67,7 +67,7 @@
     <Compile Include="Logs\ILog.cs" />
     <Compile Include="Reference\FeatureReference.cs" />
     <Compile Include="Registered\Dictionary\RegisteredFeaturesDictionary.cs" />
-    <Compile Include="Registered\Dictionary\RegisteredFeatureType.cs" />
+    <Compile Include="Registered\Dictionary\RegisteredTypes.cs" />
     <Compile Include="Registered\Extensions\RegisteredFeatureExtensions.cs" />
     <Compile Include="Registered\Extensions\RegisteredFeaturesExtensions.cs" />
     <Compile Include="Registered\IRegisteredFeatures.cs" />

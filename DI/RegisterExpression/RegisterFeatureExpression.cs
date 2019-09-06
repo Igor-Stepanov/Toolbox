@@ -24,7 +24,7 @@ namespace DI.RegisterExpression
 
     internal RegisterFeatureExpression<TFeature> AsImplementationOf(Type abstractionType)
     {
-      _registered.AddImplementationOf(abstractionType, implementation: _feature);
+      _registered.Add(abstractionType, implementation: _feature);
       return this;
     }
   }
