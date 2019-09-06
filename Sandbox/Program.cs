@@ -45,6 +45,9 @@ namespace Sandbox
       features.Register(new TestFeature())
        .As(Implementation.Of<ITestFeature1>());
       
+      var testDependant = new TestDependant();
+      
+      testDependant.Terminate();
 
       Debugger.Break();
     }

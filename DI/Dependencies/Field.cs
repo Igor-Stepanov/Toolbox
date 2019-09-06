@@ -11,7 +11,7 @@ namespace FeaturesDI.Dependencies
     public Field(FieldInfo info)
     {
       Info = info;
-      Type = info.GetType();
+      Type = info.FieldType;
     }
     
     public InstanceField Of(object instance) =>

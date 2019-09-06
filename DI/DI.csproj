@@ -14,7 +14,7 @@
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2018.3.6f1</UnityVersion>
-    <BaseIntermediateOutputPath>/Users/i.stepanov/UnityProjects/Game/Temp/Client_obj/Debug_AnyCPU/</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>/bin/Debug</BaseIntermediateOutputPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>/Users/i.stepanov/UnityProjects/Game/Temp/Client_bin/Debug_AnyCPU/</OutputPath>
+    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,7 +31,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>/Users/i.stepanov/UnityProjects/Game/Temp/Client_bin/Release_AnyCPU/</OutputPath>
+    <OutputPath>bin/Release</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

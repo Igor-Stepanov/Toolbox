@@ -14,7 +14,7 @@ namespace FeaturesDI.Registered
     void IFeatures.Add(Feature feature)
     {
       if (_features.Contains(feature.Type))
-        throw new InvalidOperationException($"Feature {feature.Type.Name} already registered.");
+        throw new InvalidOperationException($"{feature.Type.Name} registered already.");
       
       _features.Add(feature);
     }
@@ -30,8 +30,13 @@ namespace FeaturesDI.Registered
       _implementations.Add(abstraction, implementation);
     }
     
-    Feature IFeatures.Registered(Type abstraction) =>
-      _features[abstraction];
+    Feature IFeatures.Registered(Type abstractionType)
+    {
+      if (!_implementations.TryGetValue(abstractionType, out var implementationType))
+        throw new InvalidOperationException($"{abstractionType.Name} not registered.");
+      
+      return _features[implementationType];
+    }
 
     public void Clear() =>
       _features.Clear();
