@@ -6,6 +6,7 @@ using Common.Extensions;
 using DI.Client;
 using DI.Lifecycles;
 using DI.Lifecycles.Extensions;
+using DI.Logs;
 using DI.Registered.Dictionary;
 using DI.Registered.Extensions;
 
@@ -19,7 +20,7 @@ namespace DI.Registered
     private readonly RegisteredFeaturesDictionary _registeredFeatures;
     private readonly Lifecycle _lifecycle;
 
-    public RegisteredFeatures()
+    public RegisteredFeatures(ILog log)
     {
       _registeredFeatures = new RegisteredFeaturesDictionary();
       _lifecycle = new Lifecycle()

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Common.Extensions;
-using DI.Dependants;
+using DI.Dependant;
 using DI.Dependencies.Extensions;
+using DI.Logs;
 using DI.Registered;
 using DI.Registered.Extensions;
 using DI.RegisterExpression;
@@ -14,15 +15,17 @@ namespace DI.Client
     public event Action<Exception> Failed = delegate { };
     
     private static RegisteredFeatures _registered;
-    private static HashSet<Dependant> _dependants;
+    private static Dependants _dependants;
 
-    public Features()
+    private readonly ILog _log;
+    public Features(ILog log = null)
     {
       if (_registered != null)
         throw new InvalidOperationException($"Multiple instances of {nameof(Features)} is not allowed.");
 
-      _registered = new RegisteredFeatures().WhenFailed(Failed.Invoke);
-      _dependants = new HashSet<Dependant>();
+      _log = log;
+      _registered = new RegisteredFeatures(_log).WhenFailed(Failed.Invoke);
+      _dependants = new Dependants(_log, _registered);
     }
 
     public void Initialize() =>
@@ -36,7 +39,7 @@ namespace DI.Client
 
     public void Terminate()
     {
-      _dependants.ForEach(x => x.Dependencies().Clear());
+      _dependants.Release();
       
       _registered.Lifecycle.Stop();
       _registered = null;
@@ -46,14 +49,10 @@ namespace DI.Client
     public RegisterFeatureExpression<TFeature> Register<TFeature>(TFeature feature) where TFeature : Feature => 
        new RegisterFeatureExpression<TFeature>(feature, _registered);
 
-    public static void InjectInto(object instance)
-    {
-      if (!_dependants.)
-      {
-      }
-    }
-    
-    public static IFeature RegisteredImplementationOf(Type type) => 
-      _registered.FeatureOf(type);
+    public static void InjectInto(object instance) =>
+      _dependants.Add(instance);
+
+    public static void Clear(object instance) =>
+      _dependants.Release(instance);
   }
 }

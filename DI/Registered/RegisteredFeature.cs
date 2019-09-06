@@ -1,40 +1,40 @@
 using System;
-using Common.Collections.OrderedDictionary;
 using DI.Client;
 using DI.Lifecycles;
+using DI.Lifecycles.Extensions;
 
 namespace DI.Registered
 {
-  internal class Registered<TFeature> : RegisteredImplementationOf<TFeature>, ILifecycle where TFeature : Feature
+  internal class Registered<TFeature> : IRegisteredFeature where TFeature : Feature
   {
     public event Action<Exception> Failed;
-    
-    public Registered(TFeature feature) : base(feature)
+
+    public Type Type => typeof(TFeature);
+    public IFeature Feature => _feature;
+    public ILifecycle Lifecycle { get; }
+
+    private readonly TFeature _feature;
+
+    public Registered(TFeature feature)
     {
+      _feature = feature;
+      Lifecycle = new Lifecycle()
+        .StartWith(Safe(_feature.Lifecycle.Start))
+        .PauseWith(Safe(_feature.Lifecycle.Pause))
+        .ContinueWith(Safe(_feature.Lifecycle.Continue))
+        .StopWith(Safe(_feature.Lifecycle.Stop));
     }
 
-    void ILifecycle.Start() =>
-      Safe(x => x.Start());
-
-    void ILifecycle.Pause() =>
-      Safe(x => x.Pause());
-
-    void ILifecycle.Continue() =>
-      Safe(x => x.Continue());
-
-    void ILifecycle.Stop() =>
-      Safe(x => x.Stop());
-
-    private void Safe(Action<ILifecycle> action)
+    private Action Safe(Action action) => () =>
     {
       try
       {
-        action(Feature);
+        action();
       }
       catch (Exception exception)
       {
         Failed?.Invoke(exception);
       }
-    }
+    };
   }
 }

@@ -1,3 +1,4 @@
+using System;
 using Common.Extensions;
 using DI.Client;
 using DI.Registered;
@@ -21,19 +22,19 @@ namespace DI.RegisterExpression
       return this;
     }
 
-    internal RegisterFeatureExpression<TFeature> AsImplementationOf<TInterface>() where TInterface : class, IFeature
+    internal RegisterFeatureExpression<TFeature> AsImplementationOf(Type abstractionType)
     {
-      _registered.AddImplementationOf(_feature.As<TInterface>());
+      _registered.AddImplementationOf(abstractionType, implementation: _feature);
       return this;
     }
   }
   
   public static class RegisterFeatureExpressionExtension
   {
-    public static RegisterFeatureExpression<TFeature> As<TFeature, TFeatureInterface>
-    (this RegisterFeatureExpression<TFeature> self, TypeOf<TFeatureInterface> type)
-      where TFeatureInterface : class, IFeature
-      where TFeature : Feature, TFeatureInterface => 
-      self.AsImplementationOf<TFeatureInterface>();
+    public static RegisterFeatureExpression<TFeature> As<TFeature, TAbstraction>
+    (this RegisterFeatureExpression<TFeature> self, TypeOf<TAbstraction> type)
+      where TAbstraction : class, IFeature
+      where TFeature : Feature, TAbstraction => 
+      self.AsImplementationOf(typeof(TAbstraction));
   }
 }

@@ -1,14 +1,12 @@
-using DI.Dependencies.Extensions;
-
 namespace DI.Client
 {
   public static class Dependencies
   {
     public static void InjectInto(object dependant) =>
-      dependant.Dependencies().Inject();
+      Features.InjectInto(dependant);
 
     public static void Clear(object dependant) =>
-      dependant.Dependencies().Clear();
+      Features.Clear(dependant);
 
     public static void InjectDependencies(this object self) =>
       InjectInto(self);

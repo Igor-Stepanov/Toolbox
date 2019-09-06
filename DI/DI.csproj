@@ -45,9 +45,8 @@
     <Compile Include="Client\IFeature.cs" />
     <Compile Include="Client\Dependencies.cs" />
     <Compile Include="Client\InjectAttribute.cs" />
-    <Compile Include="Dependants\ComparedByReference.cs" />
-    <Compile Include="Dependants\Dependants.cs" />
-    <Compile Include="Dependants\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Dependant\ComparedByReference.cs" />
+    <Compile Include="Dependant\Dependants.cs" />
     <Compile Include="Dependencies\InstanceDependencies.cs" />
     <Compile Include="Dependencies\TypeDependency.cs" />
     <Compile Include="Dependencies\Extensions\DependencyExtensions.cs" />
@@ -68,11 +67,11 @@
     <Compile Include="Logs\ILog.cs" />
     <Compile Include="Reference\FeatureReference.cs" />
     <Compile Include="Registered\Dictionary\RegisteredFeaturesDictionary.cs" />
+    <Compile Include="Registered\Dictionary\RegisteredFeatureType.cs" />
     <Compile Include="Registered\Extensions\RegisteredFeatureExtensions.cs" />
     <Compile Include="Registered\Extensions\RegisteredFeaturesExtensions.cs" />
     <Compile Include="Registered\IRegisteredFeatures.cs" />
     <Compile Include="Registered\RegisteredFeatures.cs" />
-    <Compile Include="Registered\RegisteredImplementationOfAbstractFeature.cs" />
     <Compile Include="RegisterExpression\Implementation.cs" />
     <Compile Include="RegisterExpression\RegisterFeatureExpression.cs" />
     <Compile Include="Requested\Extensions\FeatureReferenceExtensions.cs" />

@@ -15,7 +15,7 @@ namespace DI.Dependencies
       _typeDependencies = typeDependencies;
     }
     
-    public void Inject(IRegisteredFeatures registeredFeatures) => 
+    public void InjectWith(IRegisteredFeatures registeredFeatures) => 
       _typeDependencies
        .Of(_instance)
        .ForEach(x => x.Inject(registeredFeatures));
