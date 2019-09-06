@@ -18,8 +18,12 @@ namespace FeaturesDI.Static
       _features = features;
     }
 
-    public void InjectInto(object instance) => 
-      _dependants.Add(instance.InjectedWith(_features));
+    public void InjectInto(object instance)
+    {
+      var type = _dependants.Types.OneOf(instance.GetType());
+      var instance = type.Of(instance);
+      _dependants.Add(_dependants.Types.OneOf(instance).InjectedWith(_features));
+    }
 
     public void Release(object instance) => 
       _dependants.Remove(instance.Released());

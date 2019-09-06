@@ -6,14 +6,6 @@ using FeaturesDI.Dependencies.Extensions;
 
 namespace FeaturesDI.Dependant
 {
-  internal interface IDependants
-  {
-    void Add(object instance);
-    void Remove(object instance);
-    
-    IEnumerable<object> ReleaseAll();
-  }
-
   internal class Dependants : IDependants
   {
     private readonly HashSet<object> _dependants = new HashSet<object>(Compared.ByReference());

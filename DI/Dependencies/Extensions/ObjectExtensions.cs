@@ -16,7 +16,7 @@ namespace FeaturesDI.Dependencies.Extensions
       return self;
     }
 
-    private static InstanceDependencies Dependencies(this object self) => self
+    private static Dependant Dependencies(this object self) => self
      .GetType()
      .Dependencies()
      .Of(self);

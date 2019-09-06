@@ -1,6 +1,7 @@
 using System.Linq;
 using Common.Extensions;
 using FeaturesDI.Dependant;
+using FeaturesDI.Dependencies;
 using FeaturesDI.Registered;
 using FeaturesDI.RegisterExpression;
 using FeaturesDI.Static;

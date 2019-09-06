@@ -2,12 +2,12 @@ using FeaturesDI.Registered;
 
 namespace FeaturesDI.Dependencies
 {
-  internal struct InstanceDependencies
+  internal struct Dependant
   {
     private readonly object _instance;
     private readonly Field[] _fields;
 
-    public InstanceDependencies(object instance, Field[] fields)
+    public Dependant(object instance, Field[] fields)
     {
       _instance = instance;
       _fields = fields;

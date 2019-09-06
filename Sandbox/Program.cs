@@ -31,6 +31,7 @@ namespace Sandbox
       public TestDependant()
       {
         this.InjectDependencies();
+        this.InjectDependencies();
       }
 
       public void Terminate() =>
@@ -42,7 +43,8 @@ namespace Sandbox
     {
       var features = new Features();
 
-      features.Register(new TestFeature())
+      features
+       .Register(new TestFeature())
        .As(Implementation.Of<ITestFeature1>());
       
       var testDependant = new TestDependant();
