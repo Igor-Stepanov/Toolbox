@@ -1,58 +1,52 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using Common.Extensions;
-using DI.Dependant;
-using DI.Dependencies.Extensions;
-using DI.Logs;
-using DI.Registered;
-using DI.Registered.Extensions;
-using DI.RegisterExpression;
+using FeaturesDI.Dependant;
+using FeaturesDI.Registered;
+using FeaturesDI.RegisterExpression;
+using FeaturesDI.Static;
 
-namespace DI.Client
+namespace FeaturesDI.Client
 {
   public class Features
   {
-    public event Action<Exception> Failed = delegate { };
-    
-    private static RegisteredFeatures _registered;
-    private static Dependants _dependants;
+    private readonly IFeatures _features;
+    private readonly IDependants _dependants;
 
-    private readonly ILog _log;
-    public Features(ILog log = null)
+    public Features()
     {
-      if (_registered != null)
-        throw new InvalidOperationException($"Multiple instances of {nameof(Features)} is not allowed.");
+      _features = new Registered.Features();
+      _dependants = new Dependants();
 
-      _log = log;
-      _registered = new RegisteredFeatures(_log).WhenFailed(Failed.Invoke);
-      _dependants = new Dependants(_log, _registered);
+      DI.Initialize(_features, _dependants);
     }
 
-    public void Initialize() =>
-      _registered.Lifecycle.Start();
+    public void Initialize() => _features
+     .ForEach(x => x.Lifecycle.Start());
 
-    public void Pause() =>
-      _registered.Lifecycle.Pause();
+    public void Pause() => _features
+     .Reverse()
+     .ForEach(x => x.Lifecycle.Pause());
 
-    public void Continue() =>
-      _registered.Lifecycle.Continue();
+    public void Continue() => _features
+       .ForEach(x => x.Lifecycle.Continue());
 
     public void Terminate()
     {
-      _dependants.Release();
+      DI.Terminate();
       
-      _registered.Lifecycle.Stop();
-      _registered = null;
+      _features
+       .Reverse()
+       .ForEach(x => x.Lifecycle.Stop());
+      
+      _features.Clear();
+      _dependants.ReleaseAll();
     }
-
-    // ReSharper disable once MemberCanBeMadeStatic.Global
-    public RegisterFeatureExpression<TFeature> Register<TFeature>(TFeature feature) where TFeature : Feature => 
-       new RegisterFeatureExpression<TFeature>(feature, _registered);
-
-    public static void InjectInto(object instance) =>
-      _dependants.Add(instance);
-
-    public static void Clear(object instance) =>
-      _dependants.Release(instance);
+    
+    public RegisterFeatureExpression<TFeature> Register<TFeature>(TFeature feature)
+      where TFeature : Feature
+    {
+      _features.Add(feature);
+      return new RegisterFeatureExpression<TFeature>(_features);
+    }
   }
 }

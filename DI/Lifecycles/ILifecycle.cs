@@ -1,4 +1,4 @@
-namespace DI.Lifecycles
+namespace FeaturesDI.Lifecycles
 {
   public interface ILifecycle
   {

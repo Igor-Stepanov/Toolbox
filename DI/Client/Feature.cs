@@ -1,10 +1,13 @@
-using DI.Lifecycles;
-using DI.Lifecycles.Extensions;
+using System;
+using FeaturesDI.Lifecycles;
+using FeaturesDI.Lifecycles.Extensions;
 
-namespace DI.Client
+namespace FeaturesDI.Client
 {
   public abstract class Feature : IFeature
   {
+    internal Type Type => GetType();
+    
     public ILifecycle Lifecycle => new FeatureLifecycle(this)
        .StartWith(Initialize)
        .PauseWith(Pause)

@@ -1,21 +1,19 @@
 using System;
 using System.Linq;
-using DI.Client;
-using DI.Dependencies.Extensions;
+using FeaturesDI.Client;
+using FeaturesDI.Dependencies.Extensions;
 
-namespace DI.Dependencies
+namespace FeaturesDI.Dependencies
 {
   internal class TypeDependencies
   {
     private readonly Type _type;
-    private readonly TypeDependency[] _dependencies;
+    private readonly Field[] _dependencies;
 
     public TypeDependencies(Type type)
     {
       _type = type;
-      _dependencies = _type.AllFieldsWith<InjectAttribute>()
-       .AsDependencies()
-       .ToArray();
+      _dependencies = _type.FieldsWith<InjectAttribute>().ToArray();
     }
     
     public InstanceDependencies Of(object instance)

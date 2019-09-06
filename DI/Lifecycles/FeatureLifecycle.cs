@@ -1,9 +1,9 @@
 using System;
-using DI.Client;
-using DI.Exceptions;
-using DI.Lifecycles.Extensions;
+using FeaturesDI.Client;
+using FeaturesDI.Exceptions;
+using FeaturesDI.Lifecycles.Extensions;
 
-namespace DI.Lifecycles
+namespace FeaturesDI.Lifecycles
 {
   public class FeatureLifecycle : Lifecycle
   {

@@ -1,4 +1,4 @@
-namespace DI.Logs
+namespace FeaturesDI.Logs
 {
   public interface ILog
   {

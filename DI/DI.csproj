@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B59A8F0D-37E1-4E18-805B-3DF5E0F7396E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>DI</RootNamespace>
+    <RootNamespace>FeaturesDI</RootNamespace>
     <AssemblyName>DI</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,21 +40,21 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\Extensions\ObjectExtensions.cs" />
     <Compile Include="Client\Feature.cs" />
     <Compile Include="Client\Features.cs" />
     <Compile Include="Client\IFeature.cs" />
-    <Compile Include="Client\Dependencies.cs" />
     <Compile Include="Client\InjectAttribute.cs" />
     <Compile Include="Dependant\ComparedByReference.cs" />
     <Compile Include="Dependant\Dependants.cs" />
     <Compile Include="Dependencies\InstanceDependencies.cs" />
-    <Compile Include="Dependencies\TypeDependency.cs" />
+    <Compile Include="Dependencies\Field.cs" />
     <Compile Include="Dependencies\Extensions\DependencyExtensions.cs" />
     <Compile Include="Dependencies\Extensions\FileInfoExtensions.cs" />
     <Compile Include="Dependencies\Extensions\ObjectExtensions.cs" />
     <Compile Include="Dependencies\Extensions\TypeExtensions.cs" />
     <Compile Include="Dependencies\TypeDependencies.cs" />
-    <Compile Include="Dependencies\InstanceDependency.cs" />
+    <Compile Include="Dependencies\InstanceField.cs" />
     <Compile Include="Dependencies\CachedTypeDependencies.cs" />
     <Compile Include="Exceptions\FeatureException.cs" />
     <Compile Include="Exceptions\FeatureLifecycleException.cs" />
@@ -64,27 +64,15 @@
     <Compile Include="Lifecycles\FeatureLifecycle.cs" />
     <Compile Include="Lifecycles\ILifecycle.cs" />
     <Compile Include="Lifecycles\Lifecycle.cs" />
+    <Compile Include="Lifecycles\SafeActions\Extensions\SafeActionExtensions.cs" />
+    <Compile Include="Lifecycles\SafeActions\SafeAction.cs" />
     <Compile Include="Logs\ILog.cs" />
-    <Compile Include="Reference\FeatureReference.cs" />
-    <Compile Include="Registered\Dictionary\RegisteredFeaturesDictionary.cs" />
-    <Compile Include="Registered\Dictionary\RegisteredTypes.cs" />
-    <Compile Include="Registered\Extensions\RegisteredFeatureExtensions.cs" />
-    <Compile Include="Registered\Extensions\RegisteredFeaturesExtensions.cs" />
-    <Compile Include="Registered\IRegisteredFeatures.cs" />
-    <Compile Include="Registered\RegisteredFeatures.cs" />
+    <Compile Include="Registered\Dictionary\OrderedDictionary.cs" />
+    <Compile Include="Registered\IFeatures.cs" />
+    <Compile Include="Registered\Features.cs" />
     <Compile Include="RegisterExpression\Implementation.cs" />
     <Compile Include="RegisterExpression\RegisterFeatureExpression.cs" />
-    <Compile Include="Requested\Extensions\FeatureReferenceExtensions.cs" />
-    <Compile Include="Requested\IRequestedFeature.cs" />
-    <Compile Include="Requested\RequestedFeature.cs" />
-    <Compile Include="Request\FeatureReference.cs" />
-    <Compile Include="Request\FeatureRequest.cs" />
-    <Compile Include="Requested\RequestedFeatures.cs" />
-    <Compile Include="Registered\IRegisteredFeature.cs" />
-    <Compile Include="Registered\RegisteredFeature.cs" />
-    <Compile Include="Registered\Extensions\FeatureExtensions.cs" />
-    <Compile Include="Tracked\ITrackedFeatures.cs" />
-    <Compile Include="Tracked\FeatureReferences.cs" />
+    <Compile Include="Static\DI.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

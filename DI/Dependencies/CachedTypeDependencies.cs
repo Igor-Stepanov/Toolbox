@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DI.Dependencies
+namespace FeaturesDI.Dependencies
 {
   internal static class CachedTypeDependencies
   {

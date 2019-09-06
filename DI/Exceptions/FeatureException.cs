@@ -1,6 +1,6 @@
-using DI.Client;
+using FeaturesDI.Client;
 
-namespace DI.Exceptions
+namespace FeaturesDI.Exceptions
 {
   public interface IFeatureException
   {

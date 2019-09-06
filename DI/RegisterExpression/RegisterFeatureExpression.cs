@@ -1,40 +1,34 @@
 using System;
-using Common.Extensions;
-using DI.Client;
-using DI.Registered;
+using FeaturesDI.Client;
+using FeaturesDI.Registered;
 
-namespace DI.RegisterExpression
+namespace FeaturesDI.RegisterExpression
 {
   public struct RegisterFeatureExpression<TFeature> where TFeature : Feature
   {
-    private readonly TFeature _feature;
-    private readonly IRegisteredFeatures _registered;
+    private readonly IFeatures _registered;
 
-    internal RegisterFeatureExpression(TFeature feature, IRegisteredFeatures registered)
-    {
-      _feature = feature;
+    internal RegisterFeatureExpression(IFeatures registered) => 
       _registered = registered;
-    }
 
     public RegisterFeatureExpression<TFeature> AsSelf()
     {
-      _registered.Add(_feature);
+      _registered.Add(typeof(TFeature), typeof(TFeature));
       return this;
     }
 
-    internal RegisterFeatureExpression<TFeature> AsImplementationOf(Type abstractionType)
+    internal RegisterFeatureExpression<TFeature> As(Type abstraction)
     {
-      _registered.Add(abstractionType, implementation: _feature);
+      _registered.Add(abstraction, typeof(TFeature));
       return this;
     }
   }
   
   public static class RegisterFeatureExpressionExtension
   {
-    public static RegisterFeatureExpression<TFeature> As<TFeature, TAbstraction>
-    (this RegisterFeatureExpression<TFeature> self, TypeOf<TAbstraction> type)
+    public static RegisterFeatureExpression<TImplementation> As<TAbstraction, TImplementation>(this RegisterFeatureExpression<TImplementation> self, TypeOf<TAbstraction> type)
       where TAbstraction : class, IFeature
-      where TFeature : Feature, TAbstraction => 
-      self.AsImplementationOf(typeof(TAbstraction));
+      where TImplementation : Feature, TAbstraction => 
+      self.As(typeof(TAbstraction));
   }
 }

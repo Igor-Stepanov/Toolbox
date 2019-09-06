@@ -1,54 +1,38 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Extensions;
-using DI.Dependencies.Extensions;
-using DI.Logs;
-using DI.Registered;
+using FeaturesDI.Dependencies.Extensions;
 
-namespace DI.Dependant
+namespace FeaturesDI.Dependant
 {
-  internal class Dependants
+  internal interface IDependants
+  {
+    void Add(object instance);
+    void Remove(object instance);
+    
+    IEnumerable<object> ReleaseAll();
+  }
+
+  internal class Dependants : IDependants
   {
     private readonly HashSet<object> _dependants = new HashSet<object>(Compared.ByReference());
-
-    private readonly ILog _log;
-    private readonly IRegisteredFeatures _registeredFeatures;
-
-    public Dependants(ILog log, IRegisteredFeatures registeredFeatures)
-    {
-      _log = log;
-      _registeredFeatures = registeredFeatures;
-    }
 
     public void Add(object instance)
     {
       if (!_dependants.Add(instance))
-      {
-        _log.Warning($"Duplicate injection of {instance.GetType().Name} instance.");
-        return;
-      }
-
-      instance.Dependencies().InjectWith(_registeredFeatures);
+        throw new InvalidOperationException($"{instance.GetType().Name} instance added already.");
     }
 
-    public void Release(object instance)
+    public void Remove(object instance)
     {
       if (!_dependants.Remove(instance))
-      {
-        _log.Warning($"{instance.GetType().Name} instance released already.");
-        return;
-      }
-      
-      instance.Dependencies().Clear();
+        throw new InvalidOperationException($"{instance.GetType().Name} instance removed already.");
     }
-    
-    public void Release() => _dependants.ToArray()
-      .ForEach(leaked =>
-      {
-        leaked.Dependencies().Clear();
-        _dependants.Remove(leaked);
-            
-        _log.Warning($"{leaked.GetType().Name} instance was not released.");
-      });
+
+    public IEnumerable<object> ReleaseAll() => 
+      _dependants
+       .ToArray()
+       .ForEach(x => _dependants.Remove(x.Released()));
   }
 }

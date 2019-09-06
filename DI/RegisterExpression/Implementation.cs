@@ -1,14 +1,13 @@
-using DI.Client;
+using FeaturesDI.Client;
 
-namespace DI.RegisterExpression
+namespace FeaturesDI.RegisterExpression
 {
   // Pass type of abstract feature implementation using static import.
-  public class Implementation
+  public static class Implementation
   {
-    public static TypeOf<TAbstractFeature> Of<TAbstractFeature>()
-      where TAbstractFeature : IFeature => null;
+    public static TypeOf<TAbstractFeature> Of<TAbstractFeature>() where TAbstractFeature : IFeature =>
+      null;
   }
 
-  public delegate void TypeOf<TFeature>()
-    where TFeature : IFeature;
+  public interface TypeOf<TFeature> where TFeature : IFeature { }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace DI.Exceptions
+namespace FeaturesDI.Exceptions
 {
   public class LifecycleException : Exception
   {

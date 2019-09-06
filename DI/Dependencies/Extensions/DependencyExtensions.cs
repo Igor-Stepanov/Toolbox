@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DI.Dependencies.Extensions
+namespace FeaturesDI.Dependencies.Extensions
 {
   internal static class DependencyExtensions
   {
-    public static IEnumerable<InstanceDependency> Of(this IEnumerable<TypeDependency> self, object instance) =>
+    public static IEnumerable<InstanceField> Of(this IEnumerable<Field> self, object instance) =>
       self.Select(x => x.Of(instance));
   }
 }

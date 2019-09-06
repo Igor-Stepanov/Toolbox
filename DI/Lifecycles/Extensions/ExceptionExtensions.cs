@@ -1,8 +1,8 @@
 using System;
-using DI.Client;
-using DI.Exceptions;
+using FeaturesDI.Client;
+using FeaturesDI.Exceptions;
 
-namespace DI.Lifecycles.Extensions
+namespace FeaturesDI.Lifecycles.Extensions
 {
   public static class ExceptionExtensions
   {

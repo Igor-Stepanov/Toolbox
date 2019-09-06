@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace DI.Dependant
+namespace FeaturesDI.Dependant
 {
   internal class Compared : IEqualityComparer<object>
   {

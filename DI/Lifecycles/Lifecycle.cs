@@ -1,14 +1,16 @@
 using System;
-using DI.Exceptions;
-using DI.Lifecycles.Extensions;
+using FeaturesDI.Exceptions;
+using FeaturesDI.Lifecycles.Extensions;
+using FeaturesDI.Lifecycles.SafeActions;
+using FeaturesDI.Lifecycles.SafeActions.Extensions;
 
-namespace DI.Lifecycles
+namespace FeaturesDI.Lifecycles
 {
   public class Lifecycle : ILifecycle
   {
     public event Action<LifecycleException> Failed = delegate { };
     
-    public event Action Start = delegate {  };
+    public event Action Start;
     public event Action Pause = delegate {  };
     public event Action Continue = delegate {  };
     public event Action Stop = delegate {  };
@@ -25,17 +27,12 @@ namespace DI.Lifecycles
     void ILifecycle.Stop() => 
       Safe(Stop);
 
-    private void Safe(Action action)
-    {
-      try
-      {
-        action();
-      }
-      catch (Exception exception)
-      {
-        Failed.Invoke(Wrapped(exception));
-      }
-    }
+    private void Safe(Action action) => new Safe(action)
+       .WhenFailed(Notify)
+       .Invoke();
+    
+    private void Notify(Exception exception) =>
+      Failed.Invoke(exception.AsLifecycleException());
     
     protected virtual LifecycleException Wrapped(Exception exception) =>
       exception.AsLifecycleException();

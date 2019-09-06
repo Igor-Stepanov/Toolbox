@@ -1,6 +1,6 @@
 using System;
 
-namespace DI.Lifecycles.Extensions
+namespace FeaturesDI.Lifecycles.Extensions
 {
   public static class LifecycleExtensions
   {
