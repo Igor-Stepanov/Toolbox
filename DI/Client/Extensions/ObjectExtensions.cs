@@ -1,11 +1,13 @@
+using FeaturesDI.Static;
+
 namespace FeaturesDI.Client.Extensions
 {
   public static class ObjectExtensions
   {
     public static void InjectDependencies(this object self) =>
-      Static.DI.Current.InjectInto(self);
+      DI.Features.InjectInto(self);
     
     public static void ReleaseDependencies(this object self) =>
-      Static.DI.Current.Release(self);
+      DI.Features.Release(self);
   }
 }

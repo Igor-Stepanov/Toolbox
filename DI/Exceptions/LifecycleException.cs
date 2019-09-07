@@ -1,11 +1,13 @@
 using System;
+using FeaturesDI.Client;
 
 namespace FeaturesDI.Exceptions
 {
-  public class LifecycleException : Exception
+  public class LifecycleException : Exception, IFeatureException
   {
-    public LifecycleException(Exception exception) : base(nameof(LifecycleException), exception)
-    {
-    }
+    public IFeature Feature { get; }
+
+    public LifecycleException(Exception exception, IFeature feature) : base(nameof(LifecycleException), exception) =>
+      Feature = feature;
   }
 }

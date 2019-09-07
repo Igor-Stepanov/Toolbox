@@ -1,13 +1,15 @@
+using System.Reflection;
+using FeaturesDI.Dependency.Extensions;
 using FeaturesDI.Registered;
 
-namespace FeaturesDI.Dependencies
+namespace FeaturesDI.Dependency
 {
-  internal struct Dependant
+  internal struct InstanceDependencies
   {
     private readonly object _instance;
-    private readonly Field[] _fields;
+    private readonly FieldInfo[] _fields;
 
-    public Dependant(object instance, Field[] fields)
+    public InstanceDependencies(object instance, FieldInfo[] fields)
     {
       _instance = instance;
       _fields = fields;
@@ -16,7 +18,8 @@ namespace FeaturesDI.Dependencies
     public void InjectWith(IFeatures features)
     {
       foreach (var field in _fields)
-        field.Of(_instance).InjectWith(features.Registered(field.Type));
+        field.Of(_instance)
+          .InjectWith(features.ImplementationOf(field.FieldType));
     }
 
     public void Release()

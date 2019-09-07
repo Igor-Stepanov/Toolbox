@@ -2,12 +2,13 @@ using FeaturesDI.Client;
 
 namespace FeaturesDI.RegisterExpression
 {
-  // Pass type of abstract feature implementation using static import.
+  public delegate void TypeOf<TAbstraction>() where TAbstraction : IFeature;
+
+  // Use import static
   public static class Implementation
   {
-    public static TypeOf<TAbstractFeature> Of<TAbstractFeature>() where TAbstractFeature : IFeature =>
+    // Pass abstraction type using generic type parameter.
+    public static TypeOf<TAbstraction> Of<TAbstraction>() where TAbstraction : IFeature =>
       null;
   }
-
-  public interface TypeOf<TFeature> where TFeature : IFeature { }
 }

@@ -1,7 +1,6 @@
 using System.Linq;
 using Common.Extensions;
 using FeaturesDI.Dependant;
-using FeaturesDI.Dependencies;
 using FeaturesDI.Registered;
 using FeaturesDI.RegisterExpression;
 using FeaturesDI.Static;
@@ -22,14 +21,14 @@ namespace FeaturesDI.Client
     }
 
     public void Initialize() => _features
-     .ForEach(x => x.Lifecycle.Start());
+      .ForEach(x => x.Lifecycle.Start());
 
     public void Pause() => _features
-     .Reverse()
-     .ForEach(x => x.Lifecycle.Pause());
+      .Reverse()
+      .ForEach(x => x.Lifecycle.Pause());
 
     public void Continue() => _features
-       .ForEach(x => x.Lifecycle.Continue());
+      .ForEach(x => x.Lifecycle.Continue());
 
     public void Terminate()
     {

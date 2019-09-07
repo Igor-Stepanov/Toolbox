@@ -1,15 +1,12 @@
-using System.Collections.Generic;
-using FeaturesDI.Dependencies;
+using FeaturesDI.Registered;
 
 namespace FeaturesDI.Dependant
 {
   internal interface IDependants
   {
-    IDependantTypes Types { get; }
-
-    void Add(object instance);
-    void Remove(object instance);
+    void Inject(object instance, IFeatures features);
+    void Release(object instance);
     
-    IEnumerable<object> ReleaseAll();
+    void ReleaseAll();
   }
 }

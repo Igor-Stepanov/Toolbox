@@ -9,7 +9,7 @@ namespace FeaturesDI.Registered
     void Add(Feature feature);
     void Add(Type abstraction, Type implementation);
 
-    Feature Registered(Type abstraction);
+    Feature ImplementationOf(Type abstraction);
     
     void Clear();
   }

@@ -5,7 +5,7 @@ using FeaturesDI.Client;
 
 namespace FeaturesDI.Registered.Dictionary
 {
-  internal class OrderedDictionary<TFeature> : IEnumerable<TFeature> where TFeature : Feature 
+  internal class OrderedDictionary<TFeature> : IEnumerable<TFeature> where TFeature : Feature
   {
     private readonly List<TFeature> _list = new List<TFeature>();
     private readonly Dictionary<Type, TFeature> _dictionary = new Dictionary<Type, TFeature>();

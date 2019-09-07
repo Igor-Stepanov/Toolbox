@@ -1,13 +1,14 @@
+using System.Reflection;
 using FeaturesDI.Client;
 
-namespace FeaturesDI.Dependencies
+namespace FeaturesDI.Dependency
 {
   internal struct InstanceField
   {
     private readonly object _instance;
-    private readonly Field _field;
+    private readonly FieldInfo _field;
     
-    public InstanceField(object instance, Field field) =>
+    public InstanceField(object instance, FieldInfo field) =>
       (_instance, _field) =
       (instance, field);
 
@@ -18,6 +19,6 @@ namespace FeaturesDI.Dependencies
       Set(null);
     
     private void Set(IFeature value) =>
-      _field.Info.SetValue(_instance, value);
+      _field.SetValue(_instance, value);
   }
 }

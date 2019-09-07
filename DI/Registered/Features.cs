@@ -30,7 +30,7 @@ namespace FeaturesDI.Registered
       _implementations.Add(abstraction, implementation);
     }
     
-    Feature IFeatures.Registered(Type abstractionType)
+    Feature IFeatures.ImplementationOf(Type abstractionType)
     {
       if (!_implementations.TryGetValue(abstractionType, out var implementationType))
         throw new InvalidOperationException($"{abstractionType.Name} not registered.");

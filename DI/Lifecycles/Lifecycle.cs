@@ -1,4 +1,5 @@
 using System;
+using FeaturesDI.Client;
 using FeaturesDI.Exceptions;
 using FeaturesDI.Lifecycles.Extensions;
 using FeaturesDI.Lifecycles.SafeActions;
@@ -15,6 +16,11 @@ namespace FeaturesDI.Lifecycles
     public event Action Continue = delegate {  };
     public event Action Stop = delegate {  };
 
+    private readonly IFeature _feature;
+
+    public Lifecycle(IFeature feature) =>
+      _feature = feature;
+    
     void ILifecycle.Start() =>
       Safe(Start);
 
@@ -32,9 +38,6 @@ namespace FeaturesDI.Lifecycles
        .Invoke();
     
     private void Notify(Exception exception) =>
-      Failed.Invoke(exception.AsLifecycleException());
-    
-    protected virtual LifecycleException Wrapped(Exception exception) =>
-      exception.AsLifecycleException();
+      Failed.Invoke(exception.AsLifecycleException(_feature));
   }
 }

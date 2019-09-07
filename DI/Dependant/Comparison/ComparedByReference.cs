@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using Default = System.Runtime.CompilerServices.RuntimeHelpers;
 
-namespace FeaturesDI.Dependant
+namespace FeaturesDI.Dependant.Comparison
 {
   internal class Compared : IEqualityComparer<object>
   {
@@ -11,7 +11,7 @@ namespace FeaturesDI.Dependant
       ReferenceEquals(x, y);
      
     int IEqualityComparer<object>.GetHashCode(object o) => 
-      RuntimeHelpers.GetHashCode(o); // ThanksHelper.TryDo();
+      Default.GetHashCode(o);
     
     public static Compared ByReference() =>
       new Compared();

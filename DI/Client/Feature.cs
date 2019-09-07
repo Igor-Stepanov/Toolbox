@@ -8,7 +8,7 @@ namespace FeaturesDI.Client
   {
     internal Type Type => GetType();
     
-    public ILifecycle Lifecycle => new FeatureLifecycle(this)
+    public ILifecycle Lifecycle => new Lifecycle(this)
        .StartWith(Initialize)
        .PauseWith(Pause)
        .ContinueWith(Continue)
