@@ -1,7 +1,7 @@
 using System.Reflection;
-using FeaturesDI.Client;
+using DIFeatures.Public;
 
-namespace FeaturesDI.Dependency
+namespace DIFeatures.Dependency
 {
   internal struct InstanceField
   {

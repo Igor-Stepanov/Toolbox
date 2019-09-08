@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using FeaturesDI.Client;
+using DIFeatures.Public;
 
-namespace FeaturesDI.Registered
+namespace DIFeatures.Registered
 {
   internal interface IFeatures : IEnumerable<Feature>
   {
-    void Add(Feature feature);
-    void Add(Type abstraction, Type implementation);
+    void Register(Type abstraction, Feature implementation);
 
     Feature ImplementationOf(Type abstraction);
     

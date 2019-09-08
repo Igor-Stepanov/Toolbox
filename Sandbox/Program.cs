@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using FeaturesDI.Client;
-using FeaturesDI.Client.Extensions;
-using FeaturesDI.RegisterExpression;
+using DIFeatures.Public;
+using DIFeatures.Public.Extensions;
+using DIFeatures.RegisterExpression;
+using static DIFeatures.RegisterExpression.Implementation;
 
 namespace Sandbox
 {
@@ -31,7 +30,6 @@ namespace Sandbox
       public TestDependant()
       {
         this.InjectDependencies();
-        this.InjectDependencies();
       }
 
       public void Terminate() =>
@@ -45,7 +43,7 @@ namespace Sandbox
 
       features
        .Register(new TestFeature())
-       .As(Implementation.Of<ITestFeature1>());
+       .AsImplementation(Of<ITestFeature1>());
       
       var testDependant = new TestDependant();
       

@@ -1,34 +1,46 @@
 using System;
-using FeaturesDI.Client;
-using FeaturesDI.Registered;
+using DIFeatures.Errors;
+using DIFeatures.Public;
+using DIFeatures.Registered;
 
-namespace FeaturesDI.RegisterExpression
+namespace DIFeatures.RegisterExpression
 {
   public struct RegisterFeatureExpression<TFeature> where TFeature : Feature
   {
-    private readonly IFeatures _registered;
+    private readonly IErrors _errors;
+    private readonly TFeature _feature;
+    private readonly IFeatures _features;
 
-    internal RegisterFeatureExpression(IFeatures registered) => 
-      _registered = registered;
-
-    public RegisterFeatureExpression<TFeature> AsSelf()
+    internal RegisterFeatureExpression(IErrors errors, TFeature feature, IFeatures features)
     {
-      _registered.Add(typeof(TFeature), typeof(TFeature));
-      return this;
+      _errors = errors;
+      _feature = feature;
+      _features = features;
     }
 
-    internal RegisterFeatureExpression<TFeature> As(Type abstraction)
+    public RegisterFeatureExpression<TFeature> AsSelf() =>
+      AsImplementation(_feature.Type);
+
+    internal RegisterFeatureExpression<TFeature> AsImplementation(Type abstraction)
     {
-      _registered.Add(abstraction, typeof(TFeature));
+      try
+      {
+        _features.Register(abstraction, implementation: _feature);
+      }
+      catch (Exception exception)
+      {
+        _errors.Handle(exception);
+      }
+      
       return this;
     }
   }
   
   public static class RegisterFeatureExpressionExtension
   {
-    public static RegisterFeatureExpression<TImplementation> As<TAbstraction, TImplementation>(this RegisterFeatureExpression<TImplementation> self, TypeOf<TAbstraction> type)
-      where TAbstraction : class, IFeature
-      where TImplementation : Feature, TAbstraction => 
-      self.As(typeof(TAbstraction));
+    public static RegisterFeatureExpression<TImplementation> AsImplementation<TAbstraction, TImplementation>
+      (this RegisterFeatureExpression<TImplementation> self, TypeOf<TAbstraction> of)
+        where TAbstraction : class, IFeature
+        where TImplementation : Feature, TAbstraction => self.AsImplementation(typeof(TAbstraction));
   }
 }

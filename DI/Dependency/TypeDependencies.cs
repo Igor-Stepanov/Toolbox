@@ -2,10 +2,10 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Common.Extensions;
-using FeaturesDI.Client;
-using FeaturesDI.Dependency.Extensions;
+using DIFeatures.Dependency.Extensions;
+using DIFeatures.Public;
 
-namespace FeaturesDI.Dependency
+namespace DIFeatures.Dependency
 {
   internal class TypeDependencies
   {

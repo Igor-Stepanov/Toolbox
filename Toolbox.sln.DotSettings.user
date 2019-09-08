@@ -5,5 +5,8 @@
   &lt;Assembly Path="E:\Git\Toolbox\packages\Pocket.Benchmarks.1.0.2\lib\net471\Pocket.Benchmarks.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=ad352ef6_002D35b2_002D44b3_002D9926_002Dadb0d0e37214_0023ConsoleApp1/@EntryIndexedValue">True</s:Boolean>
+	
+	
 	
 	</wpf:ResourceDictionary>

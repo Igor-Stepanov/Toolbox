@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Default = System.Runtime.CompilerServices.RuntimeHelpers;
 
-namespace FeaturesDI.Dependant.Comparison
+namespace DIFeatures.Dependant.Comparison
 {
   internal class Compared : IEqualityComparer<object>
   {

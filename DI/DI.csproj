@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B59A8F0D-37E1-4E18-805B-3DF5E0F7396E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>FeaturesDI</RootNamespace>
-    <AssemblyName>DI</AssemblyName>
+    <RootNamespace>DIFeatures</RootNamespace>
+    <AssemblyName>DIFeatures</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -40,14 +40,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\Extensions\ObjectExtensions.cs" />
-    <Compile Include="Client\Feature.cs" />
-    <Compile Include="Client\Features.cs" />
-    <Compile Include="Client\IFeature.cs" />
-    <Compile Include="Client\InjectAttribute.cs" />
+    <Compile Include="Errors\IErrors.cs" />
+    <Compile Include="Errors\SilentNotifications.cs" />
+    <Compile Include="Public\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Public\Feature.cs" />
+    <Compile Include="Public\Features.cs" />
+    <Compile Include="Public\IFeature.cs" />
+    <Compile Include="Public\InjectAttribute.cs" />
     <Compile Include="Dependant\Comparison\ComparedByReference.cs" />
     <Compile Include="Dependant\Dependants.cs" />
     <Compile Include="Dependant\IDependants.cs" />
+    <Compile Include="Dependency\Extensions\FieldInfoExtensions.cs" />
     <Compile Include="Dependency\Extensions\ObjectExtensions.cs" />
     <Compile Include="Dependency\InstanceDependencies.cs" />
     <Compile Include="Dependency\Extensions\TypeExtensions.cs" />
@@ -56,18 +59,17 @@
     <Compile Include="Dependency\Dependencies.cs" />
     <Compile Include="Exceptions\FeatureException.cs" />
     <Compile Include="Exceptions\LifecycleException.cs" />
-    <Compile Include="Lifecycles\Extensions\ExceptionExtensions.cs" />
-    <Compile Include="Lifecycles\Extensions\LifecycleExtensions.cs" />
-    <Compile Include="Lifecycles\ILifecycle.cs" />
-    <Compile Include="Lifecycles\Lifecycle.cs" />
-    <Compile Include="Lifecycles\SafeActions\Extensions\SafeActionExtensions.cs" />
-    <Compile Include="Lifecycles\SafeActions\SafeAction.cs" />
+    <Compile Include="Flow\Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Flow\Extensions\LifecycleExtensions.cs" />
+    <Compile Include="Flow\ILifecycle.cs" />
+    <Compile Include="Flow\Lifecycle.cs" />
     <Compile Include="Registered\Dictionary\OrderedDictionary.cs" />
     <Compile Include="Registered\IFeatures.cs" />
     <Compile Include="Registered\Features.cs" />
     <Compile Include="RegisterExpression\Implementation.cs" />
     <Compile Include="RegisterExpression\RegisterFeatureExpression.cs" />
     <Compile Include="Static\DI.cs" />
+    <Compile Include="ThreadSafe\SafeSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

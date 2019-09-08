@@ -1,6 +1,6 @@
-using FeaturesDI.Client;
+using DIFeatures.Public;
 
-namespace FeaturesDI.RegisterExpression
+namespace DIFeatures.RegisterExpression
 {
   public delegate void TypeOf<TAbstraction>() where TAbstraction : IFeature;
 

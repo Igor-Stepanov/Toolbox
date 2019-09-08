@@ -1,7 +1,7 @@
 using System;
-using FeaturesDI.Client;
+using DIFeatures.Public;
 
-namespace FeaturesDI.Exceptions
+namespace DIFeatures.Exceptions
 {
   public class LifecycleException : Exception, IFeatureException
   {

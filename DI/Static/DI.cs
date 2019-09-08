@@ -1,41 +1,69 @@
 using System;
-using FeaturesDI.Dependant;
-using FeaturesDI.Registered;
+using DIFeatures.Dependant;
+using DIFeatures.Errors;
+using DIFeatures.Registered;
+using DIFeatures.ThreadSafe;
 
-namespace FeaturesDI.Static
+namespace DIFeatures.Static
 {
   internal class DI
   {
     public static DI Features { get; private set; }
 
+    private readonly IErrors _errors;
     private readonly IFeatures _features;
     private readonly IDependants _dependants;
+    
+    private readonly SafeSection _safe;
 
-    public DI(IFeatures features, IDependants dependants)
+    private DI(IErrors errors, IFeatures features, IDependants dependants)
     {
-      _dependants = dependants;
+      _errors = errors;
       _features = features;
+      _dependants = dependants;
+      
+      _safe = new SafeSection();
     }
 
-    public void InjectInto(object instance) =>
-      _dependants.Inject(instance, _features);
+    public void InjectInto(object instance)
+    {
+      try 
+      { 
+        using (_safe.Section)
+          _dependants.Inject(instance, _features);
+      }
+      catch (Exception exception)
+      {
+        _errors.Handle(exception);
+      }
+    }
 
-    public void Release(object instance) => 
-      _dependants.Release(instance);
+    public void Release(object instance)
+    {
+      try
+      {
+        using (_safe.Section)
+          _dependants.Release(instance);
+      }
+      catch (Exception exception)
+      {
+        _errors.Handle(exception);
+      }
+    }
 
-    public static void Initialize(IFeatures features, IDependants dependants)
+    internal static void Initialize(IErrors errors, IFeatures features, IDependants dependants)
     {
       if (Features != null)
-        throw new InvalidOperationException($"Multiple instances of {nameof(DI)} is not allowed.");
+        throw new InvalidOperationException("Multiple instances of DI is not allowed.");
       
-      Features = new DI(features, dependants);
+      Features = new DI(errors, features, dependants);
     }
     
-    public static void Terminate()
+    internal static void Terminate()
     {
       if (Features == null)
-        throw new InvalidOperationException($"Instance of {nameof(DI)} is terminated already.");
-      
+        throw new InvalidOperationException("Instance of DI is terminated already.");
+  
       Features = null;
     }
   }

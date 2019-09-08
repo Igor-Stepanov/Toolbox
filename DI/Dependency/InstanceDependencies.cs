@@ -1,8 +1,8 @@
 using System.Reflection;
-using FeaturesDI.Dependency.Extensions;
-using FeaturesDI.Registered;
+using DIFeatures.Dependency.Extensions;
+using DIFeatures.Registered;
 
-namespace FeaturesDI.Dependency
+namespace DIFeatures.Dependency
 {
   internal struct InstanceDependencies
   {
@@ -18,8 +18,12 @@ namespace FeaturesDI.Dependency
     public void InjectWith(IFeatures features)
     {
       foreach (var field in _fields)
+      {
+        var feature = features.ImplementationOf(field.Type());
+        
         field.Of(_instance)
-          .InjectWith(features.ImplementationOf(field.FieldType));
+          .InjectWith(feature);
+      }
     }
 
     public void Release()

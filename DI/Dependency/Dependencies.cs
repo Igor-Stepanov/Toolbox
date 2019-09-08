@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using FeaturesDI.Dependency.Extensions;
+using DIFeatures.Dependency.Extensions;
 
-namespace FeaturesDI.Dependency
+namespace DIFeatures.Dependency
 {
   internal class Dependencies
   {
@@ -10,13 +10,13 @@ namespace FeaturesDI.Dependency
 
     public TypeDependencies Of(Type type)
     {
-      if (_dependencies.TryGetValue(type, out var dependencies))
-        return dependencies;
+      if (_dependencies.TryGetValue(type, out var typeDependencies))
+        return typeDependencies;
 
-      dependencies = type.Dependencies();
-      _dependencies.Add(type, dependencies);
+      typeDependencies = type.Dependencies();
+      _dependencies.Add(type, typeDependencies);
 
-      return dependencies;
+      return typeDependencies;
     }
   }
 }

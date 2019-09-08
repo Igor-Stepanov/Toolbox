@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FeaturesDI.Client;
+using DIFeatures.Public;
 
-namespace FeaturesDI.Registered.Dictionary
+namespace DIFeatures.Registered.Dictionary
 {
   internal class OrderedDictionary<TFeature> : IEnumerable<TFeature> where TFeature : Feature
   {

@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace FeaturesDI.Dependency.Extensions
+namespace DIFeatures.Dependency.Extensions
 {
   internal static class ObjectExtensions
   {

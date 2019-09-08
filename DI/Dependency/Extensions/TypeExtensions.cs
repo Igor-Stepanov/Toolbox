@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Common.Reflection.Extensions;
 
-namespace FeaturesDI.Dependency.Extensions
+namespace DIFeatures.Dependency.Extensions
 {
   internal static class TypeExtensions
   {

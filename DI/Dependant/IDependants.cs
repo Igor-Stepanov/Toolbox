@@ -1,6 +1,6 @@
-using FeaturesDI.Registered;
+using DIFeatures.Registered;
 
-namespace FeaturesDI.Dependant
+namespace DIFeatures.Dependant
 {
   internal interface IDependants
   {
