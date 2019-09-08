@@ -10,14 +10,11 @@ namespace Sandbox
   {
     public interface ITestFeature1 : IFeature
     {
-      
     }
     
     public interface ITestFeature2
     {
-      
     }
-
     
     public class TestFeature : Feature, ITestFeature1, ITestFeature2
     {
@@ -35,7 +32,6 @@ namespace Sandbox
       public void Terminate() =>
         this.ReleaseDependencies();
     }
-
 
     public static void Main(string[] args)
     {

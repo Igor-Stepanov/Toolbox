@@ -3,9 +3,9 @@ using System.Threading;
 
 namespace DIFeatures.ThreadSafe
 {
-  public class SafeSection
+  public class ThreadSafeSection
   {
-    public SafeSectionExit Section
+    public ExitOnDispose Section
     {
       get
       {
@@ -15,12 +15,12 @@ namespace DIFeatures.ThreadSafe
     }
     
     private readonly object _guard;
-    private readonly SafeSectionExit _exit;
+    private readonly ExitOnDispose _exit;
 
-    public SafeSection()
+    public ThreadSafeSection()
     {
       _guard = new object();
-      _exit = new SafeSectionExit(this);
+      _exit = new ExitOnDispose(this);
     }
 
     private void Enter() =>
@@ -29,11 +29,11 @@ namespace DIFeatures.ThreadSafe
     private void Exit() => 
       Monitor.Exit(_guard);
 
-    public class SafeSectionExit : IDisposable
+    public class ExitOnDispose : IDisposable
     {
-      private readonly SafeSection _safeSection;
+      private readonly ThreadSafeSection _safeSection;
 
-      public SafeSectionExit(SafeSection safeSection) =>
+      public ExitOnDispose(ThreadSafeSection safeSection) =>
         _safeSection = safeSection;
 
       public void Dispose() =>

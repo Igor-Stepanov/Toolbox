@@ -14,7 +14,7 @@ namespace DIFeatures.Static
     private readonly IFeatures _features;
     private readonly IDependants _dependants;
     
-    private readonly SafeSection _safe;
+    private readonly ThreadSafeSection _threadSafe;
 
     private DI(IErrors errors, IFeatures features, IDependants dependants)
     {
@@ -22,14 +22,14 @@ namespace DIFeatures.Static
       _features = features;
       _dependants = dependants;
       
-      _safe = new SafeSection();
+      _threadSafe = new ThreadSafeSection();
     }
 
     public void InjectInto(object instance)
     {
       try 
       { 
-        using (_safe.Section)
+        using (_threadSafe.Section)
           _dependants.Inject(instance, _features);
       }
       catch (Exception exception)
@@ -42,7 +42,7 @@ namespace DIFeatures.Static
     {
       try
       {
-        using (_safe.Section)
+        using (_threadSafe.Section)
           _dependants.Release(instance);
       }
       catch (Exception exception)

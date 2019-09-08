@@ -69,7 +69,7 @@
     <Compile Include="RegisterExpression\Implementation.cs" />
     <Compile Include="RegisterExpression\RegisterFeatureExpression.cs" />
     <Compile Include="Static\DI.cs" />
-    <Compile Include="ThreadSafe\SafeSection.cs" />
+    <Compile Include="ThreadSafe\ThreadSafeSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
