@@ -8,8 +8,7 @@ namespace DIFeatures.Public
   {
     internal Type Type => GetType();
     
-    internal ILifecycle Lifecycle =>
-      new Lifecycle(this)
+    internal ILifecycle Lifecycle => new Lifecycle(this)
        .StartWith(Initialize)
        .UpdateWith(Update)
        .PauseWith(Pause)

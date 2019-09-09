@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.Remoting.Channels;
 using DIFeatures.Public;
 using DIFeatures.Public.Extensions;
 using DIFeatures.RegisterExpression;
@@ -20,17 +21,15 @@ namespace Sandbox
     {
     }
     
-    public class TestDependant
+    public abstract class Dependant
+    {
+      protected Dependant() => 
+        this.InjectDependencies();
+    }
+    
+    public class TestDependant : Dependant
     {
       [Inject] private readonly ITestFeature1 _test;
-
-      public TestDependant()
-      {
-        this.InjectDependencies();
-      }
-
-      public void Terminate() =>
-        this.ReleaseDependencies();
     }
 
     public static void Main(string[] args)
@@ -42,8 +41,8 @@ namespace Sandbox
        .AsImplementation(Of<ITestFeature1>());
       
       var testDependant = new TestDependant();
+      features.Terminate();
       
-      testDependant.Terminate();
 
       Debugger.Break();
     }

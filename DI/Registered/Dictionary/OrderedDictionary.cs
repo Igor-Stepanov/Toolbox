@@ -5,7 +5,7 @@ using DIFeatures.Public;
 
 namespace DIFeatures.Registered.Dictionary
 {
-  internal class OrderedDictionary<TFeature> : IEnumerable<TFeature> where TFeature : Feature
+  internal class OrderedDictionary<TFeature> where TFeature : Feature
   {
     private readonly List<TFeature> _list = new List<TFeature>();
     private readonly Dictionary<Type, TFeature> _dictionary = new Dictionary<Type, TFeature>();
@@ -27,8 +27,8 @@ namespace DIFeatures.Registered.Dictionary
       _list.Clear();
       _dictionary.Clear();
     }
-
-    public IEnumerator<TFeature> GetEnumerator() => _list.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
+    public List<TFeature>.Enumerator GetEnumerator() =>
+      _list.GetEnumerator();
   }
 }

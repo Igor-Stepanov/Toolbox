@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Extensions;
 using DIFeatures.Dependant.Comparison;
 using DIFeatures.Dependency;
+using DIFeatures.Public.Extensions;
 using DIFeatures.Registered;
 
 namespace DIFeatures.Dependant
@@ -40,7 +42,15 @@ namespace DIFeatures.Dependant
         .Release();
     }
 
-    public void ReleaseAll() => 
+    public void ReleaseAll()
+    {
+      if (_dependants.Count > 0)
+      {
+        var leaked = _dependants.ToArray();
+        leaked.ForEach(x => x.ReleaseDependencies());
+      }
+      
       _dependants.Clear();
+    }
   }
 }

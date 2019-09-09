@@ -14,7 +14,7 @@
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2018.3.6f1</UnityVersion>
-    <BaseIntermediateOutputPath>/bin/Debug</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>/Users/i.stepanov/RiderProjects/Toolbox/DI/bin/Debug</BaseIntermediateOutputPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -64,6 +64,7 @@
     <Compile Include="Flow\ILifecycle.cs" />
     <Compile Include="Flow\Lifecycle.cs" />
     <Compile Include="Registered\Dictionary\OrderedDictionary.cs" />
+    <Compile Include="Registered\Extensions\IFeaturesExtensions.cs" />
     <Compile Include="Registered\IFeatures.cs" />
     <Compile Include="Registered\Features.cs" />
     <Compile Include="RegisterExpression\Implementation.cs" />

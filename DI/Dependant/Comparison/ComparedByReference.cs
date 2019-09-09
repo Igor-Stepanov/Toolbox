@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using Default = System.Runtime.CompilerServices.RuntimeHelpers;
+using System.Runtime.CompilerServices;
+
 
 namespace DIFeatures.Dependant.Comparison
 {
@@ -11,7 +12,7 @@ namespace DIFeatures.Dependant.Comparison
       ReferenceEquals(x, y);
      
     int IEqualityComparer<object>.GetHashCode(object o) => 
-      Default.GetHashCode(o);
+      RuntimeHelpers.GetHashCode(o);
     
     public static Compared ByReference() =>
       new Compared();

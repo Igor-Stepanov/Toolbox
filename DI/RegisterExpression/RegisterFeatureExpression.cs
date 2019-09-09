@@ -19,9 +19,9 @@ namespace DIFeatures.RegisterExpression
     }
 
     public RegisterFeatureExpression<TFeature> AsSelf() =>
-      AsImplementation(_feature.Type);
+      AsImplementationOf(_feature.Type);
 
-    internal RegisterFeatureExpression<TFeature> AsImplementation(Type abstraction)
+    internal RegisterFeatureExpression<TFeature> AsImplementationOf(Type abstraction)
     {
       try
       {
@@ -41,6 +41,6 @@ namespace DIFeatures.RegisterExpression
     public static RegisterFeatureExpression<TImplementation> AsImplementation<TAbstraction, TImplementation>
       (this RegisterFeatureExpression<TImplementation> self, TypeOf<TAbstraction> of)
         where TAbstraction : class, IFeature
-        where TImplementation : Feature, TAbstraction => self.AsImplementation(typeof(TAbstraction));
+        where TImplementation : Feature, TAbstraction => self.AsImplementationOf(typeof(TAbstraction));
   }
 }

@@ -4,11 +4,13 @@ using DIFeatures.Public;
 
 namespace DIFeatures.Registered
 {
-  internal interface IFeatures : IEnumerable<Feature>
+  internal interface IFeatures
   {
     void Register(Type abstraction, Feature implementation);
 
     Feature ImplementationOf(Type abstraction);
+
+    List<Feature>.Enumerator GetEnumerator();
     
     void Clear();
   }

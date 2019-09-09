@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using DIFeatures.Errors;
 using DIFeatures.Public;
@@ -20,14 +19,11 @@ namespace DIFeatures.Registered
     void IFeatures.Register(Type abstraction, Feature implementation)
     {
       if (_implementations.TryGetValue(abstraction, out var registeredImplementation))
-        throw new InvalidOperationException($"{abstraction.Name} implementation already registered as {registeredImplementation.Name}.");
+        throw new InvalidOperationException($"{registeredImplementation.Name} already registered as {abstraction.Name} implementation.");
 
       if (!_features.Contains(implementation.Type))
       {
-        implementation
-          .Lifecycle
-          .Failed += _errors.Handle;
-        
+        implementation.Lifecycle.Failed += _errors.Handle;
         _features.Add(implementation);
       }
 
@@ -44,8 +40,7 @@ namespace DIFeatures.Registered
 
     public void Clear() =>
       _features.Clear();
-
-    public IEnumerator<Feature> GetEnumerator() => _features.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
+    public List<Feature>.Enumerator GetEnumerator() => _features.GetEnumerator();
   }
 }

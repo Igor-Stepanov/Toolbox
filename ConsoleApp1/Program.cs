@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -7,17 +8,6 @@ using Microsoft.CodeAnalysis.MSBuild;
 
 namespace ConsoleApp1
 {
-  public static class VisualStudioProvider
-  {
-    public static DirectoryInfo TryGetSolutionDirectoryInfo(string currentPath = null)
-    {
-      var directory = new DirectoryInfo(currentPath ?? Directory.GetCurrentDirectory());
-      while (directory != null && !directory.GetFiles("*.sln").Any())
-        directory = directory.Parent;
-      return directory;
-    }
-  }
-  
   public class JsonAttribute : Attribute
   {}
   
@@ -30,13 +20,31 @@ namespace ConsoleApp1
     [Json]
     public int _field;
   }
-  
+
+  public static class DirectoryInfoExtensions
+  {
+    public static IEnumerable<DirectoryInfo> Kek(this DirectoryInfo self)
+    {
+      if (self == null)
+        yield break;
+      
+      do
+      {
+        yield return self;
+        self = self.Parent;
+      } 
+      while (self != null);
+    }
+  }
   
   class Program
   {
     static void Main(string[] args)
     {
-      var t1 = VisualStudioProvider.TryGetSolutionDirectoryInfo().GetFiles("*.sln").First().FullName;
+      var directory = new DirectoryInfo(Directory.GetCurrentDirectory());
+      while (directory != null && !directory.GetFiles("*.sln").Any())
+        directory = directory.Parent;
+      var t1 = directory.GetFiles("*.sln").First().FullName;
       ModifySolutionUsingSyntaxRewriter(t1);
       //t.Wait();
       
