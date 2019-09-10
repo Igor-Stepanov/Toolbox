@@ -1,62 +1,23 @@
 using System;
 using DIFeatures.Dependant;
+using DIFeatures.DependencyInjection;
 using DIFeatures.Errors;
 using DIFeatures.Registered;
 using DIFeatures.ThreadSafe;
+using Features = DIFeatures.Public.Features;
 
 namespace DIFeatures.Static
 {
   internal class DI
   {
-    public static DI Features { get; private set; }
-
-    private readonly IErrors _errors;
-    private readonly IFeatures _features;
-    private readonly IDependants _dependants;
-
-    private readonly ThreadSafeSection _threadSafe;
-
-    private DI(IErrors errors, IFeatures features, IDependants dependants)
-    {
-      _errors = errors;
-      _features = features;
-      _dependants = dependants;
-
-      _threadSafe = new ThreadSafeSection();
-    }
-
-    public void InjectInto(object instance)
-    {
-      try
-      {
-        using (_threadSafe.Section)
-          _dependants.Inject(instance, _features);
-      }
-      catch (Exception exception)
-      {
-        _errors.Handle(exception);
-      }
-    }
-
-    public void Release(object instance)
-    {
-      try
-      {
-        using (_threadSafe.Section)
-          _dependants.Release(instance);
-      }
-      catch (Exception exception)
-      {
-        _errors.Handle(exception);
-      }
-    }
-
-    internal static void Initialize(IErrors errors, IFeatures features, IDependants dependants)
+    public static IDependencyInjection Features { get; private set; }
+    
+    internal static void Initialize(IDependencyInjection features)
     {
       if (Features != null)
         throw new InvalidOperationException("Multiple instances of DI is not allowed.");
 
-      Features = new DI(errors, features, dependants);
+      Features = features;
     }
 
     internal static void Terminate()
