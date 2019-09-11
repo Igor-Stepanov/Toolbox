@@ -20,6 +20,8 @@ namespace DIFeatures.Public
     private readonly IDependants _dependants;
     private readonly ThreadSafeSection _threadSafe;
 
+    private bool _initialized;
+
     public Features()
     {
       _errors = new SilentNotifications(with: Error.Invoke);
@@ -27,19 +29,29 @@ namespace DIFeatures.Public
       _dependants = new Dependants();
       _threadSafe = new ThreadSafeSection();
 
-      DI.Initialize(this); // TODO: Forbid injections before Initialize
+      DI.Initialize(this);
     }
     
-    public RegisterFeatureExpression<TFeature> Register<TFeature>(TFeature feature) // TODO: If forbidden throw exception
-      where TFeature : Feature =>
-      new RegisterFeatureExpression<TFeature>(_errors, feature, _features);
-    
+    public RegisterFeatureExpression<TFeature> Register<TFeature>(TFeature feature)
+      where TFeature : Feature
+    {
+      if (_initialized)
+        throw new InvalidOperationException("Registering new features after initialize is not allowed.");
+      
+      return new RegisterFeatureExpression<TFeature>(_errors, _features, feature);
+    }
+
     void IDependencyInjection.InjectInto(object instance)
     {
       try
       {
         using (_threadSafe.Section)
+        {
+          if (!_initialized)
+            throw new InvalidOperationException("Features not initialized.");
+          
           _dependants.Inject(instance, _features);
+        }
       }
       catch (Exception exception)
       {
@@ -52,7 +64,12 @@ namespace DIFeatures.Public
       try
       {
         using (_threadSafe.Section)
+        {
+          if (!_initialized)
+            throw new InvalidOperationException("Features not initialized.");
+          
           _dependants.Release(instance);
+        }
       }
       catch (Exception exception)
       {
@@ -60,9 +77,12 @@ namespace DIFeatures.Public
       }
     }
 
-    public void Initialize() => _features // TODO: After this forbid register
-      .ForEach(x => x.Lifecycle.Start());
-    
+    public void Initialize()
+    {
+      _features.ForEach(x => x.Lifecycle.Start());
+      _initialized = true;
+    }
+
     public void Update()
     {
       foreach (var feature in _features)
@@ -79,13 +99,16 @@ namespace DIFeatures.Public
     public void Terminate()
     {
       _features
-       .Reverse()
-       .ForEach(x => x.Lifecycle.Stop());
+        .Reverse()
+        .ForEach(x => x.Lifecycle.Stop());
       
-      _features.Clear();
-      _dependants.ReleaseAll();
-      
-      DI.Terminate();
+      using (_threadSafe.Section)
+      {
+        _features.Clear();
+        _dependants.ReleaseAll();
+        
+        DI.Terminate();
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ namespace DIFeatures.RegisterExpression
     private readonly TFeature _feature;
     private readonly IFeatures _features;
 
-    internal RegisterFeatureExpression(IErrors errors, TFeature feature, IFeatures features)
+    internal RegisterFeatureExpression(IErrors errors, IFeatures features, TFeature feature)
     {
       _errors = errors;
       _feature = feature;

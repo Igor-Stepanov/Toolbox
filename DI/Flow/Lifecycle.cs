@@ -23,9 +23,6 @@ namespace DIFeatures.Flow
     void ILifecycle.Start() =>
       Safe(Start);
 
-    void ILifecycle.Update() =>
-      Safe(Update);
-
     void ILifecycle.Pause() => 
       Safe(Pause);
 
@@ -34,6 +31,18 @@ namespace DIFeatures.Flow
 
     void ILifecycle.Stop() => 
       Safe(Stop);
+
+    void ILifecycle.Update()
+    {
+      try
+      {
+        Update?.Invoke();
+      }
+      catch (Exception exception)
+      {
+        Failed?.Invoke(exception.AsLifecycleException(_feature));
+      }
+    }
 
     private void Safe(Action action)
     {

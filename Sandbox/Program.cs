@@ -1,5 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.Remoting.Channels;
+using System.Security.Cryptography;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Diagnosers;
+using BenchmarkDotNet.Running;
 using DIFeatures.Public;
 using DIFeatures.Public.Extensions;
 using DIFeatures.RegisterExpression;
@@ -7,13 +13,13 @@ using static DIFeatures.RegisterExpression.Implementation;
 
 namespace Sandbox
 {
-  internal class Program
+  public class Program
   {
     public interface ITestFeature1 : IFeature
     {
     }
     
-    public interface ITestFeature2
+    public interface ITestFeature2 : IFeature
     {
     }
     
@@ -31,20 +37,48 @@ namespace Sandbox
     {
       [Inject] private readonly ITestFeature1 _test;
     }
-
+    
     public static void Main(string[] args)
     {
-      var features = new Features();
-
-      features
-       .Register(new TestFeature())
-       .AsImplementation(Of<ITestFeature1>());
-      
-      var testDependant = new TestDependant();
-      features.Terminate();
-      
-
+      var summary = BenchmarkRunner.Run<FeaturesDIBenchmark>();
       Debugger.Break();
+    }
+    
+    [MemoryDiagnoser]
+    public class FeaturesDIBenchmark
+    {
+      public int N;
+
+      private Features _features;
+      private TestFeature _testFeature;
+      
+      [GlobalSetup]
+      public void Setup()
+      {
+        _features = new Features();
+      }
+      
+      [IterationCleanup]
+      public void IterationCleanup()
+      {
+        _features.Terminate();
+        _features = new Features();
+      }
+
+      [Benchmark(OperationsPerInvoke = 1000000)]
+      public void FeaturesDI()
+      {
+        var objects = new object[2000000];
+        for (int i = 0; i < 2000000; i++)
+        {
+          objects[i] = new object();
+        }
+        
+        Console.WriteLine(objects.GetType().Name);
+        _features
+          .Register(_testFeature)
+          .AsImplementation(Of<ITestFeature1>());
+      }
     }
   }
 }

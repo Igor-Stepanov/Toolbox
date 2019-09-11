@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI", "DI\DI.csproj", "{B59A8F0D-37E1-4E18-805B-3DF5E0F7396E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{AD352EF6-35B2-44B3-9926-ADB0D0E37214}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoslynZ", "RoslynZ\RoslynZ.csproj", "{AD352EF6-35B2-44B3-9926-ADB0D0E37214}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,13 +11,13 @@ namespace DIFeatures.Dependant
 {
   internal class Dependants : IDependants
   {
-    private readonly Dependencies _dependencies;
     private readonly HashSet<object> _dependants;
+    private readonly Dependencies _dependencies;
 
     public Dependants()
     {
-      _dependencies = new Dependencies();
       _dependants = new HashSet<object>(Compared.ByReference());
+      _dependencies = new Dependencies();
     }
 
     public void Inject(object instance, IFeatures features)
@@ -26,8 +26,7 @@ namespace DIFeatures.Dependant
         throw new InvalidOperationException($"{instance.Type().Name} injected already.");
       
       _dependencies
-        .Of(instance.Type())
-        .Within(instance)
+        .Of(instance)
         .InjectWith(features);
     }
 
@@ -37,20 +36,15 @@ namespace DIFeatures.Dependant
         throw new InvalidOperationException($"{instance.Type().Name} released already.");
       
       _dependencies
-        .Of(instance.Type())
-        .Within(instance)
+        .Of(instance)
         .Release();
     }
 
     public void ReleaseAll()
     {
-      if (_dependants.Count > 0)
-      {
-        var leaked = _dependants.ToArray();
-        leaked.ForEach(x => x.ReleaseDependencies());
-      }
-      
-      _dependants.Clear();
+      _dependants
+        .ToArray()
+        .ForEach(Release);
     }
   }
 }
