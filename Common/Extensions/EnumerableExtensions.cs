@@ -7,6 +7,15 @@ namespace Common.Extensions
 {
   public static class EnumerableExtensions
   {
+    public static IEnumerable<T> All<T>(this IEnumerable<T> self, Action<T> action)
+    {
+      if (self != null)
+        foreach (var item in self)
+          action?.Invoke(item);
+
+      return self;
+    }
+    
     public static IEnumerable<T> ForEach<T>(this IEnumerable<T> self, Action<T> action)
     {
       if (self != null)

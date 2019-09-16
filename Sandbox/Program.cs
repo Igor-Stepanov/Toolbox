@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Remoting.Channels;
 using System.Security.Cryptography;
@@ -9,11 +10,12 @@ using BenchmarkDotNet.Running;
 using DIFeatures.Public;
 using DIFeatures.Public.Extensions;
 using DIFeatures.RegisterExpression;
+using GantFormula;
 using static DIFeatures.RegisterExpression.Implementation;
 
 namespace Sandbox
 {
-  public class Program
+  public partial class Program
   {
     public interface ITestFeature1 : IFeature
     {
@@ -40,10 +42,12 @@ namespace Sandbox
     
     public static void Main(string[] args)
     {
-      var summary = BenchmarkRunner.Run<FeaturesDIBenchmark>();
+      var gant = new GantSolutions(new List<Developer>{new Developer()}, null, tasks: Tasks.Fake());
+      gant.Calculate();
+      
       Debugger.Break();
     }
-    
+
     [MemoryDiagnoser]
     public class FeaturesDIBenchmark
     {
