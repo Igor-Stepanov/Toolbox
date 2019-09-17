@@ -1,88 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.Remoting.Channels;
-using System.Security.Cryptography;
-using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Diagnosers;
-using BenchmarkDotNet.Running;
-using DIFeatures.Public;
-using DIFeatures.Public.Extensions;
-using DIFeatures.RegisterExpression;
+using Common.Extensions;
 using GantFormula;
-using static DIFeatures.RegisterExpression.Implementation;
+using static System.Linq.Enumerable;
 
 namespace Sandbox
 {
-  public partial class Program
+  public class Program
   {
-    public interface ITestFeature1 : IFeature
-    {
-    }
-    
-    public interface ITestFeature2 : IFeature
-    {
-    }
-    
-    public class TestFeature : Feature, ITestFeature1, ITestFeature2
-    {
-    }
-    
-    public abstract class Dependant
-    {
-      protected Dependant() => 
-        this.InjectDependencies();
-    }
-    
-    public class TestDependant : Dependant
-    {
-      [Inject] private readonly ITestFeature1 _test;
-    }
+    private const int QaCount = 1;
+    private const int DevCount = 1;
     
     public static void Main(string[] args)
     {
-      var gant = new GantSolutions(new List<Developer>{new Developer()}, null, tasks: Tasks.Fake());
+      var developers = new List<Developer>(DevCount);
+      var qas = new List<Qa>(QaCount);
+
+      Range(0, DevCount)
+        .ForEach(x => developers.Add(new Developer(x)));
+      
+      Range(0, QaCount)
+        .ForEach(x => qas.Add(new Qa(x)));
+      
+      var gant = new GantSolutions(developers, qas, Tasks.Fake());
+      
       gant.Calculate();
-      
-      Debugger.Break();
-    }
 
-    [MemoryDiagnoser]
-    public class FeaturesDIBenchmark
-    {
-      public int N;
-
-      private Features _features;
-      private TestFeature _testFeature;
-      
-      [GlobalSetup]
-      public void Setup()
+      int? last = null;
+      foreach (var duration in gant.All.Select(x => (x.Day - DateTime.Today).TotalDays).OrderByDescending(x => x))
       {
-        _features = new Features();
-      }
-      
-      [IterationCleanup]
-      public void IterationCleanup()
-      {
-        _features.Terminate();
-        _features = new Features();
-      }
-
-      [Benchmark(OperationsPerInvoke = 1000000)]
-      public void FeaturesDI()
-      {
-        var objects = new object[2000000];
-        for (int i = 0; i < 2000000; i++)
+        if ((int) duration != last)
         {
-          objects[i] = new object();
+          last = (int?) duration;
+          Console.WriteLine(last.Value);
         }
-        
-        Console.WriteLine(objects.GetType().Name);
-        _features
-          .Register(_testFeature)
-          .AsImplementation(Of<ITestFeature1>());
       }
+      Debugger.Break();
     }
   }
 }

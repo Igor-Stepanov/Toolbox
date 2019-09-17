@@ -1,20 +1,14 @@
-﻿using GantFormula.Extensions;
+﻿using MessagePack;
 
 namespace GantFormula
 {
+  [MessagePackObject]
   public class Developer : Worker
   {
-    protected override void Work()
-    {
-      var progress = Task.Develop();
-      if (progress == Status.ReadyForQa)
-      {
-        Task.ReadyForQa();
-        Task = null;
-      }
-    }
-
-    protected override void Assign(JiraTask task) => 
-      task.Status = Status.InProgress;
+    public Developer() : base() { }
+    public Developer(int id) : base(id) { }
+    
+    protected override bool Work(JiraTask task) => 
+      task.Develop();
   }
 }

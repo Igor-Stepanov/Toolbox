@@ -1,59 +1,47 @@
 using System;
+using MessagePack;
 
 namespace GantFormula
 {
+  [MessagePackObject]
   public class JiraTask : IEquatable<JiraTask>
   {
-    public bool Unassigned => Assignee == null;
+    [Key(0)] public string Name;
 
-    public string Name { get; set; }
-    public IWorker Assignee { get; set; }
-    public Status Status { get; set; }
-    
-    public int DevelopmentDays { get; set; }
-    public int QaDays { get; set; }
+    [Key(1)] public int DevDays;
+    [Key(2)] public int QaDays;
 
-    public int DevelopmentProgress { get; set; }
-    public int QaProgress { get; set; }
+    [Key(3)] public int DevProgress;
+    [Key(4)] public int QaProgress;
 
-    public Status Develop()
+    [IgnoreMember] public bool DevDone => DevProgress == DevDays;
+    [IgnoreMember] public bool QaDone => QaProgress == QaDays;
+    [IgnoreMember] public bool Complete => DevDone && QaDone;
+
+    public JiraTask()
+    {}
+
+    public JiraTask(string name, int dev, int qa)
     {
-      DevelopmentProgress++;
-      if (DevelopmentProgress >= DevelopmentDays)
-        Status = Status.ReadyForQa;
-
-      return Status;
+      Name = name;
+      DevDays = dev;
+      QaDays = qa;
     }
     
-    public Status AssureQuality()
-    {
-      QaProgress++;
-      if (QaProgress >= QaDays)
-        Status = Status.Done;
+    public bool Develop() => 
+      ++DevProgress == DevDays;
 
-      return Status;
-    }
-
-    public void ReadyForQa()
-    {
-      Status = Status.ReadyForQa;
-      Assignee = null;
-    }
-
-    public void Done()
-    {
-      Status = Status.Done;
-      Assignee = null;
-    }
+    public bool Test() =>
+      ++QaProgress == QaDays;
 
     public bool Equals(JiraTask other) =>
-      DevelopmentDays == other?.DevelopmentDays &&
+      DevDays == other?.DevDays &&
       QaDays == other.QaDays;
 
     public override int GetHashCode() => 
-      DevelopmentDays.GetHashCode() ^ QaDays.GetHashCode();
+      DevDays.GetHashCode() ^ QaDays.GetHashCode();
 
     public override string ToString() =>
-      $"{Name} {Status} D: {DevelopmentProgress}/{DevelopmentDays} Q: {QaProgress}/{QaDays} A: {Assignee != null}";
+      $"{Name}: Dev: ({DevProgress} / {DevDays}) Qa: ({QaProgress} / {QaDays})";
   }
 }

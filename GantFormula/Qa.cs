@@ -1,25 +1,14 @@
-using static GantFormula.Status;
+using MessagePack;
 
 namespace GantFormula
 {
+  [MessagePackObject]
   public class Qa : Worker
   {
-    public class State
-    {
-      
-    }
-    
-    protected override void Work()
-    {
-      var progress = Task.AssureQuality();
-      if (progress == Done)
-      {
-        Task.Done();
-        Task = null;
-      }
-    }
+    public Qa() : base() { }
+    public Qa(int id) : base(id) { }
 
-    protected override void Assign(JiraTask task) => 
-      task.Status = InQa;
+    protected override bool Work(JiraTask task) => 
+      task.Test();
   }
 }

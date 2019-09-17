@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using GantFormula.Extensions;
 
 namespace GantFormula
 {
@@ -12,6 +14,7 @@ namespace GantFormula
     private readonly List<JiraTask> _tasks;
 
     private readonly List<GantSolution> _solutions;
+    private int NextId => _solutions.LastOrDefault()?.Id + 1 ?? 1; 
 
     public GantSolutions(List<Developer> developers, List<Qa> qas, List<JiraTask> tasks)
     {
@@ -21,22 +24,31 @@ namespace GantFormula
       _qas = qas;
       _tasks = tasks;
     }
-
-    void IGantSolutions.Register(GantSolution solution) =>
-      _solutions.Add(solution);
-
-    public List<GantSolution> Calculate()
+    
+    public void Calculate()
     {
-      new GantSolution(this, new GantSolutionStage
+      var solution = new GantSolution(DateTime.Today, _developers, _qas, _tasks)
         {
-          Day = DateTime.Now,
-          Developers = _developers,
-          Qas = _qas,
-          Tasks = _tasks
-        })
-        .Calculate();
-
-      return _solutions;
+          Id = NextId,
+          Solutions = this,
+        };
+        
+        _solutions.Add(solution);
+        solution.Calculate();
+    }
+    
+    public void Continue(GantSolution solution, Combination devCombination = null, Combination qaCombination = null)
+    {
+      var solutionVariant = solution.Copy();
+      
+      solutionVariant.Id = NextId;
+      solutionVariant.Solutions = this;
+      
+      solutionVariant.DevCombination = devCombination;
+      solutionVariant.QaCombination = qaCombination;
+      
+      _solutions.Add(solutionVariant);
+      solutionVariant.Calculate();
     }
   }
 }

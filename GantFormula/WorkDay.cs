@@ -1,10 +1,12 @@
 using System;
+using MessagePack;
 
 namespace GantFormula
 {
+  [MessagePackObject]
   public class WorkDay
   {
-    public DateTime Day { get; set; }
-    public JiraTask Task { get; set; }
+    [Key(0)] public DateTime Day { get; set; }
+    [Key(1)] public string Task { get; set; }
   }
 }

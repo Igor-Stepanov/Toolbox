@@ -33,20 +33,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MessagePack, Version=1.7.3.7, Culture=neutral, PublicKeyToken=b4a0369545f0a1be">
+      <HintPath>..\packages\MessagePack.1.7.3.7\lib\net47\MessagePack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Developer.cs" />
+    <Compile Include="Extensions\Combination.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DeveloperExtensions.cs" />
     <Compile Include="Extensions\JiraTaskExtensions.cs" />
+    <Compile Include="Extensions\MessagePackExtensions.cs" />
     <Compile Include="GantSolution.cs" />
     <Compile Include="GantSolutions.cs" />
     <Compile Include="IGantSolutions.cs" />
-    <Compile Include="IWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Qa.cs" />
     <Compile Include="JiraTask.cs" />
@@ -59,6 +68,9 @@
       <Project>{84f742b0-70b3-4c51-bea7-2850288fa04d}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,41 +1,44 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Common.Extensions;
+using MessagePack;
 
 namespace GantFormula
 {
-  public abstract class Worker : IWorker
+  [MessagePackObject]
+  public abstract class Worker
   {
-    public bool Free =>
-      Task == null;
+    [Key(0)] public int Id;
+    [Key(1)] public string Task;
+    [Key(2)] public IEnumerable<WorkDay> WorkDays;
 
-    protected JiraTask Task;
-
-    public IEnumerable<WorkDay> WorkDays => _workDays;
-    private readonly List<WorkDay> _workDays = new List<WorkDay>();
-
-    void IWorker.Assign(JiraTask task)
+    protected Worker() { }
+    protected Worker(int id)
     {
-      Task = task;
-      Task.Assignee = this;
-      Assign(Task);
+      Id = id;
+      WorkDays = new List<WorkDay>();
     }
 
-    void IWorker.Work(DateTime day)
+    public void Assign(JiraTask task) => 
+      Task = task.Name;
+
+    public void Work(DateTime day, IEnumerable<JiraTask> tasks)
     {
       if (Task != null)
       {
-        Work();
-        
-        _workDays.Add(new WorkDay
+        var task = tasks.Single(x => x.Name == Task);
+        if (Work(task))
+          Task = null;
+
+        WorkDays.As<List<WorkDay>>(x => x.Add(new WorkDay
         {
-          Worker = this,
           Task = Task,
           Day = day
-        });
+        }));
       }
     }
 
-    protected abstract void Work();
-    protected abstract void Assign(JiraTask task);
+    protected abstract bool Work(JiraTask task);
   }
 }

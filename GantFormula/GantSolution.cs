@@ -3,88 +3,114 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Extensions;
 using GantFormula.Extensions;
-using static GantFormula.Status;
+using MessagePack;
 
 namespace GantFormula
 {
+  [MessagePackObject]
   public class GantSolution
   {
-    private DateTime _day;
+    [Key(0)] public DateTime Day;
     
-    private readonly List<Developer> _developers;
-    private readonly List<Qa> _qas;
-    private readonly List<JiraTask> _tasks;
+    [Key(1)] public List<Developer> Developers;
+    [Key(2)] public List<Qa> Qas;
+    [Key(3)] public List<JiraTask> Tasks;
     
-    private readonly IGantSolutions _solutions;
+    [IgnoreMember] public int Id { get; set; }
+    [IgnoreMember] public IGantSolutions Solutions { get; set; }
 
-    public GantSolution(IGantSolutions solutions, GantSolutionStage stage)
+    [IgnoreMember] public Combination DevCombination { get; set; }
+    [IgnoreMember] public Combination QaCombination { get; set; }
+
+    [IgnoreMember] private IReadOnlyList<Worker> FreeDevs => Developers.Where(x => x.Task == null).Cast<Worker>().ToList();
+    [IgnoreMember] private IReadOnlyList<Worker> FreeQas => Qas.Where(x => x.Task == null).Cast<Worker>().ToList();
+
+    [IgnoreMember] private List<JiraTask> FreeDevTasks => Tasks
+      .Where(x => !x.DevDone)
+      .ToList();
+    
+    [IgnoreMember] private List<JiraTask> ReadyForQaTasks => Tasks
+      .Where(x => !x.QaDone)
+      .ToList();
+
+    public GantSolution() { }
+
+    public GantSolution(DateTime day, List<Developer> developers, List<Qa> qas, List<JiraTask> tasks)
     {
-      _day = stage.Day;
+      Day = day;
       
-      _developers = stage.Developers;
-      _qas = stage.Qas;
-      _tasks = stage.Tasks;
-      
-      _solutions = solutions;
+      Developers = developers;
+      Qas = qas;
+      Tasks = tasks;
     }
 
     public void Calculate()
     {
-      while (_tasks.Any(x => x.Status != Done))
+      while (Tasks.Any(x => !x.Complete))
       {
-        Assign(UnassignedTasks, _developers.Where(x => x.Free));
-        Assign(ReadyForQaTasks, _qas.Where(x => x.Free));
-        
-        Work(_day, _developers, _qas);
+        if (DevCombination != null)
+        {
+          AssignPredefined(DevCombination, FreeDevs);
+          DevCombination = null;
+        }
+        else if (!Assign(FreeDevTasks, FreeDevs, out var alternativeDevCombinations))
+        {
+          alternativeDevCombinations
+            .Skip(1)
+            .ForEach(x => Solutions.Continue(this, devCombination: x));
+          
+          AssignPredefined(alternativeDevCombinations.First(), FreeDevs);
+        }
 
-        _day.Next();
+        if (QaCombination != null)
+        {
+          AssignPredefined(QaCombination, FreeQas);
+          QaCombination = null;
+        }
+        else if (!Assign(ReadyForQaTasks, FreeQas, out var alternativeQaCombinations))
+        {
+          alternativeQaCombinations
+            .Skip(1)
+            .ForEach(x => Solutions.Continue(this, qaCombination: x));
+          
+          AssignPredefined(alternativeQaCombinations.First(), FreeQas);
+        }
+
+        Work();
+
+        Day.Next();
       }
-      
-      _solutions.Register(this);
     }
 
-    private void Assign(List<JiraTask> unassignedTasks, IEnumerable<IWorker> freeWorkers)
+    private static bool Assign(IReadOnlyList<JiraTask> freeTasks, IReadOnlyList<Worker> freeWorkers, out List<Combination> combinations)
     {
-      if(!unassignedTasks.Any())
-        return;
+      combinations = null;
       
-      var freeWorkersList = freeWorkers.ToList();
-      if (freeWorkersList.Count >= unassignedTasks.Count)
+      if(!freeTasks.Any() || !freeWorkers.Any())
+        return true;
+      
+      if (freeWorkers.Count >= freeTasks.Count)
       {
-        for (var i = 0; i < unassignedTasks.Count; i++) 
-          freeWorkersList[i].Assign(unassignedTasks[i]);
+        for (var i = 0; i < freeTasks.Count; i++) 
+          freeWorkers[i].Assign(freeTasks[i]);
         
-        return;
+        return true;
       }
-      var combinations = unassignedTasks.CombinationsOf(freeWorkersList.Count);
-      var first = combinations.First();
-      
+
+      combinations = freeTasks.CombinationsOf(freeWorkers.Count).ToList();
+      return false;
+    }
+    
+    private static void AssignPredefined(Combination combination, IReadOnlyList<Worker> freeWorkers)
+    {
+      for (var i = 0; i < freeWorkers.Count; i++) 
+        freeWorkers[i].Assign(combination.Tasks[i]);
     }
 
-    private void Work(DateTime day, params IEnumerable<IWorker>[] workers) =>
-      workers
-        .SelectMany(x => x)
-        .ForEach(x => x.Work(day));
-
-    private List<JiraTask> UnassignedTasks =>
-      _tasks
-        .Where(x => x.Status == Unassigned)
-        .ToList();
-
-    private List<JiraTask> ReadyForQaTasks => 
-      _tasks
-        .Where(x => x.Status == ReadyForQa)
-        .ToList();
-  }
-
-  public struct GantSolutionStage
-  {
-    public DateTime Day { get; set; }
-    public List<Developer> Developers { get; set; }
-    public List<Qa> Qas { get; set; }
-    public List<JiraTask> Tasks { get; set; }
-
-    public List<JiraTaskExtensions.Combination> DevelopersNextWork { get; set; } // Empty 
-    public List<JiraTaskExtensions.Combination> QasNextWork { get; set; }
+    private void Work() =>
+      Developers
+        .Cast<Worker>()
+        .Concat(Qas)
+        .ForEach(x => x.Work(Day, Tasks));
   }
 }

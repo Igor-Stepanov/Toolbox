@@ -1,7 +1,9 @@
+using GantFormula.Extensions;
+
 namespace GantFormula
 {
   public interface IGantSolutions
   {
-    void Register(GantSolution solution);
+    void Continue(GantSolution solution, Combination devCombination = null, Combination qaCombination = null);
   }
 }

@@ -247,6 +247,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{84f742b0-70b3-4c51-bea7-2850288fa04d}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DI\DI.csproj">
       <Project>{b59a8f0d-37e1-4e18-805b-3df5e0f7396e}</Project>
       <Name>DI</Name>
