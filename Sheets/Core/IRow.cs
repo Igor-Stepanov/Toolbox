@@ -7,5 +7,7 @@ namespace Sheets.Core
     int Index { get; }
     string Name { get; }
     IList<string> Values { get; }
+
+    IList<object> Raw { get; }
   }
 }

@@ -25,16 +25,16 @@ namespace Sheets.Model
        .Values
        .Select(Row.Create);
     
-    public void SetRows(string spreadsheetId, string sheetName, IEnumerable<IRow> rows)
+    public void UpdateRows(string spreadsheetId, string sheetName, IEnumerable<IRow> rows)
     {
       var valueRange = new ValueRange
       {
-        Values = rows
-         .Select(x => (IList<object>) x.Values.Cast<object>().ToList())
-         .ToList()
+        Values = rows.Select(x => x.Raw).ToList()
       };
 
-      _service.Spreadsheets.Values.Update(valueRange, spreadsheetId, sheetName);       
+      var updateRequest = _service.Spreadsheets.Values.Update(valueRange, spreadsheetId, sheetName);
+      updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
+      var result = updateRequest.Execute();
     }
 
     private static SheetsService InitializedService(string clientSecret) =>
@@ -52,7 +52,7 @@ namespace Sheets.Model
       {
         return GoogleWebAuthorizationBroker.AuthorizeAsync(
           GoogleClientSecrets.Load(stream).Secrets,
-          new[] { SheetsService.Scope.SpreadsheetsReadonly },
+          new[] { SheetsService.Scope.Spreadsheets },
           "User",
           CancellationToken.None,
           new FileDataStore(path, true)).Result;
