@@ -5,6 +5,6 @@ namespace Sheets.Core
   public interface ISheetsService
   {
     IEnumerable<IRow> FetchRows(string spreadsheetId, string sheetName);
-    void UpdateRows(string spreadsheetId, string sheetName, IEnumerable<IRow> rows);
+    void Update(string spreadsheetId, string sheetName, IEnumerable<IRow> rows);
   }
 }

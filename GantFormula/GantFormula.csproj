@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="Developer.cs" />
     <Compile Include="Extensions\Combination.cs" />
-    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DeveloperExtensions.cs" />
     <Compile Include="Extensions\JiraTaskExtensions.cs" />
     <Compile Include="Extensions\MessagePackExtensions.cs" />

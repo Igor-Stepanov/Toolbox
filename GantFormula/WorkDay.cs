@@ -1,4 +1,3 @@
-using System;
 using MessagePack;
 
 namespace GantFormula
@@ -6,7 +5,7 @@ namespace GantFormula
   [MessagePackObject]
   public class WorkDay
   {
-    [Key(0)] public DateTime Day { get; set; }
-    [Key(1)] public string Task { get; set; }
+    [Key(0)] public int Day;
+    [Key(1)] public string Task;
   }
 }

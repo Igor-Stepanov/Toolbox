@@ -10,7 +10,7 @@ namespace Sheets.Model
     public string Name { get; }
     public IList<string> Values { get; }
     
-    public IList<object> Raw => new List<object>{Name}.Union(Values.Cast<object>()).ToList();
+    public IList<object> Raw => new List<object>{Name}.Concat(Values).ToList();
 
     private Row(int index, string name, IList<string> values)
     {

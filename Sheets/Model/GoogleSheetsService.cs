@@ -8,6 +8,7 @@ using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
 using Sheets.Core;
+using static Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum;
 
 namespace Sheets.Model
 {
@@ -25,15 +26,15 @@ namespace Sheets.Model
        .Values
        .Select(Row.Create);
     
-    public void UpdateRows(string spreadsheetId, string sheetName, IEnumerable<IRow> rows)
+    public void Update(string spreadsheetId, string sheetName, IEnumerable<IRow> rows)
     {
       var valueRange = new ValueRange
       {
-        Values = rows.Select(x => x.Raw).ToList()
+        Values = rows.Select(x => x.Raw).ToList(),
       };
-
+      
       var updateRequest = _service.Spreadsheets.Values.Update(valueRange, spreadsheetId, sheetName);
-      updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
+      updateRequest.ValueInputOption = RAW;
       var result = updateRequest.Execute();
     }
 

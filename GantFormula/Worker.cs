@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Extensions;
 using MessagePack;
 
 namespace GantFormula
@@ -11,7 +10,7 @@ namespace GantFormula
   {
     [Key(0)] public int Id;
     [Key(1)] public string Task;
-    [Key(2)] public IEnumerable<WorkDay> WorkDays;
+    [Key(2)] public List<WorkDay> WorkDays;
 
     protected Worker() { }
     protected Worker(int id)
@@ -23,19 +22,15 @@ namespace GantFormula
     public void Assign(JiraTask task) => 
       Task = task.Name;
 
-    public void Work(DateTime day, IEnumerable<JiraTask> tasks)
+    public void Work(int day, IEnumerable<JiraTask> tasks)
     {
       if (Task != null)
       {
+        WorkDays.Add(new WorkDay { Task = Task, Day = day});
+        
         var task = tasks.Single(x => x.Name == Task);
         if (Work(task))
           Task = null;
-
-        WorkDays.As<List<WorkDay>>(x => x.Add(new WorkDay
-        {
-          Task = Task,
-          Day = day
-        }));
       }
     }
 

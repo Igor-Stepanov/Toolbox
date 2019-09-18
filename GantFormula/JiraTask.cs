@@ -14,8 +14,8 @@ namespace GantFormula
     [Key(3)] public int DevProgress;
     [Key(4)] public int QaProgress;
 
-    [IgnoreMember] public bool DevDone => DevProgress == DevDays;
-    [IgnoreMember] public bool QaDone => QaProgress == QaDays;
+    [IgnoreMember] public bool DevDone => DevProgress >= DevDays;
+    [IgnoreMember] public bool QaDone => QaProgress >= QaDays;
     [IgnoreMember] public bool Complete => DevDone && QaDone;
 
     public JiraTask()
@@ -29,10 +29,10 @@ namespace GantFormula
     }
     
     public bool Develop() => 
-      ++DevProgress == DevDays;
+      ++DevProgress >= DevDays;
 
     public bool Test() =>
-      ++QaProgress == QaDays;
+      ++QaProgress >= QaDays;
 
     public bool Equals(JiraTask other) =>
       DevDays == other?.DevDays &&

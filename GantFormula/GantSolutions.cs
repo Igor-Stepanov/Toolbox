@@ -27,7 +27,7 @@ namespace GantFormula
     
     public void Calculate()
     {
-      var solution = new GantSolution(DateTime.Today, _developers, _qas, _tasks)
+      var solution = new GantSolution(1, _developers, _qas, _tasks)
         {
           Id = NextId,
           Solutions = this,

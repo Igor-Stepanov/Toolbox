@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Extensions;
@@ -10,7 +9,7 @@ namespace GantFormula
   [MessagePackObject]
   public class GantSolution
   {
-    [Key(0)] public DateTime Day;
+    [Key(0)] public int Day;
     
     [Key(1)] public List<Developer> Developers;
     [Key(2)] public List<Qa> Qas;
@@ -24,18 +23,21 @@ namespace GantFormula
 
     [IgnoreMember] private IReadOnlyList<Worker> FreeDevs => Developers.Where(x => x.Task == null).Cast<Worker>().ToList();
     [IgnoreMember] private IReadOnlyList<Worker> FreeQas => Qas.Where(x => x.Task == null).Cast<Worker>().ToList();
+    [IgnoreMember] public IReadOnlyList<Worker> Workers => Developers.Cast<Worker>().Union(Qas).ToList();
 
     [IgnoreMember] private List<JiraTask> FreeDevTasks => Tasks
+      .Where(task => Workers.All(x => x.Task != task.Name))
       .Where(x => !x.DevDone)
       .ToList();
     
     [IgnoreMember] private List<JiraTask> ReadyForQaTasks => Tasks
-      .Where(x => !x.QaDone)
+      .Where(task => Workers.All(x => x.Task != task.Name))
+      .Where(x => x.DevDone && !x.QaDone)
       .ToList();
 
     public GantSolution() { }
 
-    public GantSolution(DateTime day, List<Developer> developers, List<Qa> qas, List<JiraTask> tasks)
+    public GantSolution(int day, List<Developer> developers, List<Qa> qas, List<JiraTask> tasks)
     {
       Day = day;
       
@@ -78,7 +80,8 @@ namespace GantFormula
 
         Work();
 
-        Day.Next();
+        if (Tasks.Any(x => !x.Complete))
+          Day += 1;
       }
     }
 

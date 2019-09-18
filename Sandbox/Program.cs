@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Common.Extensions;
 using GantFormula;
 using Sheets.Core;
@@ -11,47 +12,50 @@ namespace Sandbox
 {
   public class Program
   {
-    private const int QaCount = 1;
-    private const int DevCount = 1;
-    
+    private const string SpreadsheetId = "1-Wu_kdS2bXqr92ciJLhl6rzmPGeTv3QvE9LrjBMDvE4";
+    private const string SetupSheet = "Setup";
+    private const string ResultSheet = "Result";
+
     public static void Main(string[] args)
     {
-      var developers = new List<Developer>(DevCount);
-      var qas = new List<Qa>(QaCount);
+      var sheets = new GoogleSheetsService("Credentials/gant-client.json");
 
-      Range(0, DevCount)
+      var setupRows = sheets.FetchRows(SpreadsheetId, SetupSheet).ToArray();
+      var devCount =  int.Parse((string)setupRows[0].Raw[1]);
+      var qaCount = int.Parse((string)setupRows[1].Raw[1]);
+      
+      var jiraTasks = setupRows
+        .Skip(3)
+        .Select(row => new JiraTask((string)row.Raw[0], int.Parse((string)row.Raw[1]), int.Parse((string)row.Raw[2])))
+        .ToList();
+
+      var developers = new List<Developer>(devCount);
+      var qas = new List<Qa>(qaCount);
+
+      Range(0, devCount)
         .ForEach(x => developers.Add(new Developer(x)));
       
-      Range(0, QaCount)
+      Range(0, qaCount)
         .ForEach(x => qas.Add(new Qa(x)));
       
-      var gant = new GantSolutions(developers, qas, Tasks.Fake());
+      var gant = new GantSolutions(developers, qas, jiraTasks);
       
       gant.Calculate();
 
       var solution = gant.All.OrderBy(x => x.Day).First();
-      var lastDay = solution.Day;      
-      
-      var rows = new List<IRow>();
-      
-      var days = new List<DateTime>();
-      days.Add(DateTime.Today);
 
-      while (days.Last() < lastDay)
-          days.Add(days.Last().AddDays(1));
+      var days = new object[] {"Dates:"}.Concat(Range(1, solution.Day).Cast<object>()).ToArray();
 
       var nextRowId = 0;
-      
-      rows.Add(Row.Create(days.Select(x => x.Date.ToString()).Cast<object>(), nextRowId++));
+      var rows = new List<IRow> {Row.Create(days, nextRowId++)};
 
-      foreach (var developer in solution.Developers)
+      foreach (var worker in solution.Workers)
       {
-        var values = new List<object>();
-        values.Add(developer.Id);
-        
-        for (var i = 0; i < days.Count; i++)
+        var values = new List<object> {$"{(worker is Developer ? "Developer" : "Qa")} #{worker.Id}:"};
+
+        for (var i = 1; i <= solution.Day; i++)
         {
-          var workDay = developer.WorkDays.FirstOrDefault(x => x.Day == days[i]);
+          var workDay = worker.WorkDays.FirstOrDefault(x => x.Day == (int) days[i]);
           if (workDay != null)
           {
             values.Add(workDay.Task);
@@ -66,10 +70,9 @@ namespace Sandbox
       }      
 
       new GoogleSheetsService("Credentials/gant-client.json")
-       .UpdateRows("1-Wu_kdS2bXqr92ciJLhl6rzmPGeTv3QvE9LrjBMDvE4", "Result", rows);
+       .Update(SpreadsheetId, ResultSheet, rows);
       
-
-      Debugger.Break();
+      Console.WriteLine($"Total iterations: {gant.All.Count()}, slowest: {gant.All.OrderByDescending(x => x.Day).First().Day}, fastest: {gant.All.OrderBy(x => x.Day).First().Day}");
     }
   }
 }
