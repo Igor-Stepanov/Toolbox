@@ -13,83 +13,87 @@ namespace GantFormula
     
     [Key(1)] public List<Developer> Developers;
     [Key(2)] public List<Qa> Qas;
-    [Key(3)] public List<JiraTask> Tasks;
+    [Key(3)] public Dictionary<string, JiraTask> Tasks;
     
     [IgnoreMember] public int Id { get; set; }
-    [IgnoreMember] public IGantSolutions Solutions { get; set; }
+    [IgnoreMember] public IGant Gant { get; set; }
 
     [IgnoreMember] public Combination DevCombination { get; set; }
     [IgnoreMember] public Combination QaCombination { get; set; }
 
     [IgnoreMember] private IReadOnlyList<Worker> FreeDevs => Developers.Where(x => x.Task == null).Cast<Worker>().ToList();
     [IgnoreMember] private IReadOnlyList<Worker> FreeQas => Qas.Where(x => x.Task == null).Cast<Worker>().ToList();
-    [IgnoreMember] public IReadOnlyList<Worker> Workers => Developers.Cast<Worker>().Union(Qas).ToList();
+    [IgnoreMember] public IEnumerable<Worker> Workers => Developers.Cast<Worker>().Union(Qas);
 
     [IgnoreMember] private List<JiraTask> FreeDevTasks => Tasks
-      .Where(task => Workers.All(x => x.Task != task.Name))
-      .Where(x => !x.DevDone)
-      .ToList();
-    
+     .Values
+     .Where(x => x.Assignee == null && x.DevProgress == 0)
+     .ToList();
+
     [IgnoreMember] private List<JiraTask> ReadyForQaTasks => Tasks
-      .Where(task => Workers.All(x => x.Task != task.Name))
-      .Where(x => x.DevDone && !x.QaDone)
-      .ToList();
+     .Values
+     .Where(x => x.Assignee == null && x.DevDone && x.QaProgress == 0 )
+     .ToList();
 
     public GantSolution() { }
 
-    public GantSolution(int day, List<Developer> developers, List<Qa> qas, List<JiraTask> tasks)
+    public GantSolution(List<Developer> developers, List<Qa> qas, List<JiraTask> tasks)
     {
-      Day = day;
-      
       Developers = developers;
       Qas = qas;
-      Tasks = tasks;
+      Tasks = tasks.ToDictionary(x => x.Name, x => x);
     }
 
     public void Calculate()
     {
-      while (Tasks.Any(x => !x.Complete))
+      while (Tasks.Values.Any(x => !x.Complete))
       {
+        if (++Day >= Gant.Best?.Day)
+          return;
+        
+        var freeDevs = FreeDevs;
+
         if (DevCombination != null)
         {
-          AssignPredefined(DevCombination, FreeDevs);
+          AssignPredefined(DevCombination, freeDevs);
           DevCombination = null;
         }
-        else if (!Assign(FreeDevTasks, FreeDevs, out var alternativeDevCombinations))
+        else if (!Assign(FreeDevTasks, freeDevs, out var alternativeDevCombinations))
         {
           alternativeDevCombinations
             .Skip(1)
-            .ForEach(x => Solutions.Continue(this, devCombination: x));
+            .ForEach(x => Gant.Continue(this, devCombination: x));
           
-          AssignPredefined(alternativeDevCombinations.First(), FreeDevs);
+          AssignPredefined(alternativeDevCombinations.First(), freeDevs);
         }
+
+        var freeQas = FreeQas;
 
         if (QaCombination != null)
         {
-          AssignPredefined(QaCombination, FreeQas);
+          AssignPredefined(QaCombination, freeQas);
           QaCombination = null;
         }
-        else if (!Assign(ReadyForQaTasks, FreeQas, out var alternativeQaCombinations))
+        else if (!Assign(ReadyForQaTasks, freeQas, out var alternativeQaCombinations))
         {
           alternativeQaCombinations
             .Skip(1)
-            .ForEach(x => Solutions.Continue(this, qaCombination: x));
+            .ForEach(x => Gant.Continue(this, qaCombination: x));
           
-          AssignPredefined(alternativeQaCombinations.First(), FreeQas);
+          AssignPredefined(alternativeQaCombinations.First(), freeQas);
         }
 
         Work();
-
-        if (Tasks.Any(x => !x.Complete))
-          Day += 1;
       }
+
+      Gant.Add(this);
     }
 
     private static bool Assign(IReadOnlyList<JiraTask> freeTasks, IReadOnlyList<Worker> freeWorkers, out List<Combination> combinations)
     {
       combinations = null;
       
-      if(!freeTasks.Any() || !freeWorkers.Any())
+      if(freeTasks.Count == 0 || freeWorkers.Count == 0)
         return true;
       
       if (freeWorkers.Count >= freeTasks.Count)
@@ -104,16 +108,19 @@ namespace GantFormula
       return false;
     }
     
-    private static void AssignPredefined(Combination combination, IReadOnlyList<Worker> freeWorkers)
+    private void AssignPredefined(Combination combination, IReadOnlyList<Worker> freeWorkers)
     {
       for (var i = 0; i < freeWorkers.Count; i++) 
-        freeWorkers[i].Assign(combination.Tasks[i]);
+        freeWorkers[i].Assign(Tasks[combination.Tasks[i].Name]);
     }
 
-    private void Work() =>
-      Developers
-        .Cast<Worker>()
-        .Concat(Qas)
-        .ForEach(x => x.Work(Day, Tasks));
+    private void Work()
+    {
+      for (var i = 0; i < Developers.Count; i++)
+        Developers[i].Work(Day, Tasks);
+      
+      for (var i = 0; i < Qas.Count; i++)
+        Qas[i].Work(Day, Tasks);
+    }
   }
 }

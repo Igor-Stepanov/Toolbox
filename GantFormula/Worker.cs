@@ -19,18 +19,24 @@ namespace GantFormula
       WorkDays = new List<WorkDay>();
     }
 
-    public void Assign(JiraTask task) => 
+    public void Assign(JiraTask task)
+    {
       Task = task.Name;
+      task.Assignee = Id;
+    }
 
-    public void Work(int day, IEnumerable<JiraTask> tasks)
+    public void Work(int day, Dictionary<string, JiraTask> tasks)
     {
       if (Task != null)
       {
         WorkDays.Add(new WorkDay { Task = Task, Day = day});
         
-        var task = tasks.Single(x => x.Name == Task);
+        var task = tasks[Task];
         if (Work(task))
+        {
           Task = null;
+          task.Assignee = null;
+        }
       }
     }
 

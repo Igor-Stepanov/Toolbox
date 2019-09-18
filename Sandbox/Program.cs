@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using Common.Extensions;
 using GantFormula;
 using Sheets.Core;
@@ -38,11 +38,17 @@ namespace Sandbox
       Range(0, qaCount)
         .ForEach(x => qas.Add(new Qa(x)));
       
-      var gant = new GantSolutions(developers, qas, jiraTasks);
+      var gant = new Gant(developers, qas, jiraTasks);
       
       gant.Calculate();
+      
+      while (gant.RunningTasks > 0)
+      {
+        Console.WriteLine($"Running: {gant.RunningTasks} Total: {gant.TotalTasks}");
+        Thread.Sleep(5000);
+      }
 
-      var solution = gant.All.OrderBy(x => x.Day).First();
+      var solution = gant.Best;
 
       var days = new object[] {"Dates:"}.Concat(Range(1, solution.Day).Cast<object>()).ToArray();
 
@@ -67,12 +73,14 @@ namespace Sandbox
         }
         
         rows.Add(Row.Create(values, nextRowId++));
-      }      
+      }
+
+      rows.Add(Row.Create( new object[]{$"Total iterations: {gant.TotalTasks}"}, nextRowId++));
 
       new GoogleSheetsService("Credentials/gant-client.json")
        .Update(SpreadsheetId, ResultSheet, rows);
       
-      Console.WriteLine($"Total iterations: {gant.All.Count()}, slowest: {gant.All.OrderByDescending(x => x.Day).First().Day}, fastest: {gant.All.OrderBy(x => x.Day).First().Day}");
+      Console.WriteLine();
     }
   }
 }

@@ -29,13 +29,10 @@ namespace GantFormula.Extensions
           }
           else
           {
-            // if combination is not full yet, select next element
             selfIndex = combinationTasks[combinationIndex] + 1;
             combinationIndex++;
           }
         }
-
-        // backward step
         else
         {
           if (--combinationIndex >= 0)

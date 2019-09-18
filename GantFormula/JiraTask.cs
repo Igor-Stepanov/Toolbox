@@ -7,12 +7,13 @@ namespace GantFormula
   public class JiraTask : IEquatable<JiraTask>
   {
     [Key(0)] public string Name;
+    [Key(1)] public int? Assignee;
 
-    [Key(1)] public int DevDays;
-    [Key(2)] public int QaDays;
+    [Key(2)] public int DevDays;
+    [Key(3)] public int QaDays;
 
-    [Key(3)] public int DevProgress;
-    [Key(4)] public int QaProgress;
+    [Key(4)] public int DevProgress;
+    [Key(5)] public int QaProgress;
 
     [IgnoreMember] public bool DevDone => DevProgress >= DevDays;
     [IgnoreMember] public bool QaDone => QaProgress >= QaDays;
@@ -28,8 +29,17 @@ namespace GantFormula
       QaDays = qa;
     }
     
-    public bool Develop() => 
-      ++DevProgress >= DevDays;
+    public bool Develop()
+    {
+      var value = ++DevProgress >= DevDays;
+
+      if (DevProgress > DevDays)
+      {
+        var i = 0;
+      }
+      
+      return value;
+    }
 
     public bool Test() =>
       ++QaProgress >= QaDays;
