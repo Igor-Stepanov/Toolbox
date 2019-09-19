@@ -168,20 +168,6 @@
   <ItemGroup>
     <Content Include="Credentials\gant-client.json" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{84f742b0-70b3-4c51-bea7-2850288fa04d}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GantFormula\GantFormula.csproj">
-      <Project>{ae30c59c-b74d-4b15-9f4a-597f8980f3b8}</Project>
-      <Name>GantFormula</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sheets\Sheets.csproj">
-      <Project>{7f17ecfb-5ceb-40c1-aec8-0790d4745516}</Project>
-      <Name>Sheets</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

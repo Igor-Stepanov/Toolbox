@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using GantFormula.Extensions;
 using static System.Threading.Tasks.Task;
 
@@ -8,7 +7,7 @@ namespace GantFormula
 {
   public class Gant : IGant
   {
-    public GantSolution Best => _best;
+    public GantSolution Solution => _solution;
 
     public long TotalTasks;
     public long RunningTasks;
@@ -17,10 +16,8 @@ namespace GantFormula
     private readonly List<Qa> _qas;
     private readonly List<JiraTask> _tasks;
 
-    private GantSolution _best;
-    private int NextId = 1;
-    
-    private readonly object _lock = new object();
+    private GantSolution _solution;
+    private int _nextId = 1;
 
     public Gant(List<Developer> developers, List<Qa> qas, List<JiraTask> tasks)
     {
@@ -38,7 +35,7 @@ namespace GantFormula
         {
           new GantSolution(_developers, _qas, _tasks)
           {
-            Id = NextId,
+            Id = _nextId,
             Gant = this,
           }.Calculate();
 
@@ -51,7 +48,7 @@ namespace GantFormula
     {
       var solutionVariant = solution.Copy();
       
-      solutionVariant.Id = Interlocked.Increment(ref NextId);
+      solutionVariant.Id = Interlocked.Increment(ref _nextId);
       solutionVariant.Gant = this;
       
       solutionVariant.DevCombination = devCombination;
@@ -69,18 +66,18 @@ namespace GantFormula
 
     public void Add(GantSolution solutionVariant)
     {
-      if (solutionVariant.Day >= _best?.Day) 
+      if (solutionVariant.Days >= _solution?.Days) 
         return;
       
       GantSolution initial;
       do
       {
-        initial = _best;
+        initial = _solution;
         
-        if (solutionVariant.Day >= initial?.Day)
+        if (solutionVariant.Days >= initial?.Days)
           break;
       }
-      while (initial != Interlocked.CompareExchange(ref _best, solutionVariant, initial));
+      while (initial != Interlocked.CompareExchange(ref _solution, solutionVariant, initial));
     }
   }
 }

@@ -1,63 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
 using Sheets.Core;
-using Sheets.Core.RowFieldInfos;
+using Sheets.Core.Cells;
+using Sheets.Core.RowFields.Extensions;
+using Sheets.Model.Rows;
+using Sheets.Model.Rows.Parse.Extensions;
+using static System.Activator;
+using static Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum;
+using static Sheets.Core.Cells.Cell;
+using static Sheets.Model.Rows.Row;
 
 namespace Sheets.Model
 {
   public class Sheet : ISheet
   {
-    #region Nested
-    
-    private struct BoundedRowInfo
-    {
-      public readonly IRow Value;
-      public readonly RowFieldInfo Info;
+    public IReadOnlyList<IRow> Rows => _rows;
 
-      public BoundedRowInfo(IRow row, RowFieldInfo info)
-      {
-        Value = row;
-        Info = info;
-      }
-    }
-    
-    #endregion
-    
     private readonly string _sheetName;
-    private readonly string _spreadsheetId;
+    private readonly string _spreadsheetName;
 
-    private readonly ISheetsService _service;
-    public IEnumerable<IRow> Rows => _service.FetchRows(_spreadsheetId, _sheetName);
+    private readonly SheetsService _service;
+    private readonly List<Row> _rows;
     
-    public Sheet(ISheetsService service, string spreadsheetId, string sheetName)
+    public Sheet(SheetsService service, string spreadsheetName, string sheetName)
     {
       _service = service;
-      _spreadsheetId = spreadsheetId;
+      _spreadsheetName = spreadsheetName;
       _sheetName = sheetName;
+      
+      _rows = new List<Row>(_service
+       .Spreadsheets.Values
+       .Get(_spreadsheetName, _sheetName)
+       .Execute().Values.Select(AsRow));
     }
 
     public IEnumerable<T> Parse<T>() where T : class, new()
     {
-      var fieldInfos = typeof(T).GetRowFields().ToList();
-      
-      var rows = Rows.ToList();
-      
-      var boundedRows = rows.Where(row => fieldInfos.SingleOrDefault(info => info.CanParse(row)) != null)
-        .Select(row => new BoundedRowInfo(row, fieldInfos.First(f => f.CanParse(row))));
+      var fields = typeof(T).RowFields().ToArray();
+      var parsedRows = _rows.ParsedAs(fields);
       
       var result = new List<T>();
       
       T current = null;
-      foreach (var row in boundedRows)
+      
+      foreach (var parsedRow in parsedRows)
       {
-        if(row.Info.IsId)
-          result.Add(current = Activator.CreateInstance<T>());
+        if (parsedRow.Field.IsId) 
+          result.Add(current = CreateInstance<T>());
 
-        row.Info.SetValue(current, rows, row.Value);
+        current.SetFieldFrom(parsedRow);
       }
 
       return result;
+    }
+
+    public Cell this[int x, int y]
+    {
+      get => _rows.Count <= y ? Empty : _rows[y][x];
+      set
+      {
+        if (_rows.Count < y)
+        {
+          for (var i = _rows.Count; i < y; i++)
+            _rows.Add(AsRow(new List<object>(), i));
+        }
+
+        _rows[y][x] = value;
+      }
+    }
+
+    public void Save()
+    {
+      var valueRange = new ValueRange
+      {
+        Values = _rows
+         .Select(x => x.Raw)
+         .ToList()
+      };
+      
+      var updateRequest = _service.Spreadsheets.Values.Update(valueRange, _spreadsheetName, _sheetName);
+      updateRequest.ValueInputOption = RAW;
+      updateRequest.Execute();
     }
   }
 }

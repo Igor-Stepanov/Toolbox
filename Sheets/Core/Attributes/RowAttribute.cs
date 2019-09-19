@@ -7,9 +7,7 @@ namespace Sheets.Core.Attributes
   {
     public readonly string Name;
 
-    public RowAttribute(string name)
-    {
+    public RowAttribute(string name) => 
       Name = name;
-    }
   }
 }

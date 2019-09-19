@@ -2,6 +2,6 @@
 {
   public interface ISpreadsheet
   {
-    ISheet Sheet(string sheetName);
+    ISheet Sheet(string name);
   }
 }

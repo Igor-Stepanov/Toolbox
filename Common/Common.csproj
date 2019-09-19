@@ -39,6 +39,7 @@
     <Compile Include="Extensions\NullableExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\PredicateExtensions.cs" />
+    <Compile Include="Extensions\ReadOnlyListExtensions.cs" />
     <Compile Include="Extensions\ThrowExceptionExtensions.cs" />
     <Compile Include="Matching\ActionExpression.cs" />
     <Compile Include="Matching\IsExpression.cs" />

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Google.Apis.Sheets.v4;
 using Sheets.Core;
 
 namespace Sheets.Model
@@ -8,20 +9,20 @@ namespace Sheets.Model
     private readonly string _spreadsheetId;
     private readonly Dictionary<string, ISheet> _sheets = new Dictionary<string, ISheet>();
     
-    private readonly ISheetsService _service;
+    private readonly SheetsService _service;
     
-    public Spreadsheet(ISheetsService service, string spreadsheetId)
+    public Spreadsheet(SheetsService service, string spreadsheetId)
     {
       _service = service;
       _spreadsheetId = spreadsheetId;
     }
     
-    public ISheet Sheet(string sheetName)
+    public ISheet Sheet(string name)
     {
-      if (!_sheets.TryGetValue(sheetName, out var sheetWrapper))
-        _sheets[sheetName] = sheetWrapper = new Sheet(_service, _spreadsheetId, sheetName);
+      if (!_sheets.TryGetValue(name, out var sheet))
+        _sheets[name] = sheet = new Sheet(_service, _spreadsheetId, name);
 
-      return sheetWrapper;
+      return sheet;
     }
   }
 }

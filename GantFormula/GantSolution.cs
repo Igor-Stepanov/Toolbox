@@ -9,10 +9,10 @@ namespace GantFormula
   [MessagePackObject]
   public class GantSolution
   {
-    [Key(0)] public int Day;
+    [Key(0)] public int Days;
     
-    [Key(1)] public List<Developer> Developers;
-    [Key(2)] public List<Qa> Qas;
+    [Key(1)] public Developer[] Devs;
+    [Key(2)] public Qa[] Qas;
     [Key(3)] public Dictionary<string, JiraTask> Tasks;
     
     [IgnoreMember] public int Id { get; set; }
@@ -21,9 +21,9 @@ namespace GantFormula
     [IgnoreMember] public Combination DevCombination { get; set; }
     [IgnoreMember] public Combination QaCombination { get; set; }
 
-    [IgnoreMember] private IReadOnlyList<Worker> FreeDevs => Developers.Where(x => x.Task == null).Cast<Worker>().ToList();
+    [IgnoreMember] private IReadOnlyList<Worker> FreeDevs => Devs.Where(x => x.Task == null).Cast<Worker>().ToList();
     [IgnoreMember] private IReadOnlyList<Worker> FreeQas => Qas.Where(x => x.Task == null).Cast<Worker>().ToList();
-    [IgnoreMember] public IEnumerable<Worker> Workers => Developers.Cast<Worker>().Union(Qas);
+    [IgnoreMember] public IEnumerable<Worker> Workers => Devs.Cast<Worker>().Union(Qas);
 
     [IgnoreMember] private List<JiraTask> FreeDevTasks => Tasks
      .Values
@@ -37,18 +37,15 @@ namespace GantFormula
 
     public GantSolution() { }
 
-    public GantSolution(List<Developer> developers, List<Qa> qas, List<JiraTask> tasks)
-    {
-      Developers = developers;
-      Qas = qas;
-      Tasks = tasks.ToDictionary(x => x.Name, x => x);
-    }
+    public GantSolution(Developer[] devs, Qa[] qas, Dictionary<string, JiraTask> tasks) =>
+      (Devs, Qas, Tasks) =
+      (devs, qas, tasks);
 
     public void Calculate()
     {
       while (Tasks.Values.Any(x => !x.Complete))
       {
-        if (++Day >= Gant.Best?.Day)
+        if (++Days >= Gant.Solution?.Days)
           return;
         
         var freeDevs = FreeDevs;
@@ -110,17 +107,19 @@ namespace GantFormula
     
     private void AssignPredefined(Combination combination, IReadOnlyList<Worker> freeWorkers)
     {
+      var workers = freeWorkers.GetEnumerator();
+      
       for (var i = 0; i < freeWorkers.Count; i++) 
         freeWorkers[i].Assign(Tasks[combination.Tasks[i].Name]);
     }
 
     private void Work()
     {
-      for (var i = 0; i < Developers.Count; i++)
-        Developers[i].Work(Day, Tasks);
+      for (var i = 0; i < Devs.Count; i++)
+        Devs[i].Work(Days, Tasks);
       
       for (var i = 0; i < Qas.Count; i++)
-        Qas[i].Work(Day, Tasks);
+        Qas[i].Work(Days, Tasks);
     }
   }
 }

@@ -2,6 +2,6 @@
 {
   public interface ISpreadsheets
   {
-    ISpreadsheet Spreadsheet(string spreadsheetId);
+    ISpreadsheet Spreadsheet(string name);
   }
 }
