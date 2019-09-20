@@ -62,7 +62,8 @@ namespace Common.Hashes
       return this;
     }
 
-    private void Append(int hash) => _hash = unchecked ((_hash * 397) ^ hash);
+    private void Append(int hash) =>
+      _hash = unchecked ((_hash * 397) ^ hash);
     
     private static int Hash<T>(T o) => 
       EqualityComparer<T>.Default.GetHashCode(o);

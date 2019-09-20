@@ -15,7 +15,7 @@ namespace Sheets.Model
       _spreadsheets = new Dictionary<string, ISpreadsheet>();
     }
 
-    public ISpreadsheet Spreadsheet(string name)
+    public ISpreadsheet OneWith(string name)
     {
       if (!_spreadsheets.TryGetValue(name, out var spreadsheet))
         _spreadsheets[name] = spreadsheet = new Spreadsheet(_service, name);

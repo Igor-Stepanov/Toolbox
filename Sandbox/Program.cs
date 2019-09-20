@@ -22,10 +22,8 @@ namespace Sandbox
 
     public static void Main(string[] args)
     {
-      var spreadsheet = new Spreadsheets(Service).Spreadsheet(SpreadsheetId);
+      var spreadsheet = Service.Spreadsheets.OneWith(SpreadsheetId);
       var setupSheet = spreadsheet.Sheet(SetupSheet);
-
-      var setupRows = setupSheet.Cells.ToArray();
       
       var devCount =  int.Parse((string)setupRows[0].Raw[1]);
       var qaCount = int.Parse((string)setupRows[1].Raw[1]);
