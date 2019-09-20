@@ -23,53 +23,43 @@ namespace Sandbox
     public static void Main(string[] args)
     {
       var spreadsheet = Service.Spreadsheets.OneWith(SpreadsheetId);
-      var setupSheet = spreadsheet.Sheet(SetupSheet);
+      var sheet = spreadsheet.Sheet(SetupSheet);
       
-      var devCount =  int.Parse((string)setupRows[0].Raw[1]);
-      var qaCount = int.Parse((string)setupRows[1].Raw[1]);
-      
-      var jiraTasks = setupRows.Skip(3)
-        .Select(row => new JiraTask((string)row.Raw[0], int.Parse((string)row.Raw[1]), int.Parse((string)row.Raw[2])))
-        .ToList();
+      var devCount =  int.Parse(sheet[1, 0]);
+      var qaCount = int.Parse(sheet[1, 1]);
       
       var devs = new Developer[devCount];
-      var qas = new List<Qa>(qaCount);
+      var qas = new Qa[qaCount];
 
       Range(0, devCount).ForEach(i => devs[i] = new Developer(id: i));
-      Range(0, qaCount).ForEach(x => qas.Add(new Qa(id: x)));
+      Range(0, qaCount).ForEach(i => qas[i] = new Qa(id: i));
       
-      var gant = new GantSolutions(devs, qas, jiraTasks);
+      var tasks = sheet.Rows
+        .Skip(3)
+        .Select(x => new JiraTask(x[0], int.Parse(x[1]), int.Parse(x[2])))
+        .ToArray();
       
-      gant.Calculate();
+      var solutions = new GantSolutions(devs, qas, tasks);
+      solutions.Calculate();
       
-      while (gant.RunningTasks > 0)
+      while (solutions.RunningTasks > 0)
       {
-        Console.WriteLine($"Running: {gant.RunningTasks} Total: {gant.TotalTasks}");
+        Console.WriteLine($"Running: {solutions.RunningTasks} Total: {solutions.TotalTasks}");
         Thread.Sleep(5000);
       }
 
-      var solution = gant.Best;
+      var result = spreadsheet.Sheet(ResultSheet);
 
-      var days = new object[] {"Dates:"}.Concat(Range(1, solution.Days).Cast<object>()).ToArray();
+      var solution = solutions.Best;
+      
+      result[0, 0] = "Dates:";
+      Range(1, solution.Days).ForEach(i => result[i, 0] = i);
 
-      var nextRowId = 0;
-      var rows = new List<IRow> {Row.AsRow(days, nextRowId++)};
-
-      foreach (var worker in solution.Workers)
-      {
-        var values = new List<object> {$"{(worker is Developer ? "Developer" : "Qa")} #{worker.Id}:"};
-
-        for (var i = 1; i <= solution.Days; i++)
-        {
-          var workDay = worker.WorkDays.FirstOrDefault(x => x.Day == (int) days[i]);
-          values.Add(workDay?.Task);
-        }
-        
-        rows.Add(Row.AsRow(values, nextRowId++));
-      }
-
-      rows.Add(Row.AsRow( new object[]{$"Total iterations: {gant.TotalTasks}"}, nextRowId++));
-      spreadsheet.Update(SpreadsheetId, ResultSheet, rows);
+      foreach (var (worker, workerIndex) in solution.Workers.Select((x, i) => (Worder: x, Index: i + 1)))
+      foreach (var (task, day) in worker.WorkDays.Select((x, i) => (Task: x.Task, Index: i)))
+        result[day, workerIndex] = task;
+      
+      result.Save();
     }
   }
 }

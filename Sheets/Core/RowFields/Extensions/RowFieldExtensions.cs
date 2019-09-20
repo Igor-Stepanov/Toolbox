@@ -13,7 +13,7 @@ namespace Sheets.Core.RowFields.Extensions
   {
     internal static IEnumerable<RowField> RowFields(this Type type) => type
      .GetFields()
-     .Where(x => FieldInfoExtensions.Has<RowAttribute>(x))
+     .Where(x => x.Has<RowAttribute>())
      .Select(RowField);    
 
     private static RowField RowField(FieldInfo fieldInfo)

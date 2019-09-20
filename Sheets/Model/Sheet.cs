@@ -31,9 +31,12 @@ namespace Sheets.Model
       _sheetName = sheetName;
       
       _rows = new List<Row>(_service
-       .Spreadsheets.Values
+       .Spreadsheets
+       .Values
        .Get(_spreadsheetName, _sheetName)
-       .Execute().Values.Select(AsRow));
+       .Execute()
+       .Values
+       .Select(AsRow));
     }
 
     public IEnumerable<T> Parse<T>() where T : class, new()

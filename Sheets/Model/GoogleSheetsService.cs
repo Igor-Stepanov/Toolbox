@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Sheets.v4;
-using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
 using Sheets.Core;
 using static Google.Apis.Services.BaseClientService;
-using static Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum;
 
 namespace Sheets.Model
 {

@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Developer.cs" />
-    <Compile Include="Extensions\Combination.cs" />
     <Compile Include="Extensions\DeveloperExtensions.cs" />
     <Compile Include="Extensions\JiraTaskExtensions.cs" />
     <Compile Include="Extensions\MessagePackExtensions.cs" />
@@ -58,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Qa.cs" />
     <Compile Include="JiraTask.cs" />
+    <Compile Include="Solutions\Combination.cs" />
     <Compile Include="Solutions\GantSolution.cs" />
     <Compile Include="Solutions\GantSolutions.cs" />
     <Compile Include="Status.cs" />
@@ -72,9 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
