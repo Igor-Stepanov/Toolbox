@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GantFormula.Extensions
+namespace Gantt.Extensions
 {
   public static class DeveloperExtensions
   {

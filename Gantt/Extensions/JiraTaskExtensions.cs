@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GantFormula.Extensions
+namespace Gantt.Extensions
 {
   public static class JiraTaskExtensions
   {

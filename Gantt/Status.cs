@@ -1,4 +1,4 @@
-namespace GantFormula
+namespace Gantt
 {
   public enum Status
   {

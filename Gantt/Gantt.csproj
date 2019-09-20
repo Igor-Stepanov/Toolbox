@@ -7,8 +7,8 @@
     <ProjectGuid>{AE30C59C-B74D-4B15-9F4A-597F8980F3B8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GantFormula</RootNamespace>
-    <AssemblyName>GantFormula</AssemblyName>
+    <RootNamespace>Gantt</RootNamespace>
+    <AssemblyName>Gantt</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>latest</LangVersion>
@@ -52,12 +52,14 @@
     <Compile Include="Extensions\DeveloperExtensions.cs" />
     <Compile Include="Extensions\JiraTaskExtensions.cs" />
     <Compile Include="Extensions\MessagePackExtensions.cs" />
-    <Compile Include="GantSolution.cs" />
-    <Compile Include="Gant.cs" />
-    <Compile Include="IGant.cs" />
+    <Compile Include="IGanttSolutions.cs" />
+    <Compile Include="Jobs\Job.cs" />
+    <Compile Include="Jobs\JobStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Qa.cs" />
     <Compile Include="JiraTask.cs" />
+    <Compile Include="Solutions\GantSolution.cs" />
+    <Compile Include="Solutions\GantSolutions.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="WorkDay.cs" />
     <Compile Include="Worker.cs" />
@@ -70,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

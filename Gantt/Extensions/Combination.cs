@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Hashes;
+using static System.String;
 
-namespace GantFormula.Extensions
+namespace Gantt.Extensions
 {
   public class Combination : IEquatable<Combination>
   {
@@ -44,13 +46,11 @@ namespace GantFormula.Extensions
 
       return otherList.Count == 0;
     }
-      
+
     public override int GetHashCode() =>
-      _tasks == null
-        ? 0
-        : _tasks.Sum(x => x.DevDays + x.QaDays).GetHashCode();
+      Hash.Of(_tasks);
 
     public override string ToString() =>
-      $"{String.Join("\r\n", _tasks)}";
+      $"{Join("\r\n", _tasks)}";
   }
 }

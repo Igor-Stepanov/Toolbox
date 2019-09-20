@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using Gantt.Jobs;
 using MessagePack;
+using static Gantt.Jobs.JobStatus;
 
-namespace GantFormula
+namespace Gantt
 {
   [MessagePackObject]
   public abstract class Worker
@@ -32,7 +32,7 @@ namespace GantFormula
         WorkDays.Add(new WorkDay { Task = Task, Day = day});
         
         var task = tasks[Task];
-        if (Work(task))
+        if (WorkOn(task) == Done)
         {
           Task = null;
           task.Assignee = null;
@@ -40,6 +40,6 @@ namespace GantFormula
       }
     }
 
-    protected abstract bool Work(JiraTask task);
+    protected abstract JobStatus WorkOn(JiraTask task);
   }
 }
