@@ -1,6 +1,6 @@
 using MessagePack;
 
-namespace Gantt.Extensions
+namespace Gantt.MessagePack
 {
   public static class MessagePackExtensions
   {

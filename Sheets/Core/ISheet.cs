@@ -9,7 +9,7 @@ namespace Sheets.Core
     
     IEnumerable<T> Parse<T>() where T : class, new();
     
-    Cell this[int x, int y]{ get; set; } // Zero-based
+    Cell this[int x, int y] { get; set; } // Zero-based
 
     void Save();
   }

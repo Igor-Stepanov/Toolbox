@@ -1,6 +1,6 @@
 using MessagePack;
 
-namespace Gantt
+namespace Gantt.Workers
 {
   [MessagePackObject]
   public class WorkDay

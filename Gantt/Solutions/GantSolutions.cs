@@ -1,5 +1,8 @@
 using System.Threading;
-using Gantt.Extensions;
+using Gantt.Combinations;
+using Gantt.MessagePack;
+using Gantt.Tasks;
+using Gantt.Workers;
 using static System.Threading.Tasks.Task;
 
 namespace Gantt.Solutions
@@ -12,13 +15,13 @@ namespace Gantt.Solutions
     public long RunningTasks;
 
     private readonly Developer[] _developers;
-    private readonly Qa[] _qas;
+    private readonly QA[] _qas;
     private readonly JiraTask[] _tasks;
 
     private GantSolution _solution;
     private int _nextId = 1;
 
-    public GantSolutions(Developer[] developers, Qa[] qas, JiraTask[] tasks)
+    public GantSolutions(Developer[] developers, QA[] qas, JiraTask[] tasks)
     {
       _developers = developers;
       _qas = qas;

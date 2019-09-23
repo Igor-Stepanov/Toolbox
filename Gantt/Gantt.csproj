@@ -47,22 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Developer.cs" />
-    <Compile Include="Extensions\DeveloperExtensions.cs" />
-    <Compile Include="Extensions\JiraTaskExtensions.cs" />
-    <Compile Include="Extensions\MessagePackExtensions.cs" />
-    <Compile Include="IGanttSolutions.cs" />
+    <Compile Include="Combinations\Combination.cs" />
+    <Compile Include="Combinations\AllCombinations.cs" />
+    <Compile Include="Combinations\Complexity\CombinationComplexity.cs" />
+    <Compile Include="Combinations\Complexity\Extensions\JiraTaskExtensions.cs" />
+    <Compile Include="Combinations\Complexity\TaskComplexity.cs" />
     <Compile Include="Jobs\Job.cs" />
     <Compile Include="Jobs\JobStatus.cs" />
+    <Compile Include="MessagePack\MessagePackExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Qa.cs" />
-    <Compile Include="JiraTask.cs" />
-    <Compile Include="Solutions\Combination.cs" />
+    <Compile Include="Solutions\Extensions\CombinationExtensions.cs" />
     <Compile Include="Solutions\GantSolution.cs" />
     <Compile Include="Solutions\GantSolutions.cs" />
-    <Compile Include="Status.cs" />
-    <Compile Include="WorkDay.cs" />
-    <Compile Include="Worker.cs" />
+    <Compile Include="Solutions\IGanttSolutions.cs" />
+    <Compile Include="Tasks\JiraTask.cs" />
+    <Compile Include="Workers\Developer.cs" />
+    <Compile Include="Workers\QA.cs" />
+    <Compile Include="Workers\WorkDay.cs" />
+    <Compile Include="Workers\Worker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -72,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Workers\Extensions" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

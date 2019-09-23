@@ -5,6 +5,8 @@ using System.Threading;
 using Common.Extensions;
 using Gantt;
 using Gantt.Solutions;
+using Gantt.Tasks;
+using Gantt.Workers;
 using Sheets.Core;
 using Sheets.Model;
 using Sheets.Model.Rows;
@@ -29,10 +31,10 @@ namespace Sandbox
       var qaCount = int.Parse(sheet[1, 1]);
       
       var devs = new Developer[devCount];
-      var qas = new Qa[qaCount];
+      var qas = new QA[qaCount];
 
       Range(0, devCount).ForEach(i => devs[i] = new Developer(id: i));
-      Range(0, qaCount).ForEach(i => qas[i] = new Qa(id: i));
+      Range(0, qaCount).ForEach(i => qas[i] = new QA(id: i));
       
       var tasks = sheet.Rows
         .Skip(3)

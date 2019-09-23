@@ -1,7 +1,8 @@
 ﻿using Gantt.Jobs;
+using Gantt.Tasks;
 using MessagePack;
 
-namespace Gantt
+namespace Gantt.Workers
 {
   [MessagePackObject]
   public class Developer : Worker

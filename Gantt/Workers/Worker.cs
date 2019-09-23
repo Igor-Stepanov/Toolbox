@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Gantt.Jobs;
+using Gantt.Tasks;
 using MessagePack;
 using static Gantt.Jobs.JobStatus;
 
-namespace Gantt
+namespace Gantt.Workers
 {
   [MessagePackObject]
   public abstract class Worker

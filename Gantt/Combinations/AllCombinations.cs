@@ -1,0 +1,44 @@
+using System.Collections.Generic;
+using Gantt.Tasks;
+
+namespace Gantt.Combinations
+{
+  public static class AllCombinations
+  {
+    public static IEnumerable<Combination> Of(IReadOnlyList<JiraTask> self, int length)
+    {
+      var combinationTasks = new int[length];
+
+      var selfIndex = 0;
+      var combinationIndex = 0;
+
+      while (combinationIndex >= 0)
+      {
+        if (selfIndex <= (self.Count + (combinationIndex - length)))
+        {
+          combinationTasks[combinationIndex] = selfIndex;
+          if (combinationIndex == length - 1)
+          {
+            var combination = new Combination();
+            foreach (var taskIndex in combinationTasks)
+              combination.With(self[taskIndex]);
+            
+            yield return combination;
+            
+            selfIndex++;
+          }
+          else
+          {
+            selfIndex = combinationTasks[combinationIndex] + 1;
+            combinationIndex++;
+          }
+        }
+        else
+        {
+          if (--combinationIndex >= 0)
+            selfIndex = combinationTasks[combinationIndex] + 1;
+        }
+      }
+    }
+  }
+}

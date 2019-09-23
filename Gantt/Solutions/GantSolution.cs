@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Gantt.Extensions;
+using Gantt.Combinations;
+using Gantt.Solutions.Extensions;
+using Gantt.Tasks;
+using Gantt.Workers;
 using MessagePack;
 using static Gantt.Jobs.JobStatus;
 
@@ -10,9 +13,8 @@ namespace Gantt.Solutions
   public class GantSolution
   {
     [Key(0)] public int Days;
-    
     [Key(1)] public Developer[] Devs;
-    [Key(2)] public Qa[] Qas;
+    [Key(2)] public QA[] QAs;
     [Key(3)] public JiraTask[] Tasks;
 
     [IgnoreMember] private Dictionary<string, JiraTask> _tasks;
@@ -21,25 +23,24 @@ namespace Gantt.Solutions
     
     [IgnoreMember] public int Id { get; set; }
     [IgnoreMember] public IGanttSolutions Solutions { get; set; }
-    
-    [IgnoreMember] public Combination Combination { get; set; }
+
+    [IgnoreMember] public Combination? Combination;
 
     [IgnoreMember] private IReadOnlyList<Worker> FreeDevs => Devs.Where(x => x.Task == null).Cast<Worker>().ToList();
-    [IgnoreMember] private IReadOnlyList<Worker> FreeQas => Qas.Where(x => x.Task == null).Cast<Worker>().ToList();
-    [IgnoreMember] public IEnumerable<Worker> Workers => Devs.Cast<Worker>().Union(Qas);
+    [IgnoreMember] private IReadOnlyList<Worker> FreeQAs => QAs.Where(x => x.Task == null).Cast<Worker>().ToList();
+    [IgnoreMember] public IEnumerable<Worker> Workers => Devs.Cast<Worker>().Concat(QAs);
 
     [IgnoreMember] private List<JiraTask> FreeDevTasks => Tasks
      .Where(x => x.Assignee == null && x.DevJob.Status == Free)
      .ToList();
 
-    [IgnoreMember] private List<JiraTask> FreeQaTasks => Tasks
-     .Where(x => x.Assignee == null && x.DevJob.Status == Done && x.QaJob.Status == Free)
+    [IgnoreMember] private List<JiraTask> FreeQATasks => Tasks
+     .Where(x => x.Assignee == null && x.DevJob.Status == Done && x.QAJob.Status == Free)
      .ToList();
 
-    public GantSolution() { }
-
-    public GantSolution(Developer[] devs, Qa[] qas, JiraTask[] tasks) =>
-      (Devs, Qas, Tasks) =
+    public GantSolution(){}
+    public GantSolution(Developer[] devs, QA[] qas, JiraTask[] tasks) =>
+      (Devs, QAs, Tasks) =
       (devs, qas, tasks);
 
     public void Calculate()
@@ -49,8 +50,8 @@ namespace Gantt.Solutions
         if (++Days >= Solutions.Best?.Days)
           return;
 
-        Assign(FreeDevTasks, FreeDevs);
-        Assign(FreeQaTasks, FreeQas);
+        Assign(FreeDevs, FreeDevTasks);
+        Assign(FreeQAs, FreeQATasks);
 
         Work();
       }
@@ -58,9 +59,9 @@ namespace Gantt.Solutions
       Solutions.Add(this);
     }
 
-    private void Assign(IReadOnlyList<JiraTask> freeTasks, IReadOnlyList<Worker> freeWorkers)
+    private void Assign(IReadOnlyList<Worker> freeWorkers, IReadOnlyList<JiraTask> freeTasks)
     {
-      if(freeTasks.Count == 0 || freeWorkers.Count == 0)
+      if(freeWorkers.Count == 0 || freeTasks.Count == 0)
         return;
       
       if (freeWorkers.Count >= freeTasks.Count)
@@ -71,25 +72,21 @@ namespace Gantt.Solutions
         return;
       }
 
-      if (Combination != null)
-      {
-        Assign(Combination, freeWorkers);
-        Combination = null;
+      if (Combination.AssignTo(freeWorkers, TasksDictionary))
         return;
-      }
 
-      var combinations = freeTasks.CombinationsOf(freeWorkers.Count).ToArray();
+      foreach (var combination in AllCombinations.Of(freeTasks, freeWorkers.Count))
+      {
+        if (Combination == null)
+        {
+          Combination = combination;
+          continue;
+        }
+        
+        Solutions.Continue(this, combination);
+      }
       
-      for (var i = 0; i < combinations.Length; i++)
-        Solutions.Continue(this, combinations[i]);
-          
-      Assign(combinations[0], freeWorkers);
-    }
-    
-    private void Assign(Combination combination, IReadOnlyList<Worker> freeWorkers)
-    {
-      for (var i = 0; i < freeWorkers.Count; i++) 
-        freeWorkers[i].Assign(TasksDictionary[combination.Tasks[i].Name]);
+      Combination.AssignTo(freeWorkers, TasksDictionary);
     }
 
     private void Work()
@@ -97,8 +94,8 @@ namespace Gantt.Solutions
       for (var i = 0; i < Devs.Length; i++)
         Devs[i].Work(Days, TasksDictionary);
       
-      for (var i = 0; i < Qas.Length; i++)
-        Qas[i].Work(Days, TasksDictionary);
+      for (var i = 0; i < QAs.Length; i++)
+        QAs[i].Work(Days, TasksDictionary);
     }
   }
 }

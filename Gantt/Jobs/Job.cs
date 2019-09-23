@@ -9,17 +9,17 @@ namespace Gantt.Jobs
   public struct Job : IEquatable<Job>
   {
     [Key(0)] public JobStatus Status;
-    [Key(0)] public int Current;
-    [Key(1)] public int Total;
+    [Key(0)] public int Progress;
+    [Key(1)] public int Amount;
     
     public Job(int total) => 
-      Total = total;
+      Amount = total;
 
     public JobStatus Perform()
     {
       Status = InProgress;
       
-      if (++Current == Total)
+      if (++Progress == Amount)
         Status = Done;
 
       return Status;
@@ -29,12 +29,12 @@ namespace Gantt.Jobs
       other is Job job && Equals(job);
 
     public override string ToString() => 
-      $"{Current} / {Total}";
+      $"{Progress} / {Amount}";
 
     public bool Equals(Job other) =>
-      Total == other.Total;
+      Amount == other.Amount;
 
     public override int GetHashCode() =>
-      Hash.Of(Total);
+      Hash.Of(Amount);
   }
 }

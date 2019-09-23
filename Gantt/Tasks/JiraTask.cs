@@ -3,38 +3,36 @@ using Gantt.Jobs;
 using MessagePack;
 using static Gantt.Jobs.JobStatus;
 
-namespace Gantt
+namespace Gantt.Tasks
 {
   [MessagePackObject]
   public class JiraTask : IEquatable<JiraTask>
   {
     [Key(0)] public string Name;
-    
     [Key(1)] public int? Assignee;
-    
-    [Key(1)] public Job DevJob;
-    [Key(2)] public Job QaJob;
+    [Key(2)] public Job DevJob;
+    [Key(3)] public Job QAJob;
 
     [IgnoreMember] public bool Complete => 
       DevJob.Status == Done &&
-      QaJob.Status == Done;
+      QAJob.Status == Done;
 
     public JiraTask(){}
     public JiraTask(string name, int dev, int qa)
     {
       Name = name;
       DevJob = new Job(dev);
-      QaJob = new Job(qa);
+      QAJob = new Job(qa);
     }
 
     public bool Equals(JiraTask other) =>
-      DevJob.Total == other?.DevJob.Total &&
-      QaJob.Total == other.QaJob.Total;
+      DevJob.Equals(other?.DevJob) &&
+      QAJob.Equals(other?.QAJob);
     
     public override int GetHashCode() => 
-      DevJob.GetHashCode() ^ QaJob.GetHashCode();
+      DevJob.GetHashCode() ^ QAJob.GetHashCode();
 
     public override string ToString() =>
-      $"{Name}: Dev: ({DevJob}) Qa: ({QaJob})";
+      $"{Name}: Dev: ({DevJob}) QA: ({QAJob})";
   }
 }
