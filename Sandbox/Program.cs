@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Common.Extensions;
-using Gantt;
 using Gantt.Solutions;
 using Gantt.Tasks;
 using Gantt.Workers;
 using Sheets.Core;
 using Sheets.Model;
-using Sheets.Model.Rows;
 using static System.Linq.Enumerable;
 
 namespace Sandbox

@@ -12,8 +12,12 @@ namespace Gantt.Jobs
     [Key(0)] public int Progress;
     [Key(1)] public int Amount;
     
-    public Job(int total) => 
+    public Job(int total)
+    {
       Amount = total;
+      Progress = 0;
+      Status = Free;
+    }
 
     public JobStatus Perform()
     {

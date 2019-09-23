@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Gantt.Tasks;
 
 namespace Gantt.Combinations
@@ -19,12 +20,11 @@ namespace Gantt.Combinations
           combinationTasks[combinationIndex] = selfIndex;
           if (combinationIndex == length - 1)
           {
-            var combination = new Combination();
-            foreach (var taskIndex in combinationTasks)
-              combination.With(self[taskIndex]);
+            var tasks = combinationTasks
+              .Select(x => self[x])
+              .ToArray();
             
-            yield return combination;
-            
+            yield return new Combination(tasks);
             selfIndex++;
           }
           else

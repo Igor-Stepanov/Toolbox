@@ -7,16 +7,10 @@ namespace Gantt.Solutions.Extensions
 {
   public static class CombinationExtensions
   {
-    public static bool AssignTo(ref this Combination? self, IReadOnlyList<Worker> freeWorkers, Dictionary<string, JiraTask> tasks)
+    public static void AssignTo(this Combination self, IReadOnlyList<Worker> freeWorkers, Dictionary<string, JiraTask> tasks)
     {
-      if (self == null)
-        return false;
-      
-      for (var i = 0; i < freeWorkers.Count; i++) 
-        freeWorkers[i].Assign(tasks[self.Value.Tasks[i].Name]);
-
-      self = null;
-      return true;
+      for (var i = 0; i < freeWorkers.Count; i++)
+        freeWorkers[i].Assign(tasks[self.Tasks[i]]);
     }
   }
 }

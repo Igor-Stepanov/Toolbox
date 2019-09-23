@@ -9,13 +9,15 @@ namespace Gantt.Combinations
 {
   public struct Combination : IEquatable<Combination>
   { 
-    public readonly JiraTask[] Tasks;
+    public readonly string[] Tasks;
     private readonly CombinationComplexity _complexity;
     
     public Combination(JiraTask[] tasks)
     {
-      Tasks = tasks;
-      _complexity = CombinationComplexity.Of(Tasks);
+      _complexity = CombinationComplexity.Of(tasks);
+      Tasks = tasks
+        .Select(x => x.Name)
+        .ToArray();
     }
 
     public bool Equals(Combination other) => 

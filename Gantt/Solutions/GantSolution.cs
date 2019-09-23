@@ -72,8 +72,12 @@ namespace Gantt.Solutions
         return;
       }
 
-      if (Combination.AssignTo(freeWorkers, TasksDictionary))
+      if (Combination != null)
+      {
+        Combination.Value.AssignTo(freeWorkers, TasksDictionary);
+        Combination = null;
         return;
+      }
 
       foreach (var combination in AllCombinations.Of(freeTasks, freeWorkers.Count))
       {
@@ -85,8 +89,9 @@ namespace Gantt.Solutions
         
         Solutions.Continue(this, combination);
       }
-      
-      Combination.AssignTo(freeWorkers, TasksDictionary);
+
+      Combination?.AssignTo(freeWorkers, TasksDictionary);
+      Combination = null;
     }
 
     private void Work()

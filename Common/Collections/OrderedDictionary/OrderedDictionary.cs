@@ -17,6 +17,7 @@ namespace Common.Collections.OrderedDictionary
 
     public OrderedDictionary()
     {
+      var a = new int[3];
       _list = new List<TValue>();
       _dictionary = new Dictionary<TKey, TValue>();
     }
