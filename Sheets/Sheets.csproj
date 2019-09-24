@@ -73,21 +73,19 @@
     <Compile Include="Core\Cells\Cell.cs" />
     <Compile Include="Core\IRow.cs" />
     <Compile Include="Core\ISheet.cs" />
-    <Compile Include="Core\ISheetsService.cs" />
     <Compile Include="Core\ISpreadsheet.cs" />
     <Compile Include="Core\ISpreadsheets.cs" />
     <Compile Include="Core\RowFields\ComplexRowField.cs" />
     <Compile Include="Core\RowFields\Extensions\RowFieldExtensions.cs" />
     <Compile Include="Core\RowFields\ListRowField.cs" />
     <Compile Include="Core\RowFields\RowField.cs" />
-    <Compile Include="Model\GoogleSheetsService.cs" />
+    <Compile Include="Model\GoogleSpreadsheets.cs" />
     <Compile Include="Model\Rows\Parse\Extensions\ObjectExtensions.cs" />
     <Compile Include="Model\Rows\Parse\Extensions\RowsExtensions.cs" />
     <Compile Include="Model\Rows\Parse\ParsedRow.cs" />
     <Compile Include="Model\Rows\Row.cs" />
     <Compile Include="Model\Sheet.cs" />
     <Compile Include="Model\Spreadsheet.cs" />
-    <Compile Include="Model\Spreadsheets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

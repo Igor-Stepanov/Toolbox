@@ -9,15 +9,8 @@ namespace Gantt.Jobs
   public struct Job : IEquatable<Job>
   {
     [Key(0)] public JobStatus Status;
-    [Key(0)] public int Progress;
-    [Key(1)] public int Amount;
-    
-    public Job(int total)
-    {
-      Amount = total;
-      Progress = 0;
-      Status = Free;
-    }
+    [Key(1)] public int Progress;
+    [Key(2)] public int Amount;
 
     public JobStatus Perform()
     {

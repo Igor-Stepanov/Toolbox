@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Sheets.v4;
@@ -8,14 +9,16 @@ using static Google.Apis.Services.BaseClientService;
 
 namespace Sheets.Model
 {
-  public class GoogleSheetsService : ISheetsService
+  public class GoogleSpreadsheets : ISpreadsheets
   {
     private readonly SheetsService _service;
-    
-    public ISpreadsheets Spreadsheets => new Spreadsheets(_service);
+    private readonly Dictionary<string, ISpreadsheet> _spreadsheets;
 
-    public GoogleSheetsService(string clientSecret) => 
+    public GoogleSpreadsheets(string clientSecret)
+    {
       _service = InitializedService(clientSecret);
+      _spreadsheets = new Dictionary<string, ISpreadsheet>();
+    }
 
     private static SheetsService InitializedService(string clientSecret) =>
       new SheetsService(new Initializer
@@ -37,6 +40,14 @@ namespace Sheets.Model
           CancellationToken.None,
           new FileDataStore(path, true)).Result;
       }
+    }
+
+    public ISpreadsheet Spreadsheet(string name)
+    {
+      if (!_spreadsheets.TryGetValue(name, out var spreadsheet))
+        _spreadsheets[name] = spreadsheet = new Spreadsheet(_service, name);
+
+      return spreadsheet;
     }
   }
 }

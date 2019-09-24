@@ -21,8 +21,8 @@ namespace Gantt.Tasks
     public JiraTask(string name, int dev, int qa)
     {
       Name = name;
-      DevJob = new Job(dev);
-      QAJob = new Job(qa);
+      DevJob = new Job {Amount = dev};
+      QAJob = new Job {Amount = qa};
     }
 
     public bool Equals(JiraTask other) =>
