@@ -1,84 +1,59 @@
-using System.Threading;
-using Gantt.Combinations;
-using Gantt.MessagePack;
 using Gantt.Tasks;
 using Gantt.Workers;
+using static System.Threading.Interlocked;
 using static System.Threading.Tasks.Task;
 
 namespace Gantt.Solutions
 {
   public class GantSolutions : IGanttSolutions
   {
-    public GantSolution Best => _solution;
+    public GantSolution Best => _bestSolution;
 
-    public long TotalTasks;
-    public long RunningTasks;
+    public long Total => _total;
+    public long Running => _running;
 
-    private readonly Developer[] _developers;
+    private long _total;
+    private long _running;
+    
+    private GantSolution _bestSolution;
+    
+    private readonly Dev[] _developers;
     private readonly QA[] _qas;
     private readonly JiraTask[] _tasks;
 
-    private GantSolution _solution;
-    private int _nextId = 1;
-
-    public GantSolutions(Developer[] developers, QA[] qas, JiraTask[] tasks)
+    public GantSolutions(Dev[] developers, QA[] qas, JiraTask[] tasks)
     {
       _developers = developers;
       _qas = qas;
       _tasks = tasks;
     }
     
-    public void Calculate()
+    public void Calculate(GantSolution solution = null,)
     {
-      Interlocked.Increment(ref TotalTasks);
-      Interlocked.Increment(ref RunningTasks);
-
-      Run(() =>
-        {
-          new GantSolution(_developers, _qas, _tasks)
-          {
-            Id = _nextId,
-            Solutions = this,
-          }.Calculate();
-
-          Interlocked.Decrement(ref RunningTasks);
-        }
-      );
-    }
-    
-    public void Continue(GantSolution solution, Combination combination)
-    {
-      var solutionVariant = solution.Copy();
-      
-      solutionVariant.Id = Interlocked.Increment(ref _nextId);
-      
-      solutionVariant.Solutions = this;
-      solutionVariant.Combination = combination;
-
-      Interlocked.Increment(ref TotalTasks);
-      Interlocked.Increment(ref RunningTasks);
+      Increment(ref _total);
+      Increment(ref _running);
 
       Run(() =>
       {
-        solutionVariant.Calculate();
-        Interlocked.Decrement(ref RunningTasks);
+        (solution ?? new GantSolution(this, _developers, _qas, _tasks)).Calculate();
+        Decrement(ref _running);
       });
     }
-
-    public void Add(GantSolution solutionVariant)
+    
+    public void Account(GantSolution solution)
     {
-      if (solutionVariant.Days >= _solution?.Days) 
+      if (solution.Days >= _bestSolution?.Days) 
         return;
       
       GantSolution initial;
       do
       {
-        initial = _solution;
+        initial = _bestSolution;
         
-        if (solutionVariant.Days >= initial?.Days)
+        if (solution.Days >= initial?.Days)
           break;
       }
-      while (initial != Interlocked.CompareExchange(ref _solution, solutionVariant, initial));
+      while (initial != CompareExchange(ref _bestSolution, solution, initial));
     }
   }
 }

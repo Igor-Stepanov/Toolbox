@@ -1,3 +1,4 @@
+using System;
 using DIFeatures.Static;
 
 namespace DIFeatures.Public.Extensions

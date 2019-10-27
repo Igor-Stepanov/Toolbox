@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using Common.Extensions;
 using Gantt.Solutions;
 using Gantt.Tasks;
@@ -21,21 +22,23 @@ namespace Sandbox
 
     public static void Main(string[] args)
     {
-      InputFromSpreadsheet(out var devs, out var qas, out var tasks);
+      //InputFromSpreadsheet(out var devs, out var qas, out var tasks);
+      Input(out var devs, out var qas, out var tasks);
 
       var solutions = new GantSolutions(devs, qas, tasks);
       solutions.Calculate();
       
-      while (solutions.RunningTasks > 0)
+      while (solutions.Running > 0)
       {
-        WriteLine($"Running: {solutions.RunningTasks} Total: {solutions.TotalTasks}");
+        WriteLine($"Running: {solutions.Running} Total: {solutions.Total}");
         Sleep(5000);
       }
 
-      SaveResultsInSpreadsheet(solutions);
+      //SaveResultsInSpreadsheet(solutions);
+      Debugger.Break();
     }
 
-    private static void InputFromSpreadsheet(out Developer[] devs, out QA[] qas, out JiraTask[] tasks)
+    private static void InputFromSpreadsheet(out Dev[] devs, out QA[] qas, out JiraTask[] tasks)
     {
       var sheet = Spreadsheets
         .Spreadsheet(Gant)
@@ -44,11 +47,11 @@ namespace Sandbox
       var devCount = int.Parse(sheet[1, 0]);
       var qaCount = int.Parse(sheet[1, 1]);
 
-      devs = new Developer[devCount];
+      devs = new Dev[devCount];
       qas = new QA[qaCount];
 
       for (var id = 0; id < devCount; id++)
-        devs[id] = new Developer(id);
+        devs[id] = new Dev(id);
 
       for (var id = 0; id < qaCount; id++)
         qas[id] = new QA(id);
@@ -75,6 +78,16 @@ namespace Sandbox
         result[day, workerIndex] = task;
 
       result.Save();
+    }
+    
+    private static void Input(out Dev[] devs, out QA[] qas, out JiraTask[] tasks)
+    {
+      devs = new Dev[]
+      {
+        new Dev
+        {
+        }, 
+      };
     }
   }
 }

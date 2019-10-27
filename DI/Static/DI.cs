@@ -8,7 +8,7 @@ using Features = DIFeatures.Public.Features;
 
 namespace DIFeatures.Static
 {
-  internal class DI
+  internal static class DI
   {
     public static IDependencyInjection Features { get; private set; }
     

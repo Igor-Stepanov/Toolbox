@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MessagePack, Version=1.7.3.7, Culture=neutral, PublicKeyToken=b4a0369545f0a1be">
-      <HintPath>..\packages\MessagePack.1.7.3.7\lib\net47\MessagePack.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -54,14 +50,14 @@
     <Compile Include="Combinations\Complexity\TaskComplexity.cs" />
     <Compile Include="Jobs\Job.cs" />
     <Compile Include="Jobs\JobStatus.cs" />
-    <Compile Include="MessagePack\MessagePackExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solutions\Extensions\CombinationExtensions.cs" />
+    <Compile Include="Solutions\Extensions\DevsExtensions.cs" />
     <Compile Include="Solutions\GantSolution.cs" />
     <Compile Include="Solutions\GantSolutions.cs" />
     <Compile Include="Solutions\IGanttSolutions.cs" />
     <Compile Include="Tasks\JiraTask.cs" />
-    <Compile Include="Workers\Developer.cs" />
+    <Compile Include="Workers\Dev.cs" />
     <Compile Include="Workers\QA.cs" />
     <Compile Include="Workers\WorkDay.cs" />
     <Compile Include="Workers\Worker.cs" />
