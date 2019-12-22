@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using DIFeatures.Errors;
 using DIFeatures.Public;
 using DIFeatures.Registered.Dictionary;
+using static System.Activator;
 
 namespace DIFeatures.Registered
 {
   internal class Features : IFeatures
   {
-    private readonly OrderedDictionary<Feature> _features = new OrderedDictionary<Feature>();
+    private readonly OrderedDictionary<Type, Feature> _features = new OrderedDictionary<Type, Feature>();
     private readonly Dictionary<Type, Type> _implementations = new Dictionary<Type, Type>();
 
     private readonly IErrors _errors;
@@ -16,24 +17,25 @@ namespace DIFeatures.Registered
     public Features(IErrors errors) => 
       _errors = errors;
 
-    void IFeatures.Register(Type abstraction, Feature implementation)
+    void IFeatures.Register(Type featureType, Type implementationType)
     {
-      if (_implementations.TryGetValue(abstraction, out var registeredImplementation))
-        throw new InvalidOperationException($"{registeredImplementation.Name} already registered as {abstraction.Name} implementation.");
+      if (_implementations.TryGetValue(featureType, out var registeredImplementation))
+        throw new InvalidOperationException($"{registeredImplementation.Name} already registered as {featureType.Name} implementation.");
 
-      if (!_features.Contains(implementation.Type))
-      {
-        implementation.Lifecycle.Failed += _errors.Handle;
-        _features.Add(implementation);
-      }
+      _implementations.Add(featureType, implementationType);
 
-      _implementations.Add(abstraction, implementation.Type);
+      if (_features.Contains(implementationType))
+        return;
+      
+      var implementation = (Feature) CreateInstance(implementationType);
+      implementation.Lifecycle.Failed += _errors.Handle;
+      _features.Add(implementation);
     }
     
-    Feature IFeatures.ImplementationOf(Type abstractionType)
+    Feature IFeatures.ImplementationOf(Type feature)
     {
-      if (!_implementations.TryGetValue(abstractionType, out var implementationType))
-        throw new InvalidOperationException($"{abstractionType.Name} not registered.");
+      if (!_implementations.TryGetValue(feature, out var implementationType))
+        throw new InvalidOperationException($"{feature.Name} not registered.");
       
       return _features[implementationType];
     }

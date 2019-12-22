@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Common.Reflection.Extensions;
+using static System.Reflection.BindingFlags;
 
 namespace DIFeatures.Dependency.Extensions
 {
@@ -11,7 +12,7 @@ namespace DIFeatures.Dependency.Extensions
     {
       while (type != null)
       {
-        foreach (var field in type.FieldsWith<TAttribute>(BindingFlags.Instance | BindingFlags.NonPublic))
+        foreach (var field in type.FieldsWith<TAttribute>(Instance | NonPublic))
           yield return field;
 
         type = type.BaseType;

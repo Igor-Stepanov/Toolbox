@@ -1,18 +1,19 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using DIFeatures.Public;
 
 namespace DIFeatures.Registered.Dictionary
 {
-  internal class OrderedDictionary<TFeature> where TFeature : Feature
+  internal class OrderedDictionary<TType, TFeature>
+    where TFeature : Feature
+    where TType : Type
   {
     private readonly List<TFeature> _list = new List<TFeature>();
     private readonly Dictionary<Type, TFeature> _dictionary = new Dictionary<Type, TFeature>();
     
     public void Add(TFeature feature)
     {
-      _dictionary.Add(feature.Type, feature);
+      _dictionary.Add(typeof(TFeature), feature);
       _list.Add(feature);
     }
 

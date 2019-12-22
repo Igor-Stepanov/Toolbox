@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using DIFeatures.Exceptions;
 using DIFeatures.Flow.Extensions;
 using DIFeatures.Public;
@@ -11,9 +12,9 @@ namespace DIFeatures.Flow
     
     public event Action Start;
     public event Action Update;
-    public event Action Pause;
+    public event Func<Task> Pause;
     public event Action Continue;
-    public event Action Stop;
+    public event Func<Task> Stop;
 
     private readonly IFeature _feature;
 
@@ -23,26 +24,17 @@ namespace DIFeatures.Flow
     void ILifecycle.Start() =>
       Safe(Start);
 
-    void ILifecycle.Pause() => 
+    Task ILifecycle.Pause() => 
       Safe(Pause);
 
     void ILifecycle.Continue() => 
       Safe(Continue);
 
-    void ILifecycle.Stop() => 
+    Task ILifecycle.Stop() => 
       Safe(Stop);
 
-    void ILifecycle.Update()
-    {
-      try
-      {
-        Update?.Invoke();
-      }
-      catch (Exception exception)
-      {
-        Failed?.Invoke(exception.AsLifecycleException(_feature));
-      }
-    }
+    void ILifecycle.Update() =>
+      Safe(Update);
 
     private void Safe(Action action)
     {
@@ -53,6 +45,19 @@ namespace DIFeatures.Flow
       catch (Exception exception)
       {
         Failed?.Invoke(exception.AsLifecycleException(_feature));
+      }
+    }
+    
+    private Task Safe(Func<Task> action)
+    {
+      try
+      {
+        return action?.Invoke();
+      }
+      catch (Exception exception)
+      {
+        Failed?.Invoke(exception.AsLifecycleException(_feature));
+        return null;
       }
     }
   }

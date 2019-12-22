@@ -43,6 +43,7 @@
     <Compile Include="DependencyInjection\IDependencyInjection.cs" />
     <Compile Include="Errors\IErrors.cs" />
     <Compile Include="Errors\SilentNotifications.cs" />
+    <Compile Include="Flow\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Public\Extensions\ObjectExtensions.cs" />
     <Compile Include="Public\Feature.cs" />
     <Compile Include="Public\Features.cs" />
@@ -68,7 +69,6 @@
     <Compile Include="Registered\Extensions\IFeaturesExtensions.cs" />
     <Compile Include="Registered\IFeatures.cs" />
     <Compile Include="Registered\Features.cs" />
-    <Compile Include="RegisterExpression\Implementation.cs" />
     <Compile Include="RegisterExpression\RegisterFeatureExpression.cs" />
     <Compile Include="Static\DI.cs" />
     <Compile Include="ThreadSafe\ThreadSafeSection.cs" />

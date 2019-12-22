@@ -21,7 +21,7 @@ namespace Common.Reflection
       {
         var predicate = _predicate;
 
-        return assembly.GetTypes()
+        return assembly.Types()
          .Where(x => x.Matches(predicate))
          .Select(x => x.NewInstance())
          .Cast<T>()
@@ -33,7 +33,7 @@ namespace Common.Reflection
       {
         var predicate = _predicate;
         return domain.GetAssemblies()
-         .SelectMany(x => x.GetTypes())
+         .SelectMany(x => x.Types())
          .Where(x => x.Matches(predicate))
          .Select(x => x.NewInstance())
          .Cast<T>()

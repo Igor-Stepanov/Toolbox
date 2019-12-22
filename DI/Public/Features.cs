@@ -3,11 +3,12 @@ using Common.Extensions;
 using DIFeatures.Dependant;
 using DIFeatures.DependencyInjection;
 using DIFeatures.Errors;
+using DIFeatures.Flow;
+using DIFeatures.Flow.Extensions;
 using DIFeatures.Registered;
 using DIFeatures.Registered.Extensions;
 using DIFeatures.RegisterExpression;
 using DIFeatures.Static;
-using DIFeatures.ThreadSafe;
 
 namespace DIFeatures.Public
 {
@@ -18,7 +19,6 @@ namespace DIFeatures.Public
     private readonly IErrors _errors;
     private readonly IFeatures _features;
     private readonly IDependants _dependants;
-    private readonly ThreadSafeSection _threadSafe;
 
     private bool _initialized;
 
@@ -27,31 +27,26 @@ namespace DIFeatures.Public
       _errors = new SilentNotifications(with: Error.Invoke);
       _features = new Registered.Features(_errors);
       _dependants = new Dependants();
-      _threadSafe = new ThreadSafeSection();
 
       DI.Initialize(this);
     }
     
-    public RegisterFeatureExpression<TFeature> Register<TFeature>(TFeature feature)
-      where TFeature : Feature
+    public RegisterFeatureExpression<TFeature> Let<TFeature>() where TFeature : IFeature
     {
       if (_initialized)
         throw new InvalidOperationException("Registering new features after initialize is not allowed.");
       
-      return new RegisterFeatureExpression<TFeature>(_errors, _features, feature);
+      return new RegisterFeatureExpression<TFeature>(_features);
     }
 
     void IDependencyInjection.InjectInto(object instance)
     {
       try
       {
-        using (_threadSafe.Section)
-        {
-          if (!_initialized)
-            throw new InvalidOperationException("Features not initialized.");
+        if (!_initialized)
+          throw new InvalidOperationException("Features not initialized.");
           
-          _dependants.Inject(instance, _features);
-        }
+        _dependants.Inject(instance, _features);
       }
       catch (Exception exception)
       {
@@ -63,13 +58,10 @@ namespace DIFeatures.Public
     {
       try
       {
-        using (_threadSafe.Section)
-        {
-          if (!_initialized)
-            throw new InvalidOperationException("Features not initialized.");
-          
-          _dependants.Release(instance);
-        }
+        if (!_initialized)
+          throw new InvalidOperationException("Features not initialized.");
+
+        _dependants.Release(instance);
       }
       catch (Exception exception)
       {
@@ -79,36 +71,42 @@ namespace DIFeatures.Public
 
     public void Initialize()
     {
-      _features.ForEach(x => x.Lifecycle.Start());
+      _features.ForEach(x => x.Lifecycle.As<ILifecycle>().Start());
       _initialized = true;
     }
 
     public void Update()
     {
       foreach (var feature in _features)
-        feature.Lifecycle.Update();
+        feature.Lifecycle
+          .As<ILifecycle>()
+          .Update();
     }
 
     public void Pause() => _features
       .Reverse()
-      .ForEach(x => x.Lifecycle.Pause());
+      .ForEach(x => x.Lifecycle
+        .As<ILifecycle>()
+        .Pause()
+        ?.Wait(100.Milliseconds()));  
 
     public void Continue() => _features
-      .ForEach(x => x.Lifecycle.Continue());
+      .ForEach(x => x.Lifecycle
+        .As<ILifecycle>()
+        .Continue());
 
     public void Terminate()
     {
       _features
         .Reverse()
-        .ForEach(x => x.Lifecycle.Stop());
+        .ForEach(x => x.Lifecycle
+          .As<ILifecycle>()
+          .Stop()
+          ?.Wait(100.Milliseconds()));
       
-      using (_threadSafe.Section)
-      {
-        _features.Clear();
-        _dependants.ReleaseAll();
-        
-        DI.Terminate();
-      }
+      _features.Clear();
+      _dependants.ReleaseAll();
+      DI.Terminate();
     }
   }
 }

@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DiProgram.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UDev\Correct\Bottle\Bottle.cs" />
@@ -73,6 +74,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{84f742b0-70b3-4c51-bea7-2850288fa04d}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI\DI.csproj">
+      <Project>{b59a8f0d-37e1-4e18-805b-3df5e0f7396e}</Project>
+      <Name>DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gantt\Gantt.csproj">
       <Project>{ae30c59c-b74d-4b15-9f4a-597f8980f3b8}</Project>

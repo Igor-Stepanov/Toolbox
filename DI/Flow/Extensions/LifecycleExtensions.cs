@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace DIFeatures.Flow.Extensions
 {
@@ -17,9 +18,9 @@ namespace DIFeatures.Flow.Extensions
     }
 
     
-    public static TLifecycle PauseWith<TLifecycle>(this TLifecycle self, Action action) where TLifecycle : Lifecycle
+    public static TLifecycle PauseWith<TLifecycle>(this TLifecycle self, Func<Task> task) where TLifecycle : Lifecycle
     {
-      self.Pause += action;
+      self.Pause += task;
       return self;
     }
     
@@ -29,9 +30,9 @@ namespace DIFeatures.Flow.Extensions
       return self;
     }
     
-    public static TLifecycle StopWith<TLifecycle>(this TLifecycle self, Action action) where TLifecycle : Lifecycle
+    public static TLifecycle StopWith<TLifecycle>(this TLifecycle self, Func<Task> task) where TLifecycle : Lifecycle
     {
-      self.Stop += action;
+      self.Stop += task;
       return self;
     }
   }

@@ -1,14 +1,9 @@
 using System;
-using DIFeatures.Dependant;
 using DIFeatures.DependencyInjection;
-using DIFeatures.Errors;
-using DIFeatures.Registered;
-using DIFeatures.ThreadSafe;
-using Features = DIFeatures.Public.Features;
 
 namespace DIFeatures.Static
 {
-  internal class DI
+  internal static class DI
   {
     public static IDependencyInjection Features { get; private set; }
     

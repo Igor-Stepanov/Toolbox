@@ -1,16 +1,17 @@
 using System;
+using System.Threading.Tasks;
 using DIFeatures.Exceptions;
 
 namespace DIFeatures.Flow
 {
-  public interface ILifecycle
+  internal interface ILifecycle
   {
     event Action<LifecycleException> Failed;
     
     void Start();
     void Update();
-    void Pause();
+    Task Pause();
     void Continue();
-    void Stop();
+    Task Stop();
   }
 }

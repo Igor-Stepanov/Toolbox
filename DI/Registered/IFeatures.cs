@@ -6,12 +6,12 @@ namespace DIFeatures.Registered
 {
   internal interface IFeatures
   {
-    void Register(Type abstraction, Feature implementation);
+    Feature ImplementationOf(Type feature);
 
-    Feature ImplementationOf(Type abstraction);
+    void Clear();
+
+    void Register(Type featureType, Type implementationType);
 
     List<Feature>.Enumerator GetEnumerator();
-    
-    void Clear();
   }
 }
