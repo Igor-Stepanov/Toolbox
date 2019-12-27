@@ -5,6 +5,7 @@
   &lt;Assembly Path="E:\Git\Toolbox\packages\Pocket.Benchmarks.1.0.2\lib\net471\Pocket.Benchmarks.dll" /&gt;
   &lt;Assembly Path="/Users/i.stepanov/RiderProjects/Toolbox/packages/BenchmarkDotNet.0.11.5/lib/netstandard2.0/BenchmarkDotNet.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Containter/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=MMMM/@EntryIndexedValue">True</s:Boolean>
 	
 	

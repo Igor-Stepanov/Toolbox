@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Common.Extensions;
 using Gantt.Solutions;
 using Gantt.Tasks;
@@ -11,6 +12,27 @@ using static System.Threading.Thread;
 
 namespace Sandbox
 {
+  public class A
+  {
+    public event Action Hey; 
+    
+    public A()
+    {
+      Hey += Method;
+    }
+
+    public void Rise() => Hey?.Invoke();
+
+    public virtual void Method() =>
+      WriteLine("Kek1");
+  }
+
+  public class B : A
+  {
+    public override void Method() => WriteLine("Kuk2");
+  }
+  
+  
   public class Program
   {
     private const string Gant = "1-Wu_kdS2bXqr92ciJLhl6rzmPGeTv3QvE9LrjBMDvE4";
@@ -19,8 +41,14 @@ namespace Sandbox
 
     private static readonly ISpreadsheets Spreadsheets = new GoogleSpreadsheets("Credentials/gant-client.json");
 
+    
+    
     public static void Main(string[] args)
     {
+
+      var b = new B();
+      b.Rise();
+      
       InputFromSpreadsheet(out var devs, out var qas, out var tasks);
 
       var solutions = new GantSolutions(devs, qas, tasks);

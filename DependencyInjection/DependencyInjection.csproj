@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B59A8F0D-37E1-4E18-805B-3DF5E0F7396E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DependencyInjection</RootNamespace>
+    <AssemblyName>DependencyInjection</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityBuildTarget>Android:13</UnityBuildTarget>
+    <UnityVersion>2018.3.6f1</UnityVersion>
+    <BaseIntermediateOutputPath>/Users/i.stepanov/RiderProjects/Toolbox/DI/bin/Debug</BaseIntermediateOutputPath>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin/Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\DIContainer.cs" />
+    <Compile Include="API\Dependencies\Feature.cs" />
+    <Compile Include="API\Dependencies\IDependency.cs" />
+    <Compile Include="API\Injection\InjectAttribute.cs" />
+    <Compile Include="API\Injection\InjectExtensions.cs" />
+    <Compile Include="API\Register\RegisterDependencyExpression.cs" />
+    <Compile Include="Core\Dependencies\IDependencies.cs" />
+    <Compile Include="Core\Exceptions\IExceptions.cs" />
+    <Compile Include="Core\Exceptions\IExceptionsExtensions.cs" />
+    <Compile Include="Core\IDependants.cs" />
+    <Compile Include="Core\IDependencyInjection.cs" />
+    <Compile Include="Core\IFeatures.cs" />
+    <Compile Include="Core\Lifecycles\ILifecycle.cs" />
+    <Compile Include="Model\Dependants.cs" />
+    <Compile Include="Model\Dependencies\DomainDependencies.cs" />
+    <Compile Include="Model\Dependencies\Extensions\FieldInfoExtensions.cs" />
+    <Compile Include="Model\Dependencies\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Model\Dependencies\Extensions\TypeExtensions.cs" />
+    <Compile Include="Model\Dependencies\InstanceDependencies.cs" />
+    <Compile Include="Model\Dependencies\InstanceField.cs" />
+    <Compile Include="Model\Dependencies\TypeDependencies.cs" />
+    <Compile Include="Model\DI.cs" />
+    <Compile Include="Model\Dictionary\OrderedDictionary.cs" />
+    <Compile Include="Model\Exceptions\FeatureException.cs" />
+    <Compile Include="Model\Exceptions\Notifications.cs" />
+    <Compile Include="Model\Features.cs" />
+    <Compile Include="Model\Lifecycles\Extensions\LifecycleExtensions.cs" />
+    <Compile Include="Model\Lifecycles\Extensions\LifecycleStateExtensions.cs" />
+    <Compile Include="Model\Lifecycles\Lifecycle.cs" />
+    <Compile Include="Model\Lifecycles\State.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{84f742b0-70b3-4c51-bea7-2850288fa04d}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+           Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+      -->
+</Project>

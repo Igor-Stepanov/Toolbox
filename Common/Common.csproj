@@ -36,6 +36,8 @@
     <Compile Include="Collections\ConcurrentHashSet\ConcurrentHashSet.cs" />
     <Compile Include="Collections\OrderedDictionary\IOrderedDictionaryItem.cs" />
     <Compile Include="Collections\OrderedDictionary\OrderedDictionary.cs" />
+    <Compile Include="Decoration\Decorator.cs" />
+    <Compile Include="Equality\ComparedByReference.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\GenericExtensions.cs" />
     <Compile Include="Extensions\NullableExtensions.cs" />
@@ -48,6 +50,7 @@
     <Compile Include="Matching\ActionExpression.cs" />
     <Compile Include="Matching\IsExpression.cs" />
     <Compile Include="Matching\MatchExpression.cs" />
+    <Compile Include="Multithreading\ThreadSafe\ThreadSafeSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\Extensions\AssemblyExtensions.cs" />
     <Compile Include="Reflection\Extensions\FieldInfoExtensions.cs" />
@@ -56,6 +59,9 @@
     <Compile Include="Reflection\Implementations.cs" />
     <Compile Include="Reflection\Instances.cs" />
     <Compile Include="Reflection\Types.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Multithreading" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

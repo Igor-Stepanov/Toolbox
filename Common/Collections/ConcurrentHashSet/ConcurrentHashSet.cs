@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using static System.Byte;
 
 namespace Common.Collections.ConcurrentHashSet
@@ -14,5 +15,8 @@ namespace Common.Collections.ConcurrentHashSet
     
     public bool Remove(T value) =>
       TryRemove(value, out _);
+
+    public new T[] ToArray() =>
+      this.Select(x => x.Key).ToArray();
   }
 }
