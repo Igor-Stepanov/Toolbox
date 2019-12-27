@@ -36,7 +36,6 @@
     <Compile Include="Collections\ConcurrentHashSet\ConcurrentHashSet.cs" />
     <Compile Include="Collections\OrderedDictionary\IOrderedDictionaryItem.cs" />
     <Compile Include="Collections\OrderedDictionary\OrderedDictionary.cs" />
-    <Compile Include="Decoration\Decorator.cs" />
     <Compile Include="Equality\ComparedByReference.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\GenericExtensions.cs" />
