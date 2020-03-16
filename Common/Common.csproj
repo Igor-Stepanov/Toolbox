@@ -54,6 +54,7 @@
     <Compile Include="Reflection\Extensions\AssemblyExtensions.cs" />
     <Compile Include="Reflection\Extensions\FieldInfoExtensions.cs" />
     <Compile Include="Reflection\Extensions\MethodInfoExtensions.cs" />
+    <Compile Include="Reflection\Extensions\ObjectExtensions.cs" />
     <Compile Include="Reflection\Extensions\TypeExtensions.cs" />
     <Compile Include="Reflection\Implementations.cs" />
     <Compile Include="Reflection\Instances.cs" />
